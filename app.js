@@ -6,6 +6,18 @@ app.set('view engine', 'html');
 
 app.use(express.static(process.cwd() + '/public'));
 
+var mongo = require('mongodb').MongoClient
+var format = require('util').format;
+
+mongo.connect('mongodb://127.0.0.1:27017/local', function (err, db) {
+  if (err) {
+    throw err;
+  } else {
+    console.log("successfully connected to the database");
+  }
+  db.close();
+});
+
 var routs = require('./routes')(app);
 var server = app.listen(3000, function () {
 
@@ -13,16 +25,5 @@ var server = app.listen(3000, function () {
   var port = server.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
 
-  var mongo = require('mongodb').MongoClient
-  var format = require('util').format;
-
-  mongo.connect('mongodb://127.0.0.1:27017/local', function (err, db) {
-    if (err) {
-      throw err;
-    } else {
-      console.log("successfully connected to the database");
-    }
-    db.close();
-  });
 });
 
