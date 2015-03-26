@@ -1,0 +1,23 @@
+{
+  "name": "nab_video_dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saginawcorp/nab_video_dashboard.git"
+  },
+  "author": "Vitally Marinchenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saginawcorp/nab_video_dashboard/issues"
+  },
+  "homepage": "https://github.com/saginawcorp/nab_video_dashboard",
+  "dependencies": {
+    "express": "^4.12.3",
+    "ejs": "*"
+  }
+}
