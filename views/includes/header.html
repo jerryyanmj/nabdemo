@@ -36,7 +36,7 @@
                             <li><a href="javascript:;">Log Out</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown" style="margin-right:15px">
+                    <li class="dropdown">
                         <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
                             <i class="fa fa-bell-o"></i>
                             <span class="label" style="display:none">5</span>
@@ -56,7 +56,13 @@
                                 <a href="javascript:;">View more</a>
                             </li>
                         </ul>
-                    </li>                   
+                    </li>
+                    <li class="dropdown" style="margin-right:15px" onclick="javascript:introJs().setOption('showBullets', false).start();">
+                        <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
+                            <i class="fa fa-question-circle" data-intro="Click this button in order to go through this tutorial again" data-position='left' data-step="5"></i>
+                            <span class="label" style="display:none">5</span>
+                        </a>
+                    </li>
                 </ul>
                 <!-- end header navigation right -->
             </div>

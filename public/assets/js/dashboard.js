@@ -25,7 +25,7 @@ function showTooltip(x, y, contents) {
     }).appendTo("body").fadeIn(500);
 }   
 
-var handleDonutChart = function (target, data) {
+var handleDonutChart = function (target, data, value, dynamic) {
     "use strict"; 
 
     if ($(target).length !== 0) {
@@ -48,7 +48,7 @@ var handleDonutChart = function (target, data) {
                 hoverable: true,
                 clickable: true
             },       
-            legend: { show: true, placement: 'outsideGrid', container: $(target + "-legend") }
+            legend: { noColumns: 1, show: true, placement: 'outsideGrid', container: $(target + "-legend") }
         });
 
         $(target).mouseleave(function() {
@@ -59,16 +59,38 @@ var handleDonutChart = function (target, data) {
         });        
     }
 
-    console.log(target + '-center');
-    $(target + '-center').html(data[0].data)
+    if(dynamic) {
+        $(target + "-legend table tr:odd").hide();
+        $(target + "-legend").addClass('dynamic');
+        $(target + "-legend table").mouseenter(function() {
+            $(target + "-legend table tr:odd").show();
+        }).mouseleave(function() {
+            $(target + "-legend table tr:odd").hide();
+        });
+    }
 
-    $(target + '-center').css({
-        'position' : 'absolute',
-        'left' : '50%',
-        'top' : '50%',
-        'margin-left' : -$(target + '-center').width()/2,
-        'margin-top' : -$(target + '-center').height()/2 + 53
-    });
+    $(target).append('<div class="ct">' + value + '</div>')
+
+    function position() {
+        $(target + ' .ct').css({
+            'position' : 'absolute',
+            'left' : '50%',
+            'top' : '50%',
+            'width': '100%',
+            'text-align': 'center',
+            'margin-left' : -$(target).width()/2,
+            'margin-top' : -$(target).height()/2 + 53
+        });
+    }
+
+    $(target).resize(function() {
+        position();
+        if(dynamic) {
+            $(target + "-legend table tr:odd").hide();
+        }
+    })
+
+    position();
 
     var previousPoint = null;
     $(target).bind("plothover", function (event, pos, item) {        
@@ -76,7 +98,7 @@ var handleDonutChart = function (target, data) {
             if (previousPoint !== item.seriesIndex) {
                 previousPoint = item.seriesIndex;
                 $("#tooltip").remove();
-                showTooltip(pos.pageX, pos.pageY, item.series.label + ': ' +item.datapoint[0] + "%");
+                showTooltip(pos.pageX, pos.pageY, item.series.label + ': ' + Math.round(item.datapoint[0]) + "%");
             }            
         } else {
             $("#tooltip").remove();
@@ -86,6 +108,19 @@ var handleDonutChart = function (target, data) {
     });
 
 };
+
+function handleLineChart(target, value) {
+    var percent = (100 - (value * 100)).toFixed(2);
+    var color = 'purple';
+    if(percent>50) {color = 'orange'}
+    if(percent>75) {color = 'red'}
+    $(target).addClass('bg-' + color)
+    $(target + ' .stats-number').html(percent + '%');
+    $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
+}
+
+var mainValue = 0;
+var compareValue = 0;
 
 var dataSetA = [
     { label: "0 Failed Streams",  data: 90, color: purpleDark},
@@ -153,12 +188,104 @@ var Dashboard = function () {
                 $.getScript('assets/plugins/flot/jquery.flot.time.min.js').done(function() {
                     $.getScript('assets/plugins/flot/jquery.flot.resize.min.js').done(function() {
                         $.getScript('assets/plugins/flot/jquery.flot.pie.min.js').done(function() {
-                            handleDonutChart('#donut-chart-a', dataSetA);
-                            handleDonutChart('#donut-chart-b', dataSetB);
-                            handleDonutChart('#donut-chart-c', dataSetC);
-                            handleDonutChart('#donut-chart-d', dataSetD);
-                            handleDonutChart('#donut-chart-e', dataSetE);
-                            handleDonutChart('#donut-chart-f', dataSetF);
+
+                            $.getJSON('/collection/video_failed_streams', function(data) {
+                                $.each(data, function( key, value ) {
+                                    dataSetA = [
+                                    { label: "0 Failed Streams",  data: value['none'], color: purpleDark},
+                                    { label: "1 Failed Stream",  data: value['0_1'], color: orangeLight},
+                                    { label: "> 1 Failed Streams",  data: value['1_plus'], color: red}];
+                                    mainValue = value['score'];
+                                    compareValue = value['none']/value['all_buckets'];
+                                });
+                                handleLineChart('#index-6', compareValue)
+                                handleDonutChart('#donut-chart-a', dataSetA, mainValue)
+                            });
+
+                            $.getJSON('/collection/video_startup', function(data) {
+                                $.each(data, function( key, value ) {
+                                    dataSetB = [
+                                    { label: "0.00 - 0.25 Seconds",  data: value['0_25'], color: purpleDark},
+                                    { label: "0.25 - 0.50 Seconds",  data: value['25_5'], color: purpleLight},
+                                    { label: "0.50 - 0.75 Seconds",  data: value['5_75'], color: orangeLight},
+                                    { label: "0.75 - 1.00 Seconds",  data: value['75_10'], color: '#c2610b'},
+                                    { label: "1.00 - 1.25 Seconds",  data: value['10_125'], color: red},
+                                    { label: "> 1.25 Seconds",  data: value['125_plus'], color: '#a53838'}];
+                                    mainValue = value['score'];
+                                    compareValue = value['0_25']/value['all_buckets'];
+                                });
+                                handleLineChart('#index-4', compareValue)
+                                handleDonutChart('#donut-chart-b', dataSetB, mainValue, true)
+                            });
+
+                            $.getJSON('/collection/video_average_bitrate', function(data) {
+                                $.each(data, function( key, value ) {
+                                    dataSetC = [
+                                    { label: "3.4 Mbps",  data: value['24_34'], color: purpleDark},
+                                    { label: "2.4 Mbps",  data: value['14_24'], color: purpleLight},
+                                    { label: "1.4 Mbps",  data: value['09_14'], color: orangeLight},
+                                    { label: "0.9 Mbps",  data: value['06_09'], color: red},
+                                    { label: "0.6 Mbps",  data: value['0_06'], color: '#a53838'}];
+                                    mainValue = value['score'];
+                                    compareValue = (1 - value['0_06']/value['all_buckets']);
+                                });
+                                handleLineChart('#index-3', compareValue)
+                                handleDonutChart('#donut-chart-c', dataSetC, mainValue, true)
+                            });
+
+                            $.getJSON('/collection/video_buffering_events', function(data) {
+                                $.each(data, function( key, value ) {
+                                    dataSetD = [
+                                    { label: "0 Events",  data: value['none'], color: purpleDark},
+                                    { label: "0.05 Events",  data: value['0_005'], color: purpleLight},
+                                    { label: "0.05 - 0.1 Events",  data: value['005_01'], color: orangeLight},
+                                    { label: "0.1 - 0.2 Events",  data: value['01_02'], color: '#c2610b'},
+                                    { label: "0.2 - 0.4 Events",  data: value['02_04'], color: red},
+                                    { label: "> 0.4 Events",  data: value['04_plus'], color: '#a53838'}];
+                                    mainValue = value['score'];
+                                    compareValue = value['none']/value['all_buckets'];
+                                });
+                                handleLineChart('#index-1', compareValue)
+                                handleDonutChart('#donut-chart-d', dataSetD, mainValue, true)
+                            });
+
+                            $.getJSON('/collection/video_buffering_duration', function(data) {
+                                $.each(data, function( key, value ) {
+                                    dataSetE = [
+                                    { label: "0.0% Duration",  data: value['none'], color: purpleDark},
+                                    { label: "0.0% - 0.5% Duration",  data: value['0_05'], color: purpleLight},
+                                    { label: "0.5% - 1.0% Duration",  data: value['05_1'] || 5, color: orangeLight},
+                                    { label: "1.0% - 1.5% Duration",  data: value['1_15'], color: '#c2610b'},
+                                    { label: "1.5% - 3.0% Duration",  data: value['15_3'], color: red},
+                                    { label: "> 3% Duration",  data: value['3_plus'], color: '#a53838'}];
+                                    mainValue = value['score'];
+                                    compareValue = value['none']/value['all_buckets'];
+                                });
+                                handleLineChart('#index-5', compareValue)
+                                handleDonutChart('#donut-chart-e', dataSetE, mainValue, true)
+                            });
+
+                            $.getJSON('/collection/video_bitrate_downshifts', function(data) {
+                                $.each(data, function( key, value ) {
+                                    dataSetF = [
+                                    { label: "0.0% Downshifts", data: value['none'], color: purpleDark},
+                                    { label: "0.0% - 0.1% Downshifts",  data: value['0_01'], color: purpleLight},
+                                    { label: "0.1% - 0.5% Downshifts",  data: value['01_05'] || 5, color: orangeLight},
+                                    { label: "0.5% - 1.0% Downshifts",  data: value['05_1'], color: '#c2610b'},
+                                    { label: "1.0% - 2.0% Downshifts",  data: value['1_2'], color: red},
+                                    { label: "> 2% Downshifts",  data: value['2_plus'], color: '#a53838'}];
+                                    mainValue = value['score'];
+                                    compareValue = value['none']/value['all_buckets'];
+                                });
+                                handleLineChart('#index-2', compareValue)
+                                handleDonutChart('#donut-chart-f', dataSetF, mainValue, true);
+
+                                if (!$.cookie("firstTime")) {
+                                    introJs().setOption('showBullets', false).start();
+                                    $.cookie("firstTime", true);
+                                }
+
+                            });
 
                             var d1 = [];
                             d1.push([1, 28]);
@@ -209,9 +336,9 @@ var Dashboard = function () {
                                 color: "green"},    
                             ];
 
-                            drawLineChart('#bar-chart-a', data);
-                            drawLineChart('#bar-chart-b', data);
-                            drawLineChart('#bar-chart-c', data);
+                            drawLineChart('#bar-chart-a', data, 67);
+                            drawLineChart('#bar-chart-b', data, 88);
+                            drawLineChart('#bar-chart-c', data, 56);
 
                         });
                     });
