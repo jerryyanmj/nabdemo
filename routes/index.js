@@ -14,7 +14,7 @@ module.exports = function (app) {
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
             mongo.connect('mongodb://localhost:27017/default', function (err, db) {
             db.collection(req.param("name"), function (err, collection) {
-                collection.find().toArray(function (err, items) {
+                collection.find().sort( { start_datetime_ts: -1 } ).limit(5).toArray(function (err, items) {
                     db.close();
                     res.send(items);
                 });
@@ -26,7 +26,7 @@ module.exports = function (app) {
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
         mongo.connect('mongodb://localhost:27017/default', function (err, db) {
             db.collection("video_average_bitrate", function (err, collection) {
-                collection.find().toArray(function (err, items) {
+                collection.find().sort( { start_datetime_ts: -1 } ).limit(5).toArray(function (err, items) {
                     db.close();
                     res.send(items);
                 });
