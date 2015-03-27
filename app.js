@@ -9,7 +9,8 @@ app.use(express.static(process.cwd() + '/public'));
 var mongo = require('mongodb').MongoClient
 var format = require('util').format;
 
-mongo.connect('mongodb://127.0.0.1:27017/local', function (err, db) {
+//mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+mongo.connect('mongodb://localhost:27017/default', function (err, db) {
   if (err) {
     throw err;
   } else {

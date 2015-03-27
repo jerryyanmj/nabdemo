@@ -190,7 +190,24 @@ var handlePanelAction = function() {
     });
     $('[data-click=panel-collapse]').click(function(e) {
         e.preventDefault();
-        $(this).closest('.panel').find('.panel-body').slideToggle();
+        if($(this).closest('.panel').find('.dynamic').length == 0) {
+            $(this).closest('.panel').find('.lg table').toggle("slide",{direction: "up"})
+        }
+        else {
+            if($(this).closest('.panel').find('.lg table tr:odd').css('display') == 'table-row') {
+                $(this).closest('.panel').find('.lg table').hide("slide",{direction: "up"}, function() {
+                    $(this).closest('.panel').find('.lg table tr:odd').hide();
+                });
+            } 
+            else {
+                if($(this).closest('.panel').find('.lg table').css('display') == 'table') {
+                    $(this).closest('.panel').find('.lg table tr:odd').show();
+                }
+                else {
+                    $(this).closest('.panel').find('.lg table').show("slide",{direction: "up"})
+                }
+            }
+        }  
     });
     
     // reload
@@ -639,8 +656,8 @@ var handleLoadPage = function(hash) {
 
 /* 17. Handle Ajax Page Load Url
 ------------------------------------------------ */
-var handleCheckPageLoadUrl = function(hash) {
-    hash = (hash) ? hash : '#ajax/qoe.html';
+var handleCheckPageLoadUrl = function(page, hash) {
+    hash = (hash) ? hash : '#ajax/' + page + ".html";
     
     if (hash === '') {
         $('#ajax-content').html(default_content);
@@ -835,10 +852,9 @@ var handleUnlimitedTabsRender = function() {
 ------------------------------------------------ */
 var App = function () {
 	"use strict";
-	
 	return {
 		//main function
-		init: function () {
+		init: function (page) {
 		    
 		    // draggable panel & local storage
 			handleDraggablePanel();
@@ -873,7 +889,7 @@ var App = function () {
             
             // ajax
             handleSidebarAjaxClick();
-            handleCheckPageLoadUrl(window.location.hash);
+            handleCheckPageLoadUrl(page, window.location.hash);
 			handleHashChange();
 			
 			// IE Compatibility
