@@ -282,7 +282,7 @@ var Dashboard = function () {
 
                                 if (!$.cookie("firstTime")) {
                                     introJs().setOption('showBullets', false).start();
-                                    $.cookie("firstTime", true);
+                                    $.cookie("firstTime", true, { expires: 365 });
                                 }
 
                             });
