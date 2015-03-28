@@ -23,10 +23,10 @@ function showTooltip(x, y, contents) {
         top: y + 5,
         left: x + 5
     }).appendTo("body").fadeIn(500);
-}   
+}
 
 var handleDonutChart = function (target, data, value, dynamic) {
-    "use strict"; 
+    "use strict";
 
     if ($(target).length !== 0) {
         $.plot(target, data, {
@@ -35,7 +35,7 @@ var handleDonutChart = function (target, data, value, dynamic) {
                    stroke: {
                         width: 2,
                         color: '#2d353c'
-                    },                    
+                    },
                     innerRadius: 0.6,
                     show: true,
                     label: {
@@ -47,7 +47,7 @@ var handleDonutChart = function (target, data, value, dynamic) {
                 backgroundColor: { colors: [ "#000", "#eee" ] },
                 hoverable: true,
                 clickable: true
-            },       
+            },
             legend: { noColumns: 1, show: true, placement: 'outsideGrid', container: $(target + "-legend") }
         });
 
@@ -56,22 +56,23 @@ var handleDonutChart = function (target, data, value, dynamic) {
             e.pageX = 1;
             e.pageY = 1;
             $(target + ' canvas').trigger(e);
-        });        
-    }
-
-    if(dynamic) {
-        $(target + "-legend table tr:odd").hide();
-        $(target + "-legend").addClass('dynamic');
-        $(target + "-legend table").mouseenter(function() {
-            $(target + "-legend table tr:odd").show();
-        }).mouseleave(function() {
-            $(target + "-legend table tr:odd").hide();
         });
     }
 
     $(target).append('<div class="ct">' + value + '</div>')
 
-    function position() {
+    function position(dynamic) {
+
+        if(dynamic) {
+            $(target + "-legend table tr:odd").hide();
+            $(target + "-legend").addClass('dynamic');
+            $(target + "-legend table").mouseenter(function() {
+                $(target + "-legend table tr:odd").show();
+            }).mouseleave(function() {
+                $(target + "-legend table tr:odd").hide();
+            });
+        }
+
         $(target + ' .ct').css({
             'position' : 'absolute',
             'left' : '50%',
@@ -84,27 +85,27 @@ var handleDonutChart = function (target, data, value, dynamic) {
     }
 
     $(target).resize(function() {
-        position();
+        position(dynamic);
         if(dynamic) {
             $(target + "-legend table tr:odd").hide();
         }
     })
 
-    position();
+    position(dynamic);
 
     var previousPoint = null;
-    $(target).bind("plothover", function (event, pos, item) {        
+    $(target).bind("plothover", function (event, pos, item) {
         if(item) {
             if (previousPoint !== item.seriesIndex) {
                 previousPoint = item.seriesIndex;
                 $("#tooltip").remove();
                 showTooltip(pos.pageX, pos.pageY, item.series.label + ': ' + Math.round(item.datapoint[0]) + "%");
-            }            
+            }
         } else {
             $("#tooltip").remove();
-            previousPoint = null;            
+            previousPoint = null;
         }
-        event.preventDefault()       
+        event.preventDefault()
     });
 
 };
@@ -183,7 +184,7 @@ var Dashboard = function () {
     return {
         //main function
         init: function () {
-            
+
             $.getScript('assets/plugins/flot/jquery.flot.min.js').done(function() {
                 $.getScript('assets/plugins/flot/jquery.flot.time.min.js').done(function() {
                     $.getScript('assets/plugins/flot/jquery.flot.resize.min.js').done(function() {
@@ -280,9 +281,9 @@ var Dashboard = function () {
                                 handleLineChart('#index-2', compareValue)
                                 handleDonutChart('#donut-chart-f', dataSetF, mainValue, true);
 
-                                if (!$.cookie("firstTime")) {
+                                if (!$.cookie("firstTime") && $window.width()>768) {
                                     introJs().setOption('showBullets', false).start();
-                                    $.cookie("firstTime", true, { expires: 365 });
+                                    $.cookie("firstTime", true, { expires: 90 });
                                 }
 
                             });
@@ -306,7 +307,7 @@ var Dashboard = function () {
                                 color: "#1d61f2"
                             },
                             {
-                                label: "Average",    
+                                label: "Average",
                                 stack: true,
                                 data: d2,
                                 bars: {
@@ -315,7 +316,7 @@ var Dashboard = function () {
                                     lineWidth: 2,
                                     order: 1,
                                     fillColor:  "yellow"
-                                },       
+                                },
                                 color: "yellow"},
                             {
                                 label: "Minimum",
@@ -327,13 +328,13 @@ var Dashboard = function () {
                                     lineWidth: 2,
                                     order: 1,
                                     fillColor:  "#f21d1d"
-                                },       
+                                },
                                 color: "#f21d1d"},
                             {
                                 label: "Current",
                                 stack: true,
                                 data: d3,
-                                color: "green"},    
+                                color: "green"},
                             ];
 
                             drawLineChart('#bar-chart-a', data, 67);
