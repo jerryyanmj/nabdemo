@@ -5,8 +5,8 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use(express.static(process.cwd() + '/public'));
-
-var mongo = require('mongodb').MongoClient
+iioji 
+var mongo = require('mongodb').MongoClient;
 var format = require('util').format;
 
 //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
@@ -27,4 +27,3 @@ var server = app.listen(3000, function () {
   console.log('Example app listening at http://%s:%s', host, port);
 
 });
-

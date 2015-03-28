@@ -33,7 +33,7 @@
         to { right: 0; }
     }
     .page-with-two-sidebar .sidebar.sidebar-right,
-    .page-with-two-sidebar .sidebar-bg.sidebar-right { 
+    .page-with-two-sidebar .sidebar-bg.sidebar-right {
         right: -220px;
         left: auto !important;
         position: fixed;
@@ -90,6 +90,9 @@
     }
     .navbar-right {
         float: right;
+        position: absolute;
+        top: 0px;
+        right: 65px;
     }
     .navbar-left {
         float: left;
@@ -100,7 +103,7 @@
     .navbar-form {
         margin: 0;
         padding: 12px 10px;
-        border: none;    
+        border: none;
         -webkit-box-shadow: none;
         box-shadow: none;
     }
@@ -148,7 +151,7 @@
     .navbar-nav .open .dropdown-menu > li > a {
         padding: 5px 15px;
     }
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, 
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
         background: #edf0f5;
     }
@@ -231,11 +234,11 @@
     .footer {
         margin: 0 20px;
     }
-    .table-responsive .table > thead > tr > th, 
-    .table-responsive .table > tbody > tr > th, 
-    .table-responsive .table > tfoot > tr > th, 
-    .table-responsive .table > thead > tr > td, 
-    .table-responsive .table > tbody > tr > td, 
+    .table-responsive .table > thead > tr > th,
+    .table-responsive .table > tbody > tr > th,
+    .table-responsive .table > tfoot > tr > th,
+    .table-responsive .table > thead > tr > td,
+    .table-responsive .table > tbody > tr > td,
     .table-responsive .table > tfoot > tr > td {
         white-space: nowrap;
     }
