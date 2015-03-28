@@ -5,7 +5,6 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.use(express.static(process.cwd() + '/public'));
-iioji 
 var mongo = require('mongodb').MongoClient;
 var format = require('util').format;
 
