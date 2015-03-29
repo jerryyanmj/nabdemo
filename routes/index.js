@@ -6,7 +6,7 @@ module.exports = function (app) {
         res.render('index', { title: 'ejs' });
     });
 
-    app.get('/', function (req, res) {
+    app.get('/index.html', function (req, res) {
         res.render('index', { title: 'ejs' });
     });
 
