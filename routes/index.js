@@ -12,9 +12,12 @@ module.exports = function (app) {
 
     app.get('/collection/:name', function (req, res) {
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+
+            var rand = Math.floor(Math.random() * 10) + 1;
+
             mongo.connect('mongodb://localhost:27017/default', function (err, db) {
             db.collection(req.param("name"), function (err, collection) {
-                collection.find().sort( { start_datetime_ts: -1 } ).limit(5).toArray(function (err, items) {
+                collection.find().sort( { start_datetime_ts: -1 } ).limit(25).skip(rand).toArray(function (err, items) {
                     db.close();
                     res.send(items);
                 });
