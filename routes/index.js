@@ -1,3 +1,4 @@
+
 var mongo = require('mongodb').MongoClient
 var format = require('util').format;
 
