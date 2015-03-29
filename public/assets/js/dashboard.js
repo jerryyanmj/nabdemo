@@ -178,6 +178,110 @@ var drawLineChart = function(el,data) {
     });
 }
 
+var updateCharts = function() {
+
+    $.getJSON('/collection/video_failed_streams', function(data) {
+        $.each(data, function( key, value ) {
+            dataSetA = [
+            { label: "0 Failed Streams",  data: value['none'], color: purpleDark},
+            { label: "1 Failed Stream",  data: value['0_1'], color: orangeLight},
+            { label: "> 1 Failed Streams",  data: value['1_plus'], color: red}];
+            mainValue = value['score'];
+            compareValue = value['none']/value['all_buckets'];
+        });
+        handleLineChart('#index-6', compareValue)
+        handleDonutChart('#donut-chart-a', dataSetA, mainValue)
+    });
+
+    $.getJSON('/collection/video_startup', function(data) {
+        $.each(data, function( key, value ) {
+            dataSetB = [
+            { label: "0.00 - 0.25 Seconds",  data: value['0_25'], color: purpleDark},
+            { label: "0.25 - 0.50 Seconds",  data: value['25_5'], color: purpleLight},
+            { label: "0.50 - 0.75 Seconds",  data: value['5_75'], color: orangeLight},
+            { label: "0.75 - 1.00 Seconds",  data: value['75_10'], color: '#c2610b'},
+            { label: "1.00 - 1.25 Seconds",  data: value['10_125'], color: red},
+            { label: "> 1.25 Seconds",  data: value['125_plus'], color: '#a53838'}];
+            mainValue = value['score'];
+            compareValue = value['0_25']/value['all_buckets'];
+        });
+        handleLineChart('#index-4', compareValue)
+        handleDonutChart('#donut-chart-b', dataSetB, mainValue, true)
+    });
+
+    $.getJSON('/collection/video_average_bitrate', function(data) {
+        $.each(data, function( key, value ) {
+            dataSetC = [
+            { label: "3.4 Mbps",  data: value['24_34'], color: purpleDark},
+            { label: "2.4 Mbps",  data: value['14_24'], color: purpleLight},
+            { label: "1.4 Mbps",  data: value['09_14'], color: orangeLight},
+            { label: "0.9 Mbps",  data: value['06_09'], color: red},
+            { label: "0.6 Mbps",  data: value['0_06'], color: '#a53838'}];
+            mainValue = value['score'];
+            compareValue = (1 - value['0_06']/value['all_buckets']);
+        });
+        handleLineChart('#index-3', compareValue)
+        handleDonutChart('#donut-chart-c', dataSetC, mainValue, true)
+    });
+
+    $.getJSON('/collection/video_buffering_events', function(data) {
+        $.each(data, function( key, value ) {
+            dataSetD = [
+            { label: "0 Events",  data: value['none'], color: purpleDark},
+            { label: "0.05 Events",  data: value['0_005'], color: purpleLight},
+            { label: "0.05 - 0.1 Events",  data: value['005_01'], color: orangeLight},
+            { label: "0.1 - 0.2 Events",  data: value['01_02'], color: '#c2610b'},
+            { label: "0.2 - 0.4 Events",  data: value['02_04'], color: red},
+            { label: "> 0.4 Events",  data: value['04_plus'], color: '#a53838'}];
+            mainValue = value['score'];
+            compareValue = value['none']/value['all_buckets'];
+        });
+        handleLineChart('#index-1', compareValue)
+        handleDonutChart('#donut-chart-d', dataSetD, mainValue, true)
+    });
+
+    $.getJSON('/collection/video_buffering_duration', function(data) {
+        $.each(data, function( key, value ) {
+            dataSetE = [
+            { label: "0.0% Duration",  data: value['none'], color: purpleDark},
+            { label: "0.0% - 0.5% Duration",  data: value['0_05'], color: purpleLight},
+            { label: "0.5% - 1.0% Duration",  data: value['05_1'] || 5, color: orangeLight},
+            { label: "1.0% - 1.5% Duration",  data: value['1_15'], color: '#c2610b'},
+            { label: "1.5% - 3.0% Duration",  data: value['15_3'], color: red},
+            { label: "> 3% Duration",  data: value['3_plus'], color: '#a53838'}];
+            mainValue = value['score'];
+            compareValue = value['none']/value['all_buckets'];
+        });
+        handleLineChart('#index-5', compareValue)
+        handleDonutChart('#donut-chart-e', dataSetE, mainValue, true)
+    });
+
+    $.getJSON('/collection/video_bitrate_downshifts', function(data) {
+        $.each(data, function( key, value ) {
+            dataSetF = [
+            { label: "0.0% Downshifts", data: value['none'], color: purpleDark},
+            { label: "0.0% - 0.1% Downshifts",  data: value['0_01'], color: purpleLight},
+            { label: "0.1% - 0.5% Downshifts",  data: value['01_05'] || 5, color: orangeLight},
+            { label: "0.5% - 1.0% Downshifts",  data: value['05_1'], color: '#c2610b'},
+            { label: "1.0% - 2.0% Downshifts",  data: value['1_2'], color: red},
+            { label: "> 2% Downshifts",  data: value['2_plus'], color: '#a53838'}];
+            mainValue = value['score'];
+            compareValue = value['none']/value['all_buckets'];
+        });
+        handleLineChart('#index-2', compareValue)
+        handleDonutChart('#donut-chart-f', dataSetF, mainValue, true);
+
+        if (!$.cookie("firstTime") && $window.width()>768) {
+            introJs().setOption('showBullets', false).start();
+            $.cookie("firstTime", true, { expires: 90 });
+        }
+
+    });
+
+    setTimeout(updateCharts, 5000);
+
+}
+
 
 var Dashboard = function () {
 	"use strict";
@@ -190,103 +294,8 @@ var Dashboard = function () {
                     $.getScript('assets/plugins/flot/jquery.flot.resize.min.js').done(function() {
                         $.getScript('assets/plugins/flot/jquery.flot.pie.min.js').done(function() {
 
-                            $.getJSON('/collection/video_failed_streams', function(data) {
-                                $.each(data, function( key, value ) {
-                                    dataSetA = [
-                                    { label: "0 Failed Streams",  data: value['none'], color: purpleDark},
-                                    { label: "1 Failed Stream",  data: value['0_1'], color: orangeLight},
-                                    { label: "> 1 Failed Streams",  data: value['1_plus'], color: red}];
-                                    mainValue = value['score'];
-                                    compareValue = value['none']/value['all_buckets'];
-                                });
-                                handleLineChart('#index-6', compareValue)
-                                handleDonutChart('#donut-chart-a', dataSetA, mainValue)
-                            });
 
-                            $.getJSON('/collection/video_startup', function(data) {
-                                $.each(data, function( key, value ) {
-                                    dataSetB = [
-                                    { label: "0.00 - 0.25 Seconds",  data: value['0_25'], color: purpleDark},
-                                    { label: "0.25 - 0.50 Seconds",  data: value['25_5'], color: purpleLight},
-                                    { label: "0.50 - 0.75 Seconds",  data: value['5_75'], color: orangeLight},
-                                    { label: "0.75 - 1.00 Seconds",  data: value['75_10'], color: '#c2610b'},
-                                    { label: "1.00 - 1.25 Seconds",  data: value['10_125'], color: red},
-                                    { label: "> 1.25 Seconds",  data: value['125_plus'], color: '#a53838'}];
-                                    mainValue = value['score'];
-                                    compareValue = value['0_25']/value['all_buckets'];
-                                });
-                                handleLineChart('#index-4', compareValue)
-                                handleDonutChart('#donut-chart-b', dataSetB, mainValue, true)
-                            });
-
-                            $.getJSON('/collection/video_average_bitrate', function(data) {
-                                $.each(data, function( key, value ) {
-                                    dataSetC = [
-                                    { label: "3.4 Mbps",  data: value['24_34'], color: purpleDark},
-                                    { label: "2.4 Mbps",  data: value['14_24'], color: purpleLight},
-                                    { label: "1.4 Mbps",  data: value['09_14'], color: orangeLight},
-                                    { label: "0.9 Mbps",  data: value['06_09'], color: red},
-                                    { label: "0.6 Mbps",  data: value['0_06'], color: '#a53838'}];
-                                    mainValue = value['score'];
-                                    compareValue = (1 - value['0_06']/value['all_buckets']);
-                                });
-                                handleLineChart('#index-3', compareValue)
-                                handleDonutChart('#donut-chart-c', dataSetC, mainValue, true)
-                            });
-
-                            $.getJSON('/collection/video_buffering_events', function(data) {
-                                $.each(data, function( key, value ) {
-                                    dataSetD = [
-                                    { label: "0 Events",  data: value['none'], color: purpleDark},
-                                    { label: "0.05 Events",  data: value['0_005'], color: purpleLight},
-                                    { label: "0.05 - 0.1 Events",  data: value['005_01'], color: orangeLight},
-                                    { label: "0.1 - 0.2 Events",  data: value['01_02'], color: '#c2610b'},
-                                    { label: "0.2 - 0.4 Events",  data: value['02_04'], color: red},
-                                    { label: "> 0.4 Events",  data: value['04_plus'], color: '#a53838'}];
-                                    mainValue = value['score'];
-                                    compareValue = value['none']/value['all_buckets'];
-                                });
-                                handleLineChart('#index-1', compareValue)
-                                handleDonutChart('#donut-chart-d', dataSetD, mainValue, true)
-                            });
-
-                            $.getJSON('/collection/video_buffering_duration', function(data) {
-                                $.each(data, function( key, value ) {
-                                    dataSetE = [
-                                    { label: "0.0% Duration",  data: value['none'], color: purpleDark},
-                                    { label: "0.0% - 0.5% Duration",  data: value['0_05'], color: purpleLight},
-                                    { label: "0.5% - 1.0% Duration",  data: value['05_1'] || 5, color: orangeLight},
-                                    { label: "1.0% - 1.5% Duration",  data: value['1_15'], color: '#c2610b'},
-                                    { label: "1.5% - 3.0% Duration",  data: value['15_3'], color: red},
-                                    { label: "> 3% Duration",  data: value['3_plus'], color: '#a53838'}];
-                                    mainValue = value['score'];
-                                    compareValue = value['none']/value['all_buckets'];
-                                });
-                                handleLineChart('#index-5', compareValue)
-                                handleDonutChart('#donut-chart-e', dataSetE, mainValue, true)
-                            });
-
-                            $.getJSON('/collection/video_bitrate_downshifts', function(data) {
-                                $.each(data, function( key, value ) {
-                                    dataSetF = [
-                                    { label: "0.0% Downshifts", data: value['none'], color: purpleDark},
-                                    { label: "0.0% - 0.1% Downshifts",  data: value['0_01'], color: purpleLight},
-                                    { label: "0.1% - 0.5% Downshifts",  data: value['01_05'] || 5, color: orangeLight},
-                                    { label: "0.5% - 1.0% Downshifts",  data: value['05_1'], color: '#c2610b'},
-                                    { label: "1.0% - 2.0% Downshifts",  data: value['1_2'], color: red},
-                                    { label: "> 2% Downshifts",  data: value['2_plus'], color: '#a53838'}];
-                                    mainValue = value['score'];
-                                    compareValue = value['none']/value['all_buckets'];
-                                });
-                                handleLineChart('#index-2', compareValue)
-                                handleDonutChart('#donut-chart-f', dataSetF, mainValue, true);
-
-                                if (!$.cookie("firstTime") && $window.width()>768) {
-                                    introJs().setOption('showBullets', false).start();
-                                    $.cookie("firstTime", true, { expires: 90 });
-                                }
-
-                            });
+                            updateCharts();
 
                             var d1 = [];
                             d1.push([1, 28]);
