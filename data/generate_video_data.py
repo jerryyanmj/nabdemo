@@ -17,35 +17,39 @@ streamTypes  = [ "HLS", "SS" ]
 chunkTypes   = [ "Live", "VOD" ]
 
 db = client.default['video_failed_streams']
-# # db.drop()
+db.drop()
+
+# random.randrange(1)+
+# random.randrange(1)+
+# random.randrange(1)+
+
+for x in range(30):
+	for device in deviceTypes:
+		for stream in streamTypes:
+			for chunk in chunkTypes:
+				
+				val_none    = 30
+				val_0_1     = 45
+				val_1_plus  = 45
+				all_buckets = val_none + val_0_1 + val_1_plus
+				post = { "start_datetime_ts"  : currentTimestamp,
+	         			 "batch_id"           : str(currentTime.year) + '-' + str(currentTime.month) + '-' + str(currentTime.day) + '-' + str(currentTime.hour) + '-' + str(currentTime.minute),
+	         			 "device_type"        : device,
+	         			 "stream_type"        : stream,
+	         			 "chunk_type"         : chunk,
+	         			 "none"               : val_none,
+	         			 "0_1"                : val_0_1,
+	         			 "1_plus"             : val_1_plus,
+	         			 "all_buckets"        : all_buckets,
+	         			 "none_bucket"        : val_none / all_buckets * 100,
+	         			 "0_1_bucket"         : val_0_1 / all_buckets * 100,
+	         			 "1_plus_bucket"      : val_1_plus / all_buckets * 100,
+	         			 "score"              :  100 }
+				db.insert(post)
 
 
-for device in deviceTypes:
-	for stream in streamTypes:
-		for chunk in chunkTypes:
-			
-			val_none    = random.randrange(29)+1
-			val_0_1     = random.randrange(5)
-			val_1_plus  = random.randrange(5)
-			all_buckets = val_none + val_0_1 + val_1_plus
-			post = { "start_datetime_ts"  : currentTimestamp,
-         			 "batch_id"           : str(currentTime.year) + '-' + str(currentTime.month) + '-' + str(currentTime.day) + '-' + str(currentTime.hour) + '-' + str(currentTime.minute),
-         			 "device_type"        : device,
-         			 "stream_type"        : stream,
-         			 "chunk_type"         : chunk,
-         			 "none"               : val_none,
-         			 "0_1"                : val_0_1,
-         			 "1_plus"             : val_1_plus,
-         			 "all_buckets"        : all_buckets,
-         			 "none_bucket"        : val_none / all_buckets * 100,
-         			 "0_1_bucket"         : val_0_1 / all_buckets * 100,
-         			 "1_plus_bucket"      : val_1_plus / all_buckets * 100,
-         			 "score"              : random.randrange(100) + 1 }
-			db.insert(post)
-
-
-# print " inserted " + str(db.count()) + " in video_failed_streams"
-print db.find_one()
+print " inserted " + str(db.count()) + " in video_failed_streams"
+# print db.find_one()
 
 db = client.default['video_buffering_events']
 # db.drop()
@@ -126,7 +130,7 @@ for device in deviceTypes:
 # print " inserted " + str(db.count()) + " in video_buffering_duration"
 
 db = client.default['video_startup']
-# db.drop()
+db.drop()
 
 for device in deviceTypes:
 	for stream in streamTypes:
