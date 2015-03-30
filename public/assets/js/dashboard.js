@@ -122,39 +122,6 @@ function handleLineChart(target, value) {
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
 }
 
-var mainValue = 0;
-var compareValue = 0;
-
-var dataSetA = [
-    { label: "0 Failed Streams",  data: 90, color: purpleDark},
-    { label: "1 Failed Stream",  data: 5, color: orangeLight},
-    { label: "> 1 Failed Streams",  data: 5, color: red}]
-
-var dataSetB = [
-    { label: "0-2 Seconds",  data: 70, color: purpleDark},
-    { label: "2-5 Seconds",  data: 25, color: orangeLight},
-    { label: ">5 Seconds",  data: 5, color: red}]
-
-var dataSetC = [
-    { label: "1-2 Mbps",  data: 25, color: red},
-    { label: "2-3 Mbps",  data: 25, color: orangeLight},
-    { label: ">3 Mbps",  data: 50, color: purpleDark}]
-
-var dataSetD = [
-    { label: "0 Events",  data: 75, color: purpleDark},
-    { label: "1-3 Events",  data: 25, color: orangeLight},
-    { label: "> 3 Events",  data: 0, color: red}]
-
-var dataSetE = [
-    { label: "0% Duration",  data: 60, color: purpleDark},
-    { label: "> 0% - <5% Duration",  data: 30, color: orangeLight},
-    { label: "> 5% Duration",  data: 10, color: red}]
-
-var dataSetF = [
-    { label: "0 Events",  data: 80, color: purpleDark},
-    { label: "1-3 Events",  data: 19, color: orangeLight},
-    { label: "> 3 Events",  data: 1, color: red}]
-
 var drawLineChart = function(el,data) {
     var plot = $.plot(el, data,{
             series: {
@@ -183,21 +150,23 @@ var drawLineChart = function(el,data) {
 var updateCharts = function() {
 
     $.getJSON('/collection/video_failed_streams', function(data) {
+        var dataSet, mainValue, compareValue = 0;
         $.each(data, function( key, value ) {
-            dataSetA = [
+            dataSet = [
             { label: "0 Failed Streams",  data: value['none'], color: purpleDark},
             { label: "1 Failed Stream",  data: value['0_1'], color: orangeLight},
             { label: "> 1 Failed Streams",  data: value['1_plus'], color: red}];
             mainValue = value['score'];
             compareValue = value['none']/value['all_buckets'];
         });
-        handleLineChart('#index-6', compareValue)
-        handleDonutChart('#donut-chart-a', dataSetA, mainValue)
+        handleLineChart('#index-1', compareValue)
+        handleDonutChart('#donut-chart-a', dataSet, mainValue)
     });
 
     $.getJSON('/collection/video_startup', function(data) {
+        var dataSet, mainValue, compareValue = 0;
         $.each(data, function( key, value ) {
-            dataSetB = [
+            dataSet = [
             { label: "0.00 - 0.25 Seconds",  data: value['0_25'], color: purpleDark},
             { label: "0.25 - 0.50 Seconds",  data: value['25_5'], color: purpleLight},
             { label: "0.50 - 0.75 Seconds",  data: value['5_75'], color: orangeLight},
@@ -208,12 +177,13 @@ var updateCharts = function() {
             compareValue = value['0_25']/value['all_buckets'];
         });
         handleLineChart('#index-4', compareValue)
-        handleDonutChart('#donut-chart-b', dataSetB, mainValue, true)
+        handleDonutChart('#donut-chart-b', dataSet, mainValue, true)
     });
 
     $.getJSON('/collection/video_average_bitrate', function(data) {
+        var dataSet, mainValue, compareValue = 0;
         $.each(data, function( key, value ) {
-            dataSetC = [
+            dataSet = [
             { label: "3.4 Mbps",  data: value['24_34'], color: purpleDark},
             { label: "2.4 Mbps",  data: value['14_24'], color: purpleLight},
             { label: "1.4 Mbps",  data: value['09_14'], color: orangeLight},
@@ -223,12 +193,13 @@ var updateCharts = function() {
             compareValue = (1 - value['0_06']/value['all_buckets']);
         });
         handleLineChart('#index-3', compareValue)
-        handleDonutChart('#donut-chart-c', dataSetC, mainValue, true)
+        handleDonutChart('#donut-chart-c', dataSet, mainValue, true)
     });
 
     $.getJSON('/collection/video_buffering_events', function(data) {
+        var dataSet, mainValue, compareValue = 0;
         $.each(data, function( key, value ) {
-            dataSetD = [
+            dataSet = [
             { label: "0 Events",  data: value['none'], color: purpleDark},
             { label: "0.05 Events",  data: value['0_005'], color: purpleLight},
             { label: "0.05 - 0.1 Events",  data: value['005_01'], color: orangeLight},
@@ -238,13 +209,14 @@ var updateCharts = function() {
             mainValue = value['score'];
             compareValue = value['none']/value['all_buckets'];
         });
-        handleLineChart('#index-1', compareValue)
-        handleDonutChart('#donut-chart-d', dataSetD, mainValue, true)
+        handleLineChart('#index-5', compareValue)
+        handleDonutChart('#donut-chart-d', dataSet, mainValue, true)
     });
 
     $.getJSON('/collection/video_buffering_duration', function(data) {
+        var dataSet, mainValue, compareValue = 0;
         $.each(data, function( key, value ) {
-            dataSetE = [
+            dataSet = [
             { label: "0.0% Duration",  data: value['none'], color: purpleDark},
             { label: "0.0% - 0.5% Duration",  data: value['0_05'], color: purpleLight},
             { label: "0.5% - 1.0% Duration",  data: value['05_1'] || 5, color: orangeLight},
@@ -254,13 +226,14 @@ var updateCharts = function() {
             mainValue = value['score'];
             compareValue = value['none']/value['all_buckets'];
         });
-        handleLineChart('#index-5', compareValue)
-        handleDonutChart('#donut-chart-e', dataSetE, mainValue, true)
+        handleLineChart('#index-4', compareValue)
+        handleDonutChart('#donut-chart-e', dataSet, mainValue, true)
     });
 
     $.getJSON('/collection/video_bitrate_downshifts', function(data) {
+        var dataSet, mainValue, compareValue = 0;
         $.each(data, function( key, value ) {
-            dataSetF = [
+            dataSet = [
             { label: "0.0% Downshifts", data: value['none'], color: purpleDark},
             { label: "0.0% - 0.1% Downshifts",  data: value['0_01'], color: purpleLight},
             { label: "0.1% - 0.5% Downshifts",  data: value['01_05'] || 5, color: orangeLight},
@@ -270,8 +243,8 @@ var updateCharts = function() {
             mainValue = value['score'];
             compareValue = value['none']/value['all_buckets'];
         });
-        handleLineChart('#index-2', compareValue)
-        handleDonutChart('#donut-chart-f', dataSetF, mainValue, true);
+        handleLineChart('#index-6', compareValue)
+        handleDonutChart('#donut-chart-f', dataSet, mainValue, true);
 
         if (!$.cookie("firstTime") && $window.width()>768) {
             introJs().setOption('showBullets', false).start();
