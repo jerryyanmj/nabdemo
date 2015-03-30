@@ -176,7 +176,7 @@ var updateCharts = function() {
             mainValue = value['score'];
             compareValue = value['0_25']/value['all_buckets'];
         });
-        handleLineChart('#index-4', compareValue)
+        handleLineChart('#index-2', compareValue)
         handleDonutChart('#donut-chart-b', dataSet, mainValue, true)
     });
 
