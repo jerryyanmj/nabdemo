@@ -1,4 +1,28 @@
 
+/* 01. JQuery alterClass function
+------------------------------------------------ */
+
+(function ($) {
+    $.fn.removePrefixedClasses = function (prefix) {
+        var classNames = $(this).attr('class').split(' '),
+            className,
+            newClassNames = [],
+            i;
+        //loop class names
+        for(i = 0; i < classNames.length; i++) {
+            className = classNames[i];
+            // if prefix not found at the beggining of class name
+            if(className.indexOf(prefix) !== 0) {
+                newClassNames.push(className);
+                continue;
+            }
+        }
+        // write new list excluding filtered classNames
+        $(this).attr('class', newClassNames.join(' '));
+    };
+}(jQuery));
+
+
 /* 01. Handle Scrollbar
 ------------------------------------------------ */
 var handleSlimScroll = function() {
@@ -10,9 +34,9 @@ var handleSlimScroll = function() {
 var generateSlimScroll = function(element) {
     var dataHeight = $(element).attr('data-height');
         dataHeight = (!dataHeight) ? $(element).height() : dataHeight;
-    
+
     var scrollBarOption = {
-        height: dataHeight, 
+        height: dataHeight,
         alwaysVisible: true
     };
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -30,7 +54,7 @@ var handleSidebarMenu = function() {
     $('.sidebar .nav > .has-sub > a').click(function() {
         var target = $(this).next('.sub-menu');
         var otherMenu = '.sidebar .nav > li.has-sub > .sub-menu';
-    
+
         if ($('.page-sidebar-minified').length === 0) {
             $(otherMenu).not(target).slideUp(250, function() {
                 $(this).closest('li').removeClass('expand');
@@ -66,7 +90,7 @@ var handleMobileSidebarToggle = function() {
             e.stopPropagation();
         }
     });
-    
+
     $(document).on('click touchstart', function(e) {
         if ($(e.target).closest('.sidebar').length === 0) {
             sidebarProgress = false;
@@ -84,7 +108,7 @@ var handleMobileSidebarToggle = function() {
             }
         }
     });
-    
+
     $('[data-click=right-sidebar-toggled]').click(function(e) {
         e.stopPropagation();
         var targetContainer = '#page-container';
@@ -101,7 +125,7 @@ var handleMobileSidebarToggle = function() {
             $('#page-container').removeClass('page-sidebar-toggled');
         }
     });
-    
+
     $('[data-click=sidebar-toggled]').click(function(e) {
         e.stopPropagation();
         var sidebarClass = 'page-sidebar-toggled';
@@ -161,7 +185,7 @@ var handlePageContentView = function() {
 ------------------------------------------------ */
 var handlePanelAction = function() {
     "use strict";
-    
+
     // remove
     $('[data-click=panel-remove]').hover(function() {
         $(this).tooltip({
@@ -177,7 +201,7 @@ var handlePanelAction = function() {
         $(this).tooltip('destroy');
         $(this).closest('.panel').remove();
     });
-    
+
     // collapse
     $('[data-click=panel-collapse]').hover(function() {
         $(this).tooltip({
@@ -198,7 +222,7 @@ var handlePanelAction = function() {
                 $(this).closest('.panel').find('.lg table').hide("slide",{direction: "up"}, function() {
                     $(this).closest('.panel').find('.lg table tr:odd').hide();
                 });
-            } 
+            }
             else {
                 if($(this).closest('.panel').find('.lg table').css('display') == 'table') {
                     $(this).closest('.panel').find('.lg table tr:odd').show();
@@ -207,9 +231,9 @@ var handlePanelAction = function() {
                     $(this).closest('.panel').find('.lg table').show("slide",{direction: "up"})
                 }
             }
-        }  
+        }
     });
-    
+
     // reload
     $('[data-click=panel-reload]').hover(function() {
         $(this).tooltip({
@@ -234,7 +258,7 @@ var handlePanelAction = function() {
             }, 2000);
         }
     });
-    
+
     // expand
     $('[data-click=panel-expand]').hover(function() {
         $(this).tooltip({
@@ -255,7 +279,7 @@ var handlePanelAction = function() {
             var targetBodyOffsetTop = $(targetBody).offset().top;
             targetTop = targetBodyOffsetTop - targetOffsetTop;
         }
-        
+
         if ($('body').hasClass('panel-expand') && $(target).hasClass('panel-expand')) {
             $('body, .panel').removeClass('panel-expand');
             $('.panel').removeAttr('style');
@@ -263,12 +287,12 @@ var handlePanelAction = function() {
         } else {
             $('body').addClass('panel-expand');
             $(this).closest('.panel').addClass('panel-expand');
-            
+
             if ($(targetBody).length !== 0 && targetTop != 40) {
                 var finalHeight = 40;
                 $(target).find(' > *').each(function() {
                     var targetClass = $(this).attr('class');
-                    
+
                     if (targetClass != 'panel-heading' && targetClass != 'panel-body') {
                         finalHeight += $(this).height() + 30;
                     }
@@ -290,7 +314,7 @@ var handleDraggablePanel = function() {
     var target = $('.panel').parent('[class*=col]');
     var targetHandle = '.panel-heading';
     var connectedTarget = '.row > [class*=col]';
-    
+
     $(target).sortable({
         handle: targetHandle,
         connectWith: connectedTarget,
@@ -346,7 +370,7 @@ var handleThemePageStructureControl = function() {
         var cssFileSrc = 'assets/css/theme/' + $.cookie('theme') + '.css';
         $('#theme').attr('href', cssFileSrc);
     }
-    
+
     // COOKIE - Sidebar Styling Setting
     if ($.cookie && $.cookie('sidebar-styling')) {
         if ($('.sidebar').length !== 0 && $.cookie('sidebar-styling') == 'grid') {
@@ -354,7 +378,7 @@ var handleThemePageStructureControl = function() {
             $('[name=sidebar-styling] option[value="2"]').prop('selected', true);
         }
     }
-    
+
     // COOKIE - Header Setting
     if ($.cookie && $.cookie('header-styling')) {
         if ($('.header').length !== 0 && $.cookie('header-styling') == 'navbar-inverse') {
@@ -362,7 +386,7 @@ var handleThemePageStructureControl = function() {
             $('[name=header-styling] option[value="2"]').prop('selected', true);
         }
     }
-    
+
     // COOKIE - Gradient Setting
     if ($.cookie && $.cookie('content-gradient')) {
         if ($('#page-container').length !== 0 && $.cookie('content-gradient') == 'enabled') {
@@ -370,7 +394,7 @@ var handleThemePageStructureControl = function() {
             $('[name=content-gradient] option[value="2"]').prop('selected', true);
         }
     }
-    
+
     // COOKIE - Content Styling Setting
     if ($.cookie && $.cookie('content-styling')) {
         if ($('body').length !== 0 && $.cookie('content-styling') == 'black') {
@@ -378,7 +402,7 @@ var handleThemePageStructureControl = function() {
             $('[name=content-styling] option[value="2"]').prop('selected', true);
         }
     }
-    
+
     // THEME - theme selection
     $('.theme-list [data-theme]').live('click', function() {
         var cssFileSrc = 'assets/css/theme/' + $(this).attr('data-theme') + '.css';
@@ -387,7 +411,7 @@ var handleThemePageStructureControl = function() {
         $(this).closest('li').addClass('active');
         $.cookie('theme', $(this).attr('data-theme'));
     });
-    
+
     // HEADER - inverse or default
     $('.theme-panel [name=header-styling]').live('change', function() {
         var targetClassAdd = ($(this).val() == 1) ? 'navbar-default' : 'navbar-inverse';
@@ -395,7 +419,7 @@ var handleThemePageStructureControl = function() {
         $('#header').removeClass(targetClassRemove).addClass(targetClassAdd);
         $.cookie('header-styling',targetClassAdd);
     });
-    
+
     // SIDEBAR - grid or default
     $('.theme-panel [name=sidebar-styling]').live('change', function() {
         if ($(this).val() == 2) {
@@ -406,7 +430,7 @@ var handleThemePageStructureControl = function() {
             $.cookie('sidebar-styling', 'default');
         }
     });
-    
+
     // CONTENT - gradient enabled or disabled
     $('.theme-panel [name=content-gradient]').live('change', function() {
         if ($(this).val() == 2) {
@@ -417,7 +441,7 @@ var handleThemePageStructureControl = function() {
             $.cookie('content-gradient', 'disabled');
         }
     });
-    
+
     // CONTENT - default or black
     $('.theme-panel [name=content-styling]').live('change', function() {
         if ($(this).val() == 2) {
@@ -428,7 +452,7 @@ var handleThemePageStructureControl = function() {
             $.cookie('content-styling', 'default');
         }
     });
-    
+
     // SIDEBAR - fixed or default
     $('.theme-panel [name=sidebar-fixed]').live('change', function() {
         if ($(this).val() == 1) {
@@ -466,7 +490,7 @@ var handleThemePageStructureControl = function() {
             }
         }
     });
-    
+
     // HEADER - fixed or default
     $('.theme-panel [name=header-fixed]').live('change', function() {
         if ($(this).val() == 1) {
@@ -561,12 +585,12 @@ var handleLocalStorage = function() {
             targetPage = targetPage.split('?');
             targetPage = targetPage[0];
         var panelPositionData = localStorage.getItem(targetPage);
-        
+
         if (panelPositionData) {
             panelPositionData = JSON.parse(panelPositionData);
             var i = 0;
             $('.panel').parent('[class*="col-"]').each(function() {
-                var storageData = panelPositionData[i]; 
+                var storageData = panelPositionData[i];
                 var targetColumn = $(this);
                 $.each(storageData, function(index, data) {
                     var targetId = '[data-sortable-id="'+ data.id +'"]';
@@ -580,7 +604,7 @@ var handleLocalStorage = function() {
             });
         }
     } else {
-        alert('Your browser is not supported with the local storage'); 
+        alert('Your browser is not supported with the local storage');
     }
 };
 
@@ -591,7 +615,7 @@ var handleResetLocalStorage = function() {
     "use strict";
     $('[data-click=reset-local-storage]').live('click', function(e) {
         e.preventDefault();
-        
+
         var targetModalHtml = ''+
         '<div class="modal fade" data-modal-id="reset-local-storage-confirmation">'+
         '    <div class="modal-dialog">'+
@@ -610,7 +634,7 @@ var handleResetLocalStorage = function() {
         '        </div>'+
         '    </div>'+
         '</div>';
-        
+
         $('body').append(targetModalHtml);
         $('[data-modal-id="reset-local-storage-confirmation"]').modal('show');
     });
@@ -658,7 +682,7 @@ var handleLoadPage = function(hash) {
 ------------------------------------------------ */
 var handleCheckPageLoadUrl = function(page, hash) {
     hash = (hash) ? hash : '#ajax/' + page + ".html";
-    
+
     if (hash === '') {
         $('#ajax-content').html(default_content);
     } else {
@@ -718,10 +742,10 @@ var handleIEFullHeightContent = function() {
 /* 22. Handle Unlimited Nav Tabs
 ------------------------------------------------ */
 var handleUnlimitedTabsRender = function() {
-    
-    // function handle tab overflow scroll width 
+
+    // function handle tab overflow scroll width
     function handleTabOverflowScrollWidth(obj, animationSpeed) {
-        var marginLeft = parseInt($(obj).css('margin-left'));  
+        var marginLeft = parseInt($(obj).css('margin-left'));
         var viewWidth = $(obj).width();
         var prevWidth = $(obj).find('li.active').width();
         var speed = (animationSpeed > -1) ? animationSpeed : 150;
@@ -755,11 +779,11 @@ var handleUnlimitedTabsRender = function() {
             $(obj).removeClass('overflow-left');
         }
     }
-    
+
     // function handle tab button action - next / prev
     function handleTabButtonAction(element, direction) {
         var obj = $(element).closest('.tab-overflow');
-        var marginLeft = parseInt($(obj).find('.nav.nav-tabs').css('margin-left'));  
+        var marginLeft = parseInt($(obj).find('.nav.nav-tabs').css('margin-left'));
         var containerWidth = $(obj).width();
         var totalWidth = 0;
         var finalScrollWidth = 0;
@@ -769,7 +793,7 @@ var handleUnlimitedTabsRender = function() {
                 totalWidth += $(this).width();
             }
         });
-    
+
         switch (direction) {
             case 'next':
                 var widthLeft = totalWidth + marginLeft - containerWidth;
@@ -790,7 +814,7 @@ var handleUnlimitedTabsRender = function() {
                 break;
             case 'prev':
                 var widthLeft = -marginLeft;
-            
+
                 if (widthLeft <= containerWidth) {
                     $(obj).removeClass('overflow-left');
                     finalScrollWidth = 0;
@@ -815,7 +839,7 @@ var handleUnlimitedTabsRender = function() {
             $(targetTab).find('li').each(function() {
                 var targetLi = $(this);
                 targetInnerWidth += $(targetLi).width();
-    
+
                 if ($(targetLi).hasClass('active') && targetInnerWidth > targetWidth) {
                     scrollWidth -= targetInnerWidth;
                 }
@@ -824,26 +848,26 @@ var handleUnlimitedTabsRender = function() {
             handleTabOverflowScrollWidth(this, 0);
         });
     }
-    
+
     // handle tab next button click action
     $('[data-click="next-tab"]').live('click', function(e) {
         e.preventDefault();
         handleTabButtonAction(this,'next');
     });
-    
+
     // handle tab prev button click action
     $('[data-click="prev-tab"]').live('click', function(e) {
         e.preventDefault();
         handleTabButtonAction(this,'prev');
 
     });
-    
+
     // handle unlimited tabs responsive setting
     $(window).resize(function() {
         $('.tab-overflow .nav.nav-tabs').removeAttr('style');
         handlePageLoadTabFocus();
     });
-    
+
     handlePageLoadTabFocus();
 };
 
@@ -855,49 +879,49 @@ var App = function () {
 	return {
 		//main function
 		init: function (page) {
-		    
+
 		    // draggable panel & local storage
 			handleDraggablePanel();
 			handleLocalStorage();
 			handleResetLocalStorage();
-		
+
 			// slimscroll
 			handleSlimScroll();
-			
+
 			// panel
 			handlePanelAction();
-			
+
 			// tooltip
 			handelTooltipPopoverActivation();
-			
+
 			// page load
 			handlePageContentView();
 			handleAfterPageLoadAddClass();
 			handlePaceLoadingPlugins();
-			
+
 			// scroll to top
 			handleScrollToTopButton();
-			
+
             // sidebar
             handleSidebarMenu();
             handleMobileSidebarToggle();
             handleSidebarMinify();
-        
+
             // theme configuration
             handleThemePageStructureControl();
             handleThemePanelExpand();
-            
+
             // ajax
             handleSidebarAjaxClick();
             handleCheckPageLoadUrl(page, window.location.hash);
 			handleHashChange();
-			
+
 			// IE Compatibility
 			handleIEFullHeightContent();
-			
+
 			// unlimited nav tabs
 			handleUnlimitedTabsRender();
-			
+
 			// ajax cache setup
 			$.ajaxSetup({
                 cache: true

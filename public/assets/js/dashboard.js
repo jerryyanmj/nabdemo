@@ -114,8 +114,9 @@ var handleDonutChart = function (target, data, value, dynamic) {
 function handleLineChart(target, value) {
     var percent = (100 - (value * 100)).toFixed(2);
     var color = 'purple';
-    if(parseInt(percent)>50) {color = 'orange'}
-    if(parseInt(percent)>75) {color = 'red'}
+    if(percent>50) {color = 'orange'}
+    if(percent>75) {color = 'red'}
+    $(target).removePrefixedClasses('bg-');
     $(target).addClass('bg-' + color)
     $(target + ' .stats-number').html(percent + '%');
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
