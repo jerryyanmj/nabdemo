@@ -189,7 +189,7 @@ var handlePanelAction = function() {
     // remove
     $('[data-click=panel-remove]').hover(function() {
         $(this).tooltip({
-            title: 'Remove',
+            title: 'Show / Hide',
             placement: 'bottom',
             trigger: 'hover',
             container: 'body'
@@ -198,14 +198,15 @@ var handlePanelAction = function() {
     });
     $('[data-click=panel-remove]').click(function(e) {
         e.preventDefault();
-        $(this).tooltip('destroy');
-        $(this).closest('.panel').remove();
+        $(this).closest('.panel').find('.panel-body').slideToggle();
+        //$(this).tooltip('destroy');
+        //$(this).closest('.panel').remove();
     });
 
     // collapse
     $('[data-click=panel-collapse]').hover(function() {
         $(this).tooltip({
-            title: 'Collapse / Expand',
+            title: 'Alter Legend',
             placement: 'bottom',
             trigger: 'hover',
             container: 'body'
@@ -215,20 +216,22 @@ var handlePanelAction = function() {
     $('[data-click=panel-collapse]').click(function(e) {
         e.preventDefault();
         if($(this).closest('.panel').find('.dynamic').length == 0) {
-            $(this).closest('.panel').find('.lg table').toggle("slide",{direction: "up"})
+            $(this).closest('.panel').find('.holder').toggle("slide",{direction: "up"})
         }
         else {
             if($(this).closest('.panel').find('.lg table tr:odd').css('display') == 'table-row') {
-                $(this).closest('.panel').find('.lg table').hide("slide",{direction: "up"}, function() {
+                $(this).closest('.panel').find('.holder').hide("slide",{direction: "up"}, function() {
                     $(this).closest('.panel').find('.lg table tr:odd').hide();
+                    $(this).closest('.panel').find('.holder').removeClass('trigered');
                 });
             }
             else {
-                if($(this).closest('.panel').find('.lg table').css('display') == 'table') {
+                if($(this).closest('.panel').find('.holder').css('display') == 'block') {
                     $(this).closest('.panel').find('.lg table tr:odd').show();
+                    $(this).closest('.panel').find('.lg .holder').addClass('trigered');
                 }
                 else {
-                    $(this).closest('.panel').find('.lg table').show("slide",{direction: "up"})
+                    $(this).closest('.panel').find('.holder').show("slide",{direction: "up"})
                 }
             }
         }
@@ -586,11 +589,31 @@ var handleLocalStorage = function() {
             targetPage = targetPage[0];
         var panelPositionData = localStorage.getItem(targetPage);
 
+
+        if ($.cookie("smartLegend") == null) {
+            $.cookie("smartLegend", false, { expires: 90 });
+        }
+
+        if(!JSON.parse($.cookie("smartLegend"))) {
+            $("#smart-legend-switch").removeAttr('checked');
+        }
+
+        $('#saveSettings').click(function() {
+            var val = $('#smart-legend-switch').is(":checked");
+            $.cookie("smartLegend", val, { expires: 90 })
+            window.location.reload();
+        });
+
+
         if (panelPositionData) {
             panelPositionData = JSON.parse(panelPositionData);
             var i = 0;
             $('.panel').parent('[class*="col-"]').each(function() {
                 var storageData = panelPositionData[i];
+                if(!panelPositionData[i]) {
+                    window.localStorage.clear();
+                    window.location.reload();
+                }
                 var targetColumn = $(this);
                 $.each(storageData, function(index, data) {
                     var targetId = '[data-sortable-id="'+ data.id +'"]';

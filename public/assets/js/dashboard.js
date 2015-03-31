@@ -19,6 +19,8 @@ var blue		= '#348fe2',
     purpleDark	= '#5b6392',
     red         = '#ff5b57';
 
+var smartLegend = JSON.parse($.cookie("smartLegend"));
+
 function showTooltip(x, y, contents) {
     $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css( {
         top: y + 5,
@@ -49,7 +51,7 @@ var handleDonutChart = function (target, data, value, dynamic) {
                 hoverable: true,
                 clickable: true
             },
-            legend: { noColumns: 1, show: true, placement: 'outsideGrid', container: $(target + "-legend") }
+            legend: { noColumns: 1, show: true, placement: 'outsideGrid', container: $(target + "-legend .holder") }
         });
 
         $(target).mouseleave(function() {
@@ -64,13 +66,24 @@ var handleDonutChart = function (target, data, value, dynamic) {
 
     function position(dynamic) {
 
+        if(!smartLegend) {
+            $(target + "-legend .holder").addClass('size-md');
+            dynamic = false;
+        }
+
         if(dynamic) {
-            $(target + "-legend table tr:odd").hide();
+            if(!$(target + "-legend .holder").hasClass('trigered') && !$(target + "-legend .holder").hasClass('shown')) {
+                $(target + "-legend table tr:odd").hide();
+            }
             $(target + "-legend").addClass('dynamic');
             $(target + "-legend table").mouseenter(function() {
-                $(target + "-legend table tr:odd").show();
+                    $(target + "-legend .holder").addClass('shown');
+                    $(target + "-legend table tr:odd").show();
             }).mouseleave(function() {
-                $(target + "-legend table tr:odd").hide();
+                if(!$(target + "-legend .holder").hasClass('trigered')) {
+                    $(target + "-legend .holder").removeClass('shown');
+                    $(target + "-legend table tr:odd").hide();
+                }
             });
         }
 
@@ -88,7 +101,9 @@ var handleDonutChart = function (target, data, value, dynamic) {
     $(target).resize(function() {
         position(dynamic);
         if(dynamic) {
-            $(target + "-legend table tr:odd").hide();
+            if(!$(target + "-legend .holder").hasClass('trigered')) {
+                $(target + "-legend table tr:odd").hide();
+            }
         }
     })
 
@@ -120,6 +135,7 @@ function handleLineChart(target, value) {
     $(target).addClass('bg-' + color)
     $(target + ' .stats-number').html(percent + '%');
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
+    $('.flot-y1-axis').css('color','#fff');
 }
 
 var drawLineChart = function(el,data) {
@@ -143,7 +159,7 @@ var drawLineChart = function(el,data) {
                 hoverable: true,
                 autoHighlight: false
             },
-            legend: { show: true, placement: 'outsideGrid', container: $(el + "-legend") }
+            legend: { show: true, placement: 'outsideGrid', container: $(el + "-legend .holder") }
     });
 }
 
@@ -246,7 +262,7 @@ var updateCharts = function() {
         handleLineChart('#index-6', compareValue)
         handleDonutChart('#donut-chart-f', dataSet, mainValue, true);
 
-        if (!$.cookie("firstTime") && $window.width()>768) {
+        if (!$.cookie("firstTime") && $(window).width()>768) {
             introJs().setOption('showBullets', false).start();
             $.cookie("firstTime", true, { expires: 90 });
         }
@@ -257,11 +273,83 @@ var updateCharts = function() {
 
 }
 
+
+var handleDashboardSparkline = function() {
+	"use strict";
+    var options = {
+        height: '50px',
+        width: '100%',
+        fillColor: 'transparent',
+        lineWidth: 2,
+        spotRadius: '4',
+        highlightLineColor: blue,
+        highlightSpotColor: blue,
+        spotColor: false,
+        minSpotColor: false,
+        maxSpotColor: false
+    };
+    function renderDashboardSparkline() {
+        var value = [50,30,45,40,50,20,35,40,50,70,90,40];
+        options.type = 'line';
+        options.height = '23px';
+        options.lineColor = red;
+        options.highlightLineColor = red;
+        options.highlightSpotColor = red;
+
+        var countWidth = $('#sparkline-unique-visitor').width();
+        if (countWidth >= 200) {
+            options.width = '200px';
+        } else {
+            options.width = '100%';
+        }
+
+        $('#sparkline-unique-visitor').sparkline(value, options);
+        options.lineColor = orange;
+        options.highlightLineColor = orange;
+        options.highlightSpotColor = orange;
+        $('#sparkline-bounce-rate').sparkline(value, options);
+        options.lineColor = purple;
+        options.highlightLineColor = purple;
+        options.highlightSpotColor = purple;
+        $('#sparkline-total-page-views').sparkline(value, options);
+        options.lineColor = purple;
+        options.highlightLineColor = purple;
+        options.highlightSpotColor = purple;
+        $('#sparkline-avg-time-on-site').sparkline(value, options);
+        options.lineColor = orange;
+        options.highlightLineColor = orange;
+        options.highlightSpotColor = orange;
+        $('#sparkline-new-visits').sparkline(value, options);
+        options.lineColor = purple;
+        options.highlightLineColor = purple;
+        options.highlightSpotColor = purple;
+        $('#sparkline-return-visitors').sparkline(value, options);
+    }
+
+    renderDashboardSparkline();
+
+    $(window).on('resize', function() {
+        $('#sparkline-unique-visitor').empty();
+        $('#sparkline-bounce-rate').empty();
+        $('#sparkline-total-page-views').empty();
+        $('#sparkline-avg-time-on-site').empty();
+        $('#sparkline-new-visits').empty();
+        $('#sparkline-return-visitors').empty();
+        renderDashboardSparkline();
+    });
+};
+
+
+
 var Dashboard = function () {
 	"use strict";
     return {
         //main function
         init: function () {
+
+            $.getScript('assets/plugins/sparkline/jquery.sparkline.js').done(function() {
+                handleDashboardSparkline();
+            });
 
             $.getScript('assets/plugins/flot/jquery.flot.min.js').done(function() {
                 $.getScript('assets/plugins/flot/jquery.flot.time.min.js').done(function() {
@@ -287,7 +375,7 @@ var Dashboard = function () {
                                 label: "Maximum",
                                 stack: true,
                                 data: d4,
-                                color: "#1d61f2"
+                                color: purpleDark
                             },
                             {
                                 label: "Average",
@@ -324,6 +412,99 @@ var Dashboard = function () {
                             drawLineChart('#bar-chart-b', data, 88);
                             drawLineChart('#bar-chart-c', data, 56);
 
+
+                            if ($('#interactive-chart').length !== 0) {
+
+                                var data1 = [
+                                    [1, 40], [2, 50], [3, 60], [4, 60], [5, 60], [6, 65], [7, 75], [8, 90], [9, 100], [10, 105],
+                                    [11, 110], [12, 110], [13, 120], [14, 130], [15, 135],[16, 125], [17, 112], [18, 103], [19, 95], [20, 50]
+                                ];
+                                var data2 = [
+                                    [1, 10],  [2, 6], [3, 10], [4, 12], [5, 18], [6, 20], [7, 25], [8, 23], [9, 24], [10, 25],
+                                    [11, 18], [12, 30], [13, 25], [14, 25], [15, 30], [16, 27], [17, 20], [18, 18], [19, 31], [20, 23]
+                                ];
+                                var data3 = [
+                                    [1, 20],  [2, 22], [3, 10], [4, 12], [5, 18], [6, 22], [7, 35], [8, 40], [9, 40], [10, 25],
+                                    [11, 18], [12, 30], [13, 25], [14, 25], [15, 30], [16, 67], [17, 70], [18, 88], [19, 51], [20, 83]
+                                ];
+                                var data4 = [
+                                    [1, 90],  [2, 122], [3, 100], [4, 120], [5, 180], [6, 122], [7, 135], [8, 140], [9, 120], [10, 125],
+                                    [11, 118], [12, 90], [13, 85], [14, 75], [15, 80], [16, 67], [17, 40], [18, 28], [19, 11], [20, 1]
+                                ];
+                                var xLabel = [
+                                    [1,''],[2,''],[3,'March&nbsp;15'],[4,''],[5,''],[6,'March&nbsp;19'],[7,''],[8,''],[9,'March&nbsp;22'],[10,''],
+                                    [11,''],[12,'March&nbsp;25'],[13,''],[14,''],[15,'March&nbsp;28'],[16,''],[17,''],[18,'March&nbsp;31'],[19,''],[20,'']
+                                ];
+                                $.plot($("#interactive-chart"), [
+                                        {
+                                            data: data1,
+                                            label: "Browser",
+                                            color: red,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }, {
+                                            data: data2,
+                                            label: 'iOS Phone',
+                                            color: purpleLight,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }, {
+                                            data: data3,
+                                            label: 'iOS Tablet',
+                                            color: purpleDark,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }, {
+                                            data: data4,
+                                            label: 'Android',
+                                            color: green,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }
+                                    ],
+                                    {
+                                        xaxis: {  ticks:xLabel, tickDecimals: 0, tickColor: '#ddd' },
+                                        yaxis: {  ticks: 10, tickColor: '#ddd', min: 0, max: 200 },
+                                        grid: {
+                                            hoverable: true,
+                                            clickable: true,
+                                            tickColor: "#ddd",
+                                            borderWidth: 1,
+                                            backgroundColor: '#fff',
+                                            borderColor: '#ddd'
+                                        },
+                                        legend: {
+                                            labelBoxBorderColor: '#ddd',
+                                            margin: 10,
+                                            noColumns: 1,
+                                            show: true
+                                        }
+                                    }
+                                );
+                                var previousPoint = null;
+                                $("#interactive-chart").bind("plothover", function (event, pos, item) {
+                                    $("#x").text(pos.x.toFixed(2));
+                                    $("#y").text(pos.y.toFixed(2));
+                                    if (item) {
+                                        if (previousPoint !== item.dataIndex) {
+                                            previousPoint = item.dataIndex;
+                                            $("#tooltip").remove();
+                                            var y = item.datapoint[1].toFixed(2);
+
+                                            var content = item.series.label + " " + y;
+                                            showTooltip(item.pageX, item.pageY, content);
+                                        }
+                                    } else {
+                                        $("#tooltip").remove();
+                                        previousPoint = null;
+                                    }
+                                    event.preventDefault();
+                                });
+                            }
                         });
                     });
                 });
