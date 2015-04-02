@@ -180,6 +180,20 @@ var handlePageContentView = function() {
     });
 };
 
+var handleReloadPanel = function(id) {
+    var target = $(id).closest('.panel');
+    if (!$(target).hasClass('panel-loading')) {
+        var targetBody = $(target).find('.panel-body');
+        var spinnerHtml = '<div class="panel-loader"><span class="spinner-small"></span></div>';
+        $(target).addClass('panel-loading');
+        $(targetBody).prepend(spinnerHtml);
+        setTimeout(function() {
+            $(target).removeClass('panel-loading');
+            $(target).find('.panel-loader').remove();
+        }, 2000);
+    }
+}
+
 
 /* 06. Handle Panel - Remove / Reload / Collapse / Expand
 ------------------------------------------------ */
@@ -249,17 +263,7 @@ var handlePanelAction = function() {
     });
     $('[data-click=panel-reload]').click(function(e) {
         e.preventDefault();
-        var target = $(this).closest('.panel');
-        if (!$(target).hasClass('panel-loading')) {
-            var targetBody = $(target).find('.panel-body');
-            var spinnerHtml = '<div class="panel-loader"><span class="spinner-small"></span></div>';
-            $(target).addClass('panel-loading');
-            $(targetBody).prepend(spinnerHtml);
-            setTimeout(function() {
-                $(target).removeClass('panel-loading');
-                $(target).find('.panel-loader').remove();
-            }, 2000);
-        }
+        handleReloadPanel(this);
     });
 
     // expand

@@ -163,6 +163,18 @@ var drawLineChart = function(el,data) {
     });
 }
 
+var source = new EventSource('/stream');
+
+source.addEventListener('test_channel', updateChart, false);
+source.addEventListener('channelB', updateChart, false);
+
+function updateChart(e) {
+    console.log(e);
+}
+
+var dataSets = [];
+var timeSet = null;
+dataSets['Failed Stream'] = [];
 var updateCharts = function() {
 
     $.getJSON('/collection/video_failed_streams', function(data) {
@@ -172,6 +184,7 @@ var updateCharts = function() {
             { label: "0 Failed Streams",  data: value['none'], color: purpleDark},
             { label: "1 Failed Stream",  data: value['0_1'], color: orangeLight},
             { label: "> 1 Failed Streams",  data: value['1_plus'], color: red}];
+            dataSets['Failed Stream'].push(dataSet);
             mainValue = value['score'];
             compareValue = value['none']/value['all_buckets'];
         });
@@ -269,7 +282,7 @@ var updateCharts = function() {
 
     });
 
-    setTimeout(updateCharts, 5000);
+    timeSet = setTimeout(updateCharts, 10000);
 
 }
 
@@ -356,7 +369,6 @@ var Dashboard = function () {
                     $.getScript('assets/plugins/flot/jquery.flot.resize.min.js').done(function() {
                         $.getScript('assets/plugins/flot/jquery.flot.pie.min.js').done(function() {
 
-
                             updateCharts();
 
                             var d1 = [];
@@ -413,7 +425,9 @@ var Dashboard = function () {
                             drawLineChart('#bar-chart-c', data, 56);
 
 
-                            if ($('#interactive-chart').length !== 0) {
+
+
+                        if ($('#interactive-chart').length !== 0) {
 
                                 var data1 = [
                                     [1, 40], [2, 50], [3, 60], [4, 60], [5, 60], [6, 65], [7, 75], [8, 90], [9, 100], [10, 105],
@@ -431,11 +445,21 @@ var Dashboard = function () {
                                     [1, 90],  [2, 122], [3, 100], [4, 120], [5, 180], [6, 122], [7, 135], [8, 140], [9, 120], [10, 125],
                                     [11, 118], [12, 90], [13, 85], [14, 75], [15, 80], [16, 67], [17, 40], [18, 28], [19, 11], [20, 1]
                                 ];
-                                var xLabel = [
-                                    [1,''],[2,''],[3,'March&nbsp;15'],[4,''],[5,''],[6,'March&nbsp;19'],[7,''],[8,''],[9,'March&nbsp;22'],[10,''],
-                                    [11,''],[12,'March&nbsp;25'],[13,''],[14,''],[15,'March&nbsp;28'],[16,''],[17,''],[18,'March&nbsp;31'],[19,''],[20,'']
+                                var data5 = [
+                                    [1, 190],  [2, 182], [3, 130], [4, 160], [5, 180], [6, 172], [7, 135], [8, 140], [9, 190], [10, 175],
+                                    [11, 188], [12, 190], [13, 185], [14, 175], [15, 180], [16, 167], [17, 140], [18, 128], [19, 111], [20, 111]
                                 ];
-                                $.plot($("#interactive-chart"), [
+                                var data6 = [
+                                    [1, 190],  [2, 182], [3, 130], [4, 160], [5, 180], [6, 172], [7, 135], [8, 140], [9, 190], [10, 175],
+                                    [11, 188], [12, 190], [13, 185], [14, 175], [15, 180], [16, 167], [17, 140], [18, 128], [19, 111], [20, 111]
+                                ];
+                                var xLabel = [
+                                    [1,''],[2,''],[3,'12:00'],[4,''],[5,''],[6,'16:00'],[7,''],[8,''],[9,'20:00'],[10,''],
+                                    [11,''],[12,'00:00'],[13,''],[14,''],[15,'04:00'],[16,''],[17,''],[18,'08:00'],[19,''],[20,'']
+                                ];
+
+
+                                $.plot($("#interactive-chart2"), [
                                         {
                                             data: data1,
                                             label: "Browser",
@@ -485,6 +509,122 @@ var Dashboard = function () {
                                         }
                                     }
                                 );
+
+
+                                var dats = []
+                                dats['Failed Streams'] = [
+                                        {
+                                            data: data1,
+                                            label: "0 Failed Streams",
+                                            color: purpleDark,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }, {
+                                            data: data2,
+                                            label: '1 Failed Stream',
+                                            color: orange,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }, {
+                                            data: data3,
+                                            label: '> 1 Failed Streams',
+                                            color: red,
+                                            lines: { show: true, fill:false, lineWidth: 2 },
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        }
+                                    ]
+
+                                    dats['Startup Time'] = [
+                                            {
+                                                data: data1,
+                                                label: "0.00 - 0.25 Seconds",
+                                                color: purpleDark,
+                                                lines: { show: true, fill:false, lineWidth: 2 },
+                                                points: { show: true, radius: 3, fillColor: '#fff' },
+                                                shadowSize: 0
+                                            }, {
+                                                data: data2,
+                                                label: '0.25 - 0.50 Seconds',
+                                                color: purpleLight,
+                                                lines: { show: true, fill:false, lineWidth: 2 },
+                                                points: { show: true, radius: 3, fillColor: '#fff' },
+                                                shadowSize: 0
+                                            }, {
+                                                data: data3,
+                                                label: '0.50 - 0.75 Seconds',
+                                                color: red,
+                                                lines: { show: true, fill:false, lineWidth: 2 },
+                                                points: { show: true, radius: 3, fillColor: '#fff' },
+                                                shadowSize: 0
+                                            }, {
+                                                data: data4,
+                                                label: '0.75 - 1.00 Seconds',
+                                                color: orange,
+                                                lines: { show: true, fill:false, lineWidth: 2 },
+                                                points: { show: true, radius: 3, fillColor: '#fff' },
+                                                shadowSize: 0
+                                            }
+                                            , {
+                                                data: data5,
+                                                label: '1.00 - 1.25 Seconds',
+                                                color: orangeDark,
+                                                lines: { show: true, fill:false, lineWidth: 2 },
+                                                points: { show: true, radius: 3, fillColor: '#fff' },
+                                                shadowSize: 0
+                                            }
+                                            , {
+                                                data: data1,
+                                                label: '> 1.25 Seconds',
+                                                color: green,
+                                                lines: { show: true, fill:false, lineWidth: 2 },
+                                                points: { show: true, radius: 3, fillColor: '#fff' },
+                                                shadowSize: 0
+                                            }
+                                        ]
+
+
+                                    $('.apply-filters').click(function(){
+                                        clearTimeout(timeSet);
+                                        timeSet = setTimeout(updateCharts, 1000);
+                                        handleReloadPanel('#index-1');
+                                        handleReloadPanel('#index-2');
+                                        handleReloadPanel('#index-3');
+                                        handleReloadPanel('#index-4');
+                                        handleReloadPanel('#index-5');
+                                        handleReloadPanel('#index-6');
+                                    });
+
+                                    $('.modal-d').click(function(){
+                                        $('#mod-name').html(this.id)
+
+                                        console.log(dats[this.id])
+                                        $.plot($("#interactive-chart"), dats[this.id],
+                                            {
+                                                xaxis: {  ticks:xLabel, tickDecimals: 0, tickColor: '#ddd' },
+                                                yaxis: {  ticks: 10, tickColor: '#ddd', min: 0, max: 200 },
+                                                grid: {
+                                                    hoverable: true,
+                                                    clickable: true,
+                                                    tickColor: "#ddd",
+                                                    borderWidth: 1,
+                                                    backgroundColor: '#fff',
+                                                    borderColor: '#ddd'
+                                                },
+                                                legend: {
+                                                    labelBoxBorderColor: '#ddd',
+                                                    margin: 10,
+                                                    noColumns: 1,
+                                                    show: true
+                                                }
+                                            }
+                                        );
+
+                                    });
+
+
                                 var previousPoint = null;
                                 $("#interactive-chart").bind("plothover", function (event, pos, item) {
                                     $("#x").text(pos.x.toFixed(2));

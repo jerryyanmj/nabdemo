@@ -103,7 +103,7 @@
                         <div class="progress-bar" style="width: 0.00%;"></div>
                     </div>
                     <div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="#modal-dialog-trend" id="Failed Streams" class="modal-d" data-toggle="modal">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
                 <div class="panel-heading">
@@ -139,7 +139,7 @@
                         <div class="progress-bar" style="width: 0.0%;"></div>
                     </div>
                     <div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="#modal-dialog-trend" class="modal-d" id="Startup Time" data-toggle="modal">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
                 <div class="panel-heading" data-intro="Use this area to drag the block <br><br>it also holds action buttons for expanding the view as well as changing the legend box's view" data-position='left'>
@@ -175,7 +175,7 @@
                         <div class="progress-bar" style="width: 0.00%;"></div>
                     </div>
                     <div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="#modal-dialog-trend" class="modal-d" id="Average Bitrate" data-toggle="modal">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
                 <div class="panel-heading">
@@ -211,7 +211,7 @@
                         <div class="progress-bar" style="width: 0.0%;"></div>
                     </div>
                     <div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="#modal-dialog-trend" class="modal-d" id="Buffering Time" data-toggle="modal">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
                 <div class="panel-heading">
@@ -248,7 +248,7 @@
                     </div>
                     <!--<div class="stats-desc">242 / 11,3000 is 2.4%</div>-->
                     <div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="#modal-dialog-trend" class="modal-d" id="Buffering Events" data-toggle="modal">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
                 <div class="panel-heading">
@@ -286,7 +286,7 @@
                         <div class="progress-bar" style="width: 0.00%;"></div>
                     </div>
                     <div class="stats-link">
-                        <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="#modal-dialog-trend" class="modal-d" id="Downshifts" data-toggle="modal">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
                 <div class="panel-heading">
@@ -341,7 +341,7 @@
                     </h4>
                 </div>
                 <div class="panel-body bg-black">
-                    <div id="interactive-chart" class="height-sm"></div>
+                    <div id="interactive-chart2" class="height-sm"></div>
                 </div>
             </div>
         </div>
@@ -438,12 +438,43 @@
                 </div>
             </div>
         </form>
+
+        <a href="javascript:;" class="btn btn-white btn-block apply-filters"><i class="fa fa-filter"></i> &nbsp; Apply Filters</a>
+
     </div>
 </div>
 
 <!-- end filters -->
 
+
+
+<div class="modal fade" id="modal-dialog-trend">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="mod-name">Failed Streams</h4>
+            </div>
+            <div class="modal-body" style="height: 350px; width:600px;">
+
+                <div id="interactive-chart" style="width:550px; float:right" class="height-sm"></div>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <style>
+
+.legend table {
+  border-radius: 4px !important;
+  background: #000 !important;
+  opacity: 0.85;
+}
+
 #tooltip {
     opacity: 0.9;
     filter: alpha(opacity=90);
@@ -505,6 +536,10 @@
 #trends label {
     font-size: 11px;
     line-height: 25px;
+}
+
+.modal .flot-y-axis {
+    left: -20px !important;
 }
 
 </style>

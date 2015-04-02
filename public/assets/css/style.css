@@ -368,7 +368,7 @@ label {
 
 .sidebar {
   width: 220px;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
@@ -574,7 +574,7 @@ label {
 }
 .page-sidebar-minified .sidebar {
   width: 60px;
-  position: absolute;
+  position: fixed;
 }
 .page-sidebar-minified .sidebar-bg {
   width: 60px;

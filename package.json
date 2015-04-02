@@ -18,6 +18,8 @@
   "homepage": "https://github.com/saginawcorp/nab_video_dashboard",
   "dependencies": {
     "express": "^4.12.3",
+    "redis": "*",
+    "redis-subscribe-sse": "*",
     "ejs": "*",
     "mongodb": "*"
   }
