@@ -64,6 +64,8 @@
                     <h4 class="panel-title">Panel For Big Chart</h4>
                 </div>
                 <div class="panel-body">
+                    <div id="stockchartdiv-0" class="chart-reset" style="width: 100%; height: 435px;"></div>
+
                 </div>
             </div>
             <div class="row">
@@ -77,6 +79,8 @@
                             <h4 class="panel-title">Panel Small Charts #1</h4>
                         </div>
                         <div class="panel-body">
+                            <div id="container1" style="min-width: 420px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+
                         </div>
                     </div>
                 </div>
@@ -90,6 +94,7 @@
                             <h4 class="panel-title">Panel Small Charts #2</h4>
                         </div>
                         <div class="panel-body">
+                            <div id="container2" style="min-width: 420px; max-width: 600px; height: 400px; margin: 0 auto"></div>
                         </div>
                     </div>
                 </div>
@@ -138,7 +143,7 @@
     $(function () {
 
         // Parse the data from an inline table using the Highcharts Data plugin
-        $('#container').highcharts({
+        $('#container1').highcharts({
             data: {
                 table: 'freq',
                 startRow: 1,
@@ -202,219 +207,472 @@
                 }
             }
         });
+
+        $('#container2').highcharts({
+            data: {
+                table: 'startup',
+                startRow: 1,
+                endRow: 17,
+                endColumn: 6
+            },
+
+            chart: {
+                polar: true,
+                type: 'column'
+            },
+
+            title: {
+                text: 'Startup Time'
+            },
+
+            subtitle: {
+                text: 'Source: Accenture'
+            },
+
+            pane: {
+                size: '85%'
+            },
+
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                y: 100,
+                layout: 'vertical'
+            },
+
+            xAxis: {
+                tickmarkPlacement: 'on'
+            },
+
+            yAxis: {
+                min: 0,
+                endOnTick: false,
+                showLastLabel: true,
+                title: {
+                    text: 'Frequency (%)'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + '%';
+                    }
+                },
+                reversedStacks: false
+            },
+
+            tooltip: {
+                valueSuffix: '%'
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    shadow: false,
+                    groupPadding: 0,
+                    pointPlacement: 'on'
+                }
+            }
+        });
     });
     //]]>
 
     </script>
 
 
-    <div id="container" style="min-width: 420px; max-width: 600px; height: 400px; margin: 0 auto"></div>
 
     <div style="display:none">
-    	<!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
-    	<table id="freq" border="0" cellspacing="0" cellpadding="0">
-    		<tr nowrap bgcolor="#CCCCFF">
-    			<th colspan="9" class="hdr">Table of Speed (percent)</th>
-    		</tr>
-    		<tr nowrap bgcolor="#CCCCFF">
-    			<th class="freq">Direction</th>
-    			<th class="freq">&lt; 0.5 Mbps</th>
-    			<th class="freq">0.5-2 Mbpss</th>
-    			<th class="freq">2-4 Mbps</th>
-    			<th class="freq">4-6 Mbps</th>
-    			<th class="freq">6-8 Mbps</th>
-    			<th class="freq">8-10 Mbps</th>
-    			<th class="freq">&gt; 10 Mbps</th>
-    			<th class="freq">Total</th>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">NYC</td>
-    			<td class="data">1.81</td>
-    			<td class="data">1.78</td>
-    			<td class="data">0.16</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">3.75</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">TEXAS</td>
-    			<td class="data">0.62</td>
-    			<td class="data">1.09</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">1.71</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">OHIO</td>
-    			<td class="data">0.82</td>
-    			<td class="data">0.82</td>
-    			<td class="data">0.07</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">1.71</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">TY</td>
-    			<td class="data">0.59</td>
-    			<td class="data">1.22</td>
-    			<td class="data">0.07</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">1.88</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">ENTER</td>
-    			<td class="data">0.62</td>
-    			<td class="data">2.20</td>
-    			<td class="data">0.49</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">3.32</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">STATES</td>
-    			<td class="data">1.22</td>
-    			<td class="data">2.01</td>
-    			<td class="data">1.55</td>
-    			<td class="data">0.30</td>
-    			<td class="data">0.13</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">5.20</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">HERE</td>
-    			<td class="data">1.61</td>
-    			<td class="data">3.06</td>
-    			<td class="data">2.37</td>
-    			<td class="data">2.14</td>
-    			<td class="data">1.74</td>
-    			<td class="data">0.39</td>
-    			<td class="data">0.13</td>
-    			<td class="data">11.45</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">WC</td>
-    			<td class="data">2.04</td>
-    			<td class="data">3.42</td>
-    			<td class="data">1.97</td>
-    			<td class="data">0.86</td>
-    			<td class="data">0.53</td>
-    			<td class="data">0.49</td>
-    			<td class="data">0.00</td>
-    			<td class="data">9.31</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">DC</td>
-    			<td class="data">2.66</td>
-    			<td class="data">4.74</td>
-    			<td class="data">0.43</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">7.83</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">CL</td>
-    			<td class="data">2.96</td>
-    			<td class="data">4.14</td>
-    			<td class="data">0.26</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">7.37</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">FL</td>
-    			<td class="data">2.53</td>
-    			<td class="data">4.01</td>
-    			<td class="data">1.22</td>
-    			<td class="data">0.49</td>
-    			<td class="data">0.13</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">8.39</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">ND</td>
-    			<td class="data">1.97</td>
-    			<td class="data">2.66</td>
-    			<td class="data">1.97</td>
-    			<td class="data">0.79</td>
-    			<td class="data">0.30</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">7.70</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">SD</td>
-    			<td class="data">1.64</td>
-    			<td class="data">1.71</td>
-    			<td class="data">0.92</td>
-    			<td class="data">1.45</td>
-    			<td class="data">0.26</td>
-    			<td class="data">0.10</td>
-    			<td class="data">0.00</td>
-    			<td class="data">6.09</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">PEN</td>
-    			<td class="data">1.32</td>
-    			<td class="data">2.40</td>
-    			<td class="data">0.99</td>
-    			<td class="data">1.61</td>
-    			<td class="data">0.33</td>
-    			<td class="data">0.00</td>
-    			<td class="data">0.00</td>
-    			<td class="data">6.64</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="dir">XX</td>
-    			<td class="data">1.58</td>
-    			<td class="data">4.28</td>
-    			<td class="data">1.28</td>
-    			<td class="data">0.76</td>
-    			<td class="data">0.66</td>
-    			<td class="data">0.69</td>
-    			<td class="data">0.03</td>
-    			<td class="data">9.28</td>
-    		</tr>
-    		<tr nowrap bgcolor="#DDDDDD">
-    			<td class="dir">--</td>
-    			<td class="data">1.51</td>
-    			<td class="data">5.00</td>
-    			<td class="data">1.32</td>
-    			<td class="data">0.13</td>
-    			<td class="data">0.23</td>
-    			<td class="data">0.13</td>
-    			<td class="data">0.07</td>
-    			<td class="data">8.39</td>
-    		</tr>
-    		<tr nowrap>
-    			<td class="totals">Total</td>
-    			<td class="totals">25.53</td>
-    			<td class="totals">44.54</td>
-    			<td class="totals">15.07</td>
-    			<td class="totals">8.52</td>
-    			<td class="totals">4.31</td>
-    			<td class="totals">1.81</td>
-    			<td class="totals">0.23</td>
-    			<td class="totals">&nbsp;</td>
-    		</tr>
-    	</table>
+        <!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
+        <table id="freq" border="0" cellspacing="0" cellpadding="0">
+            <tr nowrap bgcolor="#CCCCFF">
+                <th colspan="9" class="hdr">Table of Speed (percent)</th>
+            </tr>
+            <tr nowrap bgcolor="#CCCCFF">
+                <th class="freq">Direction</th>
+                <th class="freq">&lt; 0.5 Mbps</th>
+                <th class="freq">0.5-2 Mbpss</th>
+                <th class="freq">2-4 Mbps</th>
+                <th class="freq">4-6 Mbps</th>
+                <th class="freq">6-8 Mbps</th>
+                <th class="freq">8-10 Mbps</th>
+                <th class="freq">&gt; 10 Mbps</th>
+                <th class="freq">Total</th>
+            </tr>
+            <tr nowrap>
+                <td class="dir">NYC</td>
+                <td class="data">1.81</td>
+                <td class="data">1.78</td>
+                <td class="data">0.16</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">3.75</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">TEXAS</td>
+                <td class="data">0.62</td>
+                <td class="data">1.09</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">1.71</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">OHIO</td>
+                <td class="data">0.82</td>
+                <td class="data">0.82</td>
+                <td class="data">0.07</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">1.71</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">TY</td>
+                <td class="data">0.59</td>
+                <td class="data">1.22</td>
+                <td class="data">0.07</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">1.88</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">ENTER</td>
+                <td class="data">0.62</td>
+                <td class="data">2.20</td>
+                <td class="data">0.49</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">3.32</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">STATES</td>
+                <td class="data">1.22</td>
+                <td class="data">2.01</td>
+                <td class="data">1.55</td>
+                <td class="data">0.30</td>
+                <td class="data">0.13</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">5.20</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">HERE</td>
+                <td class="data">1.61</td>
+                <td class="data">3.06</td>
+                <td class="data">2.37</td>
+                <td class="data">2.14</td>
+                <td class="data">1.74</td>
+                <td class="data">0.39</td>
+                <td class="data">0.13</td>
+                <td class="data">11.45</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">WC</td>
+                <td class="data">2.04</td>
+                <td class="data">3.42</td>
+                <td class="data">1.97</td>
+                <td class="data">0.86</td>
+                <td class="data">0.53</td>
+                <td class="data">0.49</td>
+                <td class="data">0.00</td>
+                <td class="data">9.31</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">DC</td>
+                <td class="data">2.66</td>
+                <td class="data">4.74</td>
+                <td class="data">0.43</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">7.83</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">CL</td>
+                <td class="data">2.96</td>
+                <td class="data">4.14</td>
+                <td class="data">0.26</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">7.37</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">FL</td>
+                <td class="data">2.53</td>
+                <td class="data">4.01</td>
+                <td class="data">1.22</td>
+                <td class="data">0.49</td>
+                <td class="data">0.13</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">8.39</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">ND</td>
+                <td class="data">1.97</td>
+                <td class="data">2.66</td>
+                <td class="data">1.97</td>
+                <td class="data">0.79</td>
+                <td class="data">0.30</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">7.70</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">SD</td>
+                <td class="data">1.64</td>
+                <td class="data">1.71</td>
+                <td class="data">0.92</td>
+                <td class="data">1.45</td>
+                <td class="data">0.26</td>
+                <td class="data">0.10</td>
+                <td class="data">0.00</td>
+                <td class="data">6.09</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">PEN</td>
+                <td class="data">1.32</td>
+                <td class="data">2.40</td>
+                <td class="data">0.99</td>
+                <td class="data">1.61</td>
+                <td class="data">0.33</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">6.64</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">XX</td>
+                <td class="data">1.58</td>
+                <td class="data">4.28</td>
+                <td class="data">1.28</td>
+                <td class="data">0.76</td>
+                <td class="data">0.66</td>
+                <td class="data">0.69</td>
+                <td class="data">0.03</td>
+                <td class="data">9.28</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">--</td>
+                <td class="data">1.51</td>
+                <td class="data">5.00</td>
+                <td class="data">1.32</td>
+                <td class="data">0.13</td>
+                <td class="data">0.23</td>
+                <td class="data">0.13</td>
+                <td class="data">0.07</td>
+                <td class="data">8.39</td>
+            </tr>
+            <tr nowrap>
+                <td class="totals">Total</td>
+                <td class="totals">25.53</td>
+                <td class="totals">44.54</td>
+                <td class="totals">15.07</td>
+                <td class="totals">8.52</td>
+                <td class="totals">4.31</td>
+                <td class="totals">1.81</td>
+                <td class="totals">0.23</td>
+                <td class="totals">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="display:none">
+        <!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
+        <table id="startup" border="0" cellspacing="0" cellpadding="0">
+            <tr nowrap bgcolor="#CCCCFF">
+                <th colspan="9" class="hdr">Table of Speed (percent)</th>
+            </tr>
+            <tr nowrap bgcolor="#CCCCFF">
+                <th class="startup">Direction</th>
+                <th class="startup">&lt; 0.25 Seconds</th>
+                <th class="startup">0.25 - 0.50 Seconds</th>
+                <th class="startup">0.50 - 0.75 Seconds</th>
+                <th class="startup">0.75 - 1.00 Seconds</th>
+                <th class="startup">1.00 - 1.25 Seconds</th>
+                <th class="startup">&gt; 1.25 Seconds</th>
+                <th class="startup">Total</th>
+            </tr>
+            <tr nowrap>
+                <td class="dir">NYC</td>
+                <td class="data">1.81</td>
+                <td class="data">1.78</td>
+                <td class="data">0.16</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">3.75</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">TEXAS</td>
+                <td class="data">0.62</td>
+                <td class="data">1.09</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">1.71</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">OHIO</td>
+                <td class="data">0.82</td>
+                <td class="data">0.82</td>
+                <td class="data">0.07</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">1.71</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">TY</td>
+                <td class="data">0.59</td>
+                <td class="data">1.22</td>
+                <td class="data">0.07</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">1.88</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">ENTER</td>
+                <td class="data">0.62</td>
+                <td class="data">2.20</td>
+                <td class="data">0.49</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">3.32</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">STATES</td>
+                <td class="data">1.22</td>
+                <td class="data">2.01</td>
+                <td class="data">1.55</td>
+                <td class="data">0.30</td>
+                <td class="data">0.13</td>
+                <td class="data">0.00</td>
+                <td class="data">5.20</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">HERE</td>
+                <td class="data">1.61</td>
+                <td class="data">3.06</td>
+                <td class="data">2.37</td>
+                <td class="data">2.14</td>
+                <td class="data">1.74</td>
+                <td class="data">0.39</td>
+                <td class="data">11.45</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">WC</td>
+                <td class="data">2.04</td>
+                <td class="data">3.42</td>
+                <td class="data">1.97</td>
+                <td class="data">0.86</td>
+                <td class="data">0.53</td>
+                <td class="data">0.49</td>
+                <td class="data">9.31</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">DC</td>
+                <td class="data">2.66</td>
+                <td class="data">4.74</td>
+                <td class="data">0.43</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">7.83</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">CL</td>
+                <td class="data">2.96</td>
+                <td class="data">4.14</td>
+                <td class="data">0.26</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">0.00</td>
+                <td class="data">7.37</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">FL</td>
+                <td class="data">2.53</td>
+                <td class="data">4.01</td>
+                <td class="data">1.22</td>
+                <td class="data">0.49</td>
+                <td class="data">0.13</td>
+                <td class="data">0.00</td>
+                <td class="data">8.39</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">ND</td>
+                <td class="data">1.97</td>
+                <td class="data">2.66</td>
+                <td class="data">1.97</td>
+                <td class="data">0.79</td>
+                <td class="data">0.30</td>
+                <td class="data">0.00</td>
+                <td class="data">7.70</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">SD</td>
+                <td class="data">1.64</td>
+                <td class="data">1.71</td>
+                <td class="data">0.92</td>
+                <td class="data">1.45</td>
+                <td class="data">0.26</td>
+                <td class="data">0.10</td>
+                <td class="data">6.09</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">PEN</td>
+                <td class="data">1.32</td>
+                <td class="data">2.40</td>
+                <td class="data">0.99</td>
+                <td class="data">1.61</td>
+                <td class="data">0.33</td>
+                <td class="data">0.00</td>
+                <td class="data">6.64</td>
+            </tr>
+            <tr nowrap>
+                <td class="dir">XX</td>
+                <td class="data">1.58</td>
+                <td class="data">4.28</td>
+                <td class="data">1.28</td>
+                <td class="data">0.76</td>
+                <td class="data">0.66</td>
+                <td class="data">0.69</td>
+                <td class="data">9.28</td>
+            </tr>
+            <tr nowrap bgcolor="#DDDDDD">
+                <td class="dir">--</td>
+                <td class="data">1.51</td>
+                <td class="data">5.00</td>
+                <td class="data">1.32</td>
+                <td class="data">0.13</td>
+                <td class="data">0.23</td>
+                <td class="data">0.13</td>
+                <td class="data">8.39</td>
+            </tr>
+            <tr nowrap>
+                <td class="totals">Total</td>
+                <td class="totals">25.53</td>
+                <td class="totals">44.54</td>
+                <td class="totals">15.07</td>
+                <td class="totals">8.52</td>
+                <td class="totals">4.31</td>
+                <td class="totals">0.23</td>
+                <td class="totals">&nbsp;</td>
+            </tr>
+        </table>
     </div>
 
 
@@ -426,7 +684,7 @@
     <script type='text/javascript' src='http://www.amcharts.com/lib/3/ammap_amcharts_extension.js?ver=20150330-03'></script>
 
     <div class="demo-panel-black" style="padding: 25px;box-shadow: 0px 30px 70px -10px rgba(0,0,0,.2);">
-                        <div id="stockchartdiv-0" class="chart-reset" style="width: 100%; height: 435px;"></div>
+                        
               <textarea class="hidden evaltextarea">var chartData1 = [];
     var chartData2 = [];
     var chartData3 = [];
