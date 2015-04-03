@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title id="page-title">NAB | Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="/assets/css/fonts.css" rel="stylesheet" />
+    <link href="/assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/intro.js-1.0.0/introjs.css" rel="stylesheet" />
+    <link href="/assets/css/animate.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+    <link href="/assets/css/style-responsive.css" rel="stylesheet" />
+    <link href="/assets/css/theme/purple.css" rel="stylesheet" id="theme" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="/assets/plugins/pace/pace.min.js"></script>
+    <!-- ================== END BASE JS ================== -->
+</head>
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+    <!-- end #page-loader -->
+
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-sidebar-minified page-header-fixed gradient-enabled">
+        <!-- begin #header -->
+        <% include includes/header.html %>
+        <!-- end #header -->
+
+        <!-- begin #sidebar -->
+        <% include includes/sidebar.html %>
+
+        <div class="sidebar-bg"></div>
+        <!-- end #sidebar -->
+
+        <!-- begin #content -->
+        <div id="content" class="content">
+            <!-- begin breadcrumb -->
+            <ol class="breadcrumb pull-right">
+                <li><a href="javascript:;">Home</a></li>
+                <li class="active">Data Page</li>
+            </ol>
+            <!-- end breadcrumb -->
+            <!-- begin page-header -->
+            <h1 class="page-header">Data Page <small></small></h1>
+            <!-- end page-header -->
+
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-minus"></i></a>
+                    </div>
+                    <h4 class="panel-title">Panel For Big Chart</h4>
+                </div>
+                <div class="panel-body">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-minus"></i></a>
+                            </div>
+                            <h4 class="panel-title">Panel Small Charts #1</h4>
+                        </div>
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-inverse">
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-minus"></i></a>
+                            </div>
+                            <h4 class="panel-title">Panel Small Charts #2</h4>
+                        </div>
+                        <div class="panel-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- begin scroll to top btn -->
+        <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <!-- end scroll to top btn -->
+    </div>
+    <!-- end page container -->
+
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="/assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+    <script src="/assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+    <script src="/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+        <script src="assets/crossbrowserjs/html5shiv.js"></script>
+        <script src="assets/crossbrowserjs/respond.min.js"></script>
+        <script src="assets/crossbrowserjs/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="/assets/plugins/jquery-hashchange/jquery.hashchange.min.js"></script>
+    <script src="/assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/assets/plugins/jquery-cookie/jquery.cookie.js"></script>
+    <script src="/assets/plugins/intro.js-1.0.0/intro.js"></script>
+    <!-- ================== END BASE JS ================== -->
+
+    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="/assets/js/apps.js"></script>
+    <!-- ================== END PAGE LEVEL JS ================== -->
+
+    <script>
+        $(document).ready(function() {
+            App.init('index');
+        });
+    </script>
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/modules/data.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <script type='text/javascript'>//<![CDATA[
+
+    $(function () {
+
+        // Parse the data from an inline table using the Highcharts Data plugin
+        $('#container').highcharts({
+            data: {
+                table: 'freq',
+                startRow: 1,
+                endRow: 17,
+                endColumn: 7
+            },
+
+            chart: {
+                polar: true,
+                type: 'column'
+            },
+
+            title: {
+                text: 'Speed Test Results'
+            },
+
+            subtitle: {
+                text: 'Source: Accenture'
+            },
+
+            pane: {
+                size: '85%'
+            },
+
+            legend: {
+                align: 'right',
+                verticalAlign: 'top',
+                y: 100,
+                layout: 'vertical'
+            },
+
+            xAxis: {
+                tickmarkPlacement: 'on'
+            },
+
+            yAxis: {
+                min: 0,
+                endOnTick: false,
+                showLastLabel: true,
+                title: {
+                    text: 'Frequency (%)'
+                },
+                labels: {
+                    formatter: function () {
+                        return this.value + '%';
+                    }
+                },
+                reversedStacks: false
+            },
+
+            tooltip: {
+                valueSuffix: '%'
+            },
+
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    shadow: false,
+                    groupPadding: 0,
+                    pointPlacement: 'on'
+                }
+            }
+        });
+    });
+    //]]>
+
+    </script>
+
+
+    <div id="container" style="min-width: 420px; max-width: 600px; height: 400px; margin: 0 auto"></div>
+
+    <div style="display:none">
+    	<!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
+    	<table id="freq" border="0" cellspacing="0" cellpadding="0">
+    		<tr nowrap bgcolor="#CCCCFF">
+    			<th colspan="9" class="hdr">Table of Speed (percent)</th>
+    		</tr>
+    		<tr nowrap bgcolor="#CCCCFF">
+    			<th class="freq">Direction</th>
+    			<th class="freq">&lt; 0.5 Mbps</th>
+    			<th class="freq">0.5-2 Mbpss</th>
+    			<th class="freq">2-4 Mbps</th>
+    			<th class="freq">4-6 Mbps</th>
+    			<th class="freq">6-8 Mbps</th>
+    			<th class="freq">8-10 Mbps</th>
+    			<th class="freq">&gt; 10 Mbps</th>
+    			<th class="freq">Total</th>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">NYC</td>
+    			<td class="data">1.81</td>
+    			<td class="data">1.78</td>
+    			<td class="data">0.16</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">3.75</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">TEXAS</td>
+    			<td class="data">0.62</td>
+    			<td class="data">1.09</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">1.71</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">OHIO</td>
+    			<td class="data">0.82</td>
+    			<td class="data">0.82</td>
+    			<td class="data">0.07</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">1.71</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">TY</td>
+    			<td class="data">0.59</td>
+    			<td class="data">1.22</td>
+    			<td class="data">0.07</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">1.88</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">ENTER</td>
+    			<td class="data">0.62</td>
+    			<td class="data">2.20</td>
+    			<td class="data">0.49</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">3.32</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">STATES</td>
+    			<td class="data">1.22</td>
+    			<td class="data">2.01</td>
+    			<td class="data">1.55</td>
+    			<td class="data">0.30</td>
+    			<td class="data">0.13</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">5.20</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">HERE</td>
+    			<td class="data">1.61</td>
+    			<td class="data">3.06</td>
+    			<td class="data">2.37</td>
+    			<td class="data">2.14</td>
+    			<td class="data">1.74</td>
+    			<td class="data">0.39</td>
+    			<td class="data">0.13</td>
+    			<td class="data">11.45</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">WC</td>
+    			<td class="data">2.04</td>
+    			<td class="data">3.42</td>
+    			<td class="data">1.97</td>
+    			<td class="data">0.86</td>
+    			<td class="data">0.53</td>
+    			<td class="data">0.49</td>
+    			<td class="data">0.00</td>
+    			<td class="data">9.31</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">DC</td>
+    			<td class="data">2.66</td>
+    			<td class="data">4.74</td>
+    			<td class="data">0.43</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">7.83</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">CL</td>
+    			<td class="data">2.96</td>
+    			<td class="data">4.14</td>
+    			<td class="data">0.26</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">7.37</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">FL</td>
+    			<td class="data">2.53</td>
+    			<td class="data">4.01</td>
+    			<td class="data">1.22</td>
+    			<td class="data">0.49</td>
+    			<td class="data">0.13</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">8.39</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">ND</td>
+    			<td class="data">1.97</td>
+    			<td class="data">2.66</td>
+    			<td class="data">1.97</td>
+    			<td class="data">0.79</td>
+    			<td class="data">0.30</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">7.70</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">SD</td>
+    			<td class="data">1.64</td>
+    			<td class="data">1.71</td>
+    			<td class="data">0.92</td>
+    			<td class="data">1.45</td>
+    			<td class="data">0.26</td>
+    			<td class="data">0.10</td>
+    			<td class="data">0.00</td>
+    			<td class="data">6.09</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">PEN</td>
+    			<td class="data">1.32</td>
+    			<td class="data">2.40</td>
+    			<td class="data">0.99</td>
+    			<td class="data">1.61</td>
+    			<td class="data">0.33</td>
+    			<td class="data">0.00</td>
+    			<td class="data">0.00</td>
+    			<td class="data">6.64</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="dir">XX</td>
+    			<td class="data">1.58</td>
+    			<td class="data">4.28</td>
+    			<td class="data">1.28</td>
+    			<td class="data">0.76</td>
+    			<td class="data">0.66</td>
+    			<td class="data">0.69</td>
+    			<td class="data">0.03</td>
+    			<td class="data">9.28</td>
+    		</tr>
+    		<tr nowrap bgcolor="#DDDDDD">
+    			<td class="dir">--</td>
+    			<td class="data">1.51</td>
+    			<td class="data">5.00</td>
+    			<td class="data">1.32</td>
+    			<td class="data">0.13</td>
+    			<td class="data">0.23</td>
+    			<td class="data">0.13</td>
+    			<td class="data">0.07</td>
+    			<td class="data">8.39</td>
+    		</tr>
+    		<tr nowrap>
+    			<td class="totals">Total</td>
+    			<td class="totals">25.53</td>
+    			<td class="totals">44.54</td>
+    			<td class="totals">15.07</td>
+    			<td class="totals">8.52</td>
+    			<td class="totals">4.31</td>
+    			<td class="totals">1.81</td>
+    			<td class="totals">0.23</td>
+    			<td class="totals">&nbsp;</td>
+    		</tr>
+    	</table>
+    </div>
+
+
+    <script type='text/javascript' src='http://www.amcharts.com/wp-content/themes/amcharts/static/js/core.js?ver=20150330-03'></script>
+    <script type='text/javascript' src='http://www.amcharts.com/lib/3/amcharts.js?ver=20150330-03'></script>
+    <script type='text/javascript' src='http://www.amcharts.com/lib/3/pie.js?ver=20150330-03'></script>
+    <script type='text/javascript' src='http://www.amcharts.com/lib/3/serial.js?ver=20150330-03'></script>
+    <script type='text/javascript' src='http://www.amcharts.com/lib/3/amstock.js?ver=20150330-03'></script>
+    <script type='text/javascript' src='http://www.amcharts.com/lib/3/ammap_amcharts_extension.js?ver=20150330-03'></script>
+
+    <div class="demo-panel-black" style="padding: 25px;box-shadow: 0px 30px 70px -10px rgba(0,0,0,.2);">
+                        <div id="stockchartdiv-0" class="chart-reset" style="width: 100%; height: 435px;"></div>
+              <textarea class="hidden evaltextarea">var chartData1 = [];
+    var chartData2 = [];
+    var chartData3 = [];
+    var chartData4 = [];
+
+    generateChartData();
+
+    function generateChartData() {
+    	var firstDate = new Date();
+    	firstDate.setDate(firstDate.getDate() - 500);
+    	firstDate.setHours(0, 0, 0, 0);
+
+    	for (var i = 0; i < 500; i++) {
+    		var newDate = new Date(firstDate);
+    		newDate.setDate(newDate.getDate() + i);
+
+    		var a1 = Math.round(Math.random() * (40 + i)) + 100 + i;
+    		var b1 = Math.round(Math.random() * (1000 + i)) + 500 + i * 2;
+
+    		var a2 = Math.round(Math.random() * (100 + i)) + 200 + i;
+    		var b2 = Math.round(Math.random() * (1000 + i)) + 600 + i * 2;
+
+    		var a3 = Math.round(Math.random() * (100 + i)) + 200;
+    		var b3 = Math.round(Math.random() * (1000 + i)) + 600 + i * 2;
+
+    		var a4 = Math.round(Math.random() * (100 + i)) + 200 + i;
+    		var b4 = Math.round(Math.random() * (100 + i)) + 600 + i;
+
+    		chartData1.push({
+    			date: newDate,
+    			value: a1,
+    			volume: b1
+    		});
+    		chartData2.push({
+    			date: newDate,
+    			value: a2,
+    			volume: b2
+    		});
+    		chartData3.push({
+    			date: newDate,
+    			value: a3,
+    			volume: b3
+    		});
+    		chartData4.push({
+    			date: newDate,
+    			value: a4,
+    			volume: b4
+    		});
+    	}
+    }
+
+    var chart = AmCharts.makeChart("stockchartdiv-0", {
+    	type: "stock",
+        "theme": "dark",
+        pathToImages: "http://www.amcharts.com/lib/3/images/",
+
+    	dataSets: [{
+    			title: "first data set",
+    			fieldMappings: [{
+    				fromField: "value",
+    				toField: "value"
+    			}, {
+    				fromField: "volume",
+    				toField: "volume"
+    			}],
+    			dataProvider: chartData1,
+    			categoryField: "date"
+    		},
+
+    		{
+    			title: "second data set",
+    			fieldMappings: [{
+    				fromField: "value",
+    				toField: "value"
+    			}, {
+    				fromField: "volume",
+    				toField: "volume"
+    			}],
+    			dataProvider: chartData2,
+    			categoryField: "date"
+    		},
+
+    		{
+    			title: "third data set",
+    			fieldMappings: [{
+    				fromField: "value",
+    				toField: "value"
+    			}, {
+    				fromField: "volume",
+    				toField: "volume"
+    			}],
+    			dataProvider: chartData3,
+    			categoryField: "date"
+    		},
+
+    		{
+    			title: "fourth data set",
+    			fieldMappings: [{
+    				fromField: "value",
+    				toField: "value"
+    			}, {
+    				fromField: "volume",
+    				toField: "volume"
+    			}],
+    			dataProvider: chartData4,
+    			categoryField: "date"
+    		}
+    	],
+
+    	panels: [{
+
+    			showCategoryAxis: false,
+    			title: "Value",
+    			percentHeight: 70,
+
+    			stockGraphs: [{
+    				id: "g1",
+
+    				valueField: "value",
+    				comparable: true,
+    				compareField: "value",
+    				balloonText: "[[title]]:<b>[[value]]</b>",
+    				compareGraphBalloonText: "[[title]]:<b>[[value]]</b>"
+    			}],
+
+    			stockLegend: {
+    				periodValueTextComparing: "[[percents.value.close]]%",
+    				periodValueTextRegular: "[[value.close]]"
+    			}
+    		},
+
+    		{
+    			title: "Volume",
+    			percentHeight: 30,
+    			stockGraphs: [{
+    				valueField: "volume",
+    				type: "column",
+    				showBalloon: false,
+    				fillAlphas: 1
+    			}],
+
+
+    			stockLegend: {
+    				periodValueTextRegular: "[[value.close]]"
+    			}
+    		}
+    	],
+
+    	chartScrollbarSettings: {
+    		graph: "g1"
+    	},
+
+    	chartCursorSettings: {
+    		valueBalloonsEnabled: true,
+            fullWidth:true,
+            cursorAlpha:0.1,
+             valueLineBalloonEnabled:true,
+             valueLineEnabled:true,
+             valueLineAlpha:0.5
+    	},
+
+    	periodSelector: {
+    		position: "left",
+    		periods: [{
+    			period: "MM",
+    			selected: true,
+    			count: 1,
+    			label: "1 month"
+    		}, {
+    			period: "YYYY",
+    			count: 1,
+    			label: "1 year"
+    		}, {
+    			period: "YTD",
+    			label: "YTD"
+    		}, {
+    			period: "MAX",
+    			label: "MAX"
+    		}]
+    	},
+
+    	dataSetSelector: {
+    		position: "left"
+    	}
+    });</textarea>
+                      </div>
+
+
+</body>
+</html>

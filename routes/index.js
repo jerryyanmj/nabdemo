@@ -7,6 +7,10 @@ module.exports = function (app) {
         res.render('index', { title: 'ejs' });
     });
 
+    app.get('/index2.html', function (req, res) {
+        res.render('index2.html', { title: 'ejs' });
+    });
+
     app.get('/index.html', function (req, res) {
         res.render('index', { title: 'ejs' });
     });

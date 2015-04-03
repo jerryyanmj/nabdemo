@@ -169,7 +169,16 @@ source.addEventListener('test_channel', updateChart, false);
 source.addEventListener('channelB', updateChart, false);
 
 function updateChart(e) {
-    console.log(e);
+
+    clearTimeout(timeSet);
+    updateCharts();
+    //handleReloadPanel('#index-1');
+    // /handleReloadPanel('#index-2');
+    //handleReloadPanel('#index-3');
+    //handleReloadPanel('#index-4');
+    //handleReloadPanel('#index-5');
+    //handleReloadPanel('#index-6');
+
 }
 
 var dataSets = [];
