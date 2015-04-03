@@ -5794,3 +5794,10 @@ body.flat-black {
 	background: #8e96c5;
 	box-shadow: none;
 }
+
+div#highcharts-0 svg text:last-child,
+div#highcharts-2 svg text:last-child { display: none;}
+
+div.amcharts-compare-item-div { height: 22px !important;}
+
+div.amcharts-chart-div a {display: none !important;}
