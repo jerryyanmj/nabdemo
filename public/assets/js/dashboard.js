@@ -633,6 +633,56 @@ var Dashboard = function () {
 
                                     });
 
+                                    var d1 = [
+                                        [1262905200000, 115],
+                                        [1262818800000, 115],
+                                        [1262732400000, 115],
+                                        [1262646000000, 122],
+                                        [1262559600000, 135],
+                                        [1262473200000, 135],
+                                        [1262386800000, 138],
+                                        [1262300400000, 140],
+                                        [1262214000000, 145],
+                                        [1262127600000, 142],
+                                        [1262041200000, 130],
+                                        [1261954800000, 123]
+                                    ]
+
+                                        var d2 = [
+                                            [1262905200000, 60],
+                                            [1262818800000, 60],
+                                            [1262732400000, 60],
+                                            [1262646000000, 55],
+                                            [1262559600000, 50],
+                                            [1262473200000, 50],
+                                            [1262386800000, 52],
+                                            [1262300400000, 49],
+                                            [1262214000000, 58],
+                                            [1262127600000, 58],
+                                            [1262041200000, 63],
+                                            [1261954800000, 67]
+                                        ]
+
+                                        var dats = []
+                                        dats.push({
+                                            data:d1,
+                                            lines:{show: true},
+                                            label:"Mountain",
+                                            color: orange,
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        });
+
+                                        dats.push({
+                                            data:d2,
+                                            lines:{show: true},
+                                            label:"Valley",
+                                            color: purpleLight,
+                                            points: { show: true, radius: 3, fillColor: '#fff' },
+                                            shadowSize: 0
+                                        });
+
+                                        $.plot($("#interactive-chart2"), dats, {yaxis: {label:"cm"}, xaxis: {mode:"time"}});
 
                                 var previousPoint = null;
                                 $("#interactive-chart").bind("plothover", function (event, pos, item) {
