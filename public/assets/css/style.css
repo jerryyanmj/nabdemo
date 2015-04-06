@@ -5795,6 +5795,6 @@ body.flat-black {
 	box-shadow: none;
 }
 
-
+div.highcharts-container svg text:last-child { display: none;}
 .amcharts-compare-item-div { height: 22px !important;}
 .amcharts-chart-div a {display: none !important;}
