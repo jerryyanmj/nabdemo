@@ -687,7 +687,10 @@ var handleResetLocalStorage = function() {
 var default_content = '<div class="p-t-40 p-b-40 text-center f-s-20 content"><i class="fa fa-warning fa-lg text-muted m-r-5"></i> <span class="f-w-600 text-inverse">Error 404! Page not found.</span></div>';
 
 var handleLoadPage = function(hash) {
-    Pace.restart();
+    var Pace = Pace || null;
+    if(Pace) {
+        Pace.restart();
+    }
     var targetUrl = hash.replace('#','');
     $('.jvectormap-label, .jvector-label, .AutoFill_border ,#gritter-notice-wrapper, .ui-autocomplete, .colorpicker, .FixedHeader_Header, .FixedHeader_Cloned .lightboxOverlay, .lightbox').remove();
     $.ajax({
@@ -756,9 +759,12 @@ var handleHashChange = function() {
 /* 20. Handle Pace Page Loading Plugins
 ------------------------------------------------ */
 var handlePaceLoadingPlugins = function() {
-    Pace.on('hide', function(){
-        $('.pace').addClass('hide');
-    });
+    var Pace = Pace || null;
+    if(Pace) {
+        Pace.on('hide', function(){
+            $('.pace').addClass('hide');
+        });
+    }
 };
 
 
@@ -952,8 +958,11 @@ var App = function () {
 
             // ajax
             handleSidebarAjaxClick();
-            handleCheckPageLoadUrl(page, window.location.hash);
-			handleHashChange();
+
+            if(page) {
+                handleCheckPageLoadUrl(page, window.location.hash);
+                handleHashChange();
+            }
 
 			// IE Compatibility
 			handleIEFullHeightContent();

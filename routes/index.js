@@ -7,13 +7,17 @@ module.exports = function (app) {
         res.render('index', { title: 'ejs' });
     });
 
-    app.get('/index2.html', function (req, res) {
-        res.render('index2.html', { title: 'ejs' });
+    app.get('/login', function (req, res) {
+        res.render('login.html', { title: 'ejs' });
     });
 
-    app.get('/index.html', function (req, res) {
-        res.render('index', { title: 'ejs' });
+    app.get('/dashboard', function (req, res) {
+        res.render('index.html', { title: 'ejs' });
     });
+
+    app.get('/demo', function (req, res) {
+        res.render('index2.html', { title: 'ejs' });
+    });    
 
     app.get('/collection/:name', function (req, res) {
         var rand = Math.floor(Math.random() * 10);

@@ -8,12 +8,26 @@
     display: none !important;
 }
 
+.logo,
 .navbar-logo {
   -webkit-transform: rotate(45deg); 
   -moz-transform: rotate(45deg);  
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=5); /*for IE*/
   -o-transform: rotate(45deg);
   margin-right:13px;
+}
+
+.brand {
+    margin-top:10px; margin-left: 60px;
+}
+
+.twist {
+  -webkit-transform: rotate(45deg); 
+  -moz-transform: rotate(45deg);  
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=5); /*for IE*/
+  -o-transform: rotate(45deg);
+  margin-left: -60px;
+  position: absolute;
 }
 
 .navbar.navbar-inverse .navbar-brand,
