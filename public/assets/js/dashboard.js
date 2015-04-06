@@ -81,6 +81,7 @@ source.addEventListener('channelB', pubsubUpdate, false);
 var pubsubUpdate = function (e) {
     console.log(e);
     updateDialogs();
+    updateDevices();    
     updateBarCharts();
 }
 
