@@ -5795,10 +5795,10 @@ body.flat-black {
 	box-shadow: none;
 }
 
-div#highcharts-0 svg text:nth-of-type(3),
-div#highcharts-2 svg text:nth-of-type(3),
-div#highcharts-4 svg text:nth-of-type(2),
-div#highcharts-6 svg text:nth-of-type(3) { display: none;}
+div#highcharts-0 svg > text:nth-of-type(3),
+div#highcharts-2 svg > text:nth-of-type(3),
+div#highcharts-4 svg > text:nth-of-type(2),
+div#highcharts-6 svg > text:nth-of-type(3) { display: none;}
 
 .amcharts-compare-item-div { height: 22px !important;}
 .amcharts-chart-div a {display: none !important;}
