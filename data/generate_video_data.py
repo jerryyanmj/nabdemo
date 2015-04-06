@@ -1,6 +1,6 @@
 from __future__ import division
 import pymongo
-import datetime 
+import datetime
 import random
 from datetime import datetime
 import time
@@ -28,7 +28,7 @@ db = client.default['video_failed_streams']
 for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
-			
+
 			val_none    = random.randrange(5)+30
 			val_0_1     = random.randrange(3)+45
 			val_1_plus  = random.randrange(3)+45
@@ -58,7 +58,7 @@ db = client.default['video_buffering_events']
 for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
-			
+
 			val_none     = random.randrange(10)+125
 			val_0_005    = random.randrange(3)+25
 			val_005_01   = random.randrange(3)+25
@@ -98,7 +98,7 @@ db = client.default['video_buffering_duration']
 for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
-			
+
 			val_none     = random.randrange(20)+200
 			val_0_05    = random.randrange(4)+20
 			val_05_1    = random.randrange(4)+20
@@ -138,7 +138,7 @@ db = client.default['video_startup']
 for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
-			
+
 			val_0_25      = random.randrange(8)+40
 			val_25_5      = random.randrange(8)+40
 			val_5_75      = random.randrange(8)+40
@@ -178,7 +178,7 @@ db = client.default['video_bitrate_downshifts']
 for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
-			
+
 			val_none     = random.randrange(10)+50
 			val_0_01     = random.randrange(5)+30
 			val_01_05    = random.randrange(5)+30
@@ -219,7 +219,7 @@ db = client.default['video_average_bitrate']
 for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
-			
+
 			val_0_06     = random.randrange(3)+5
 			val_06_09    = random.randrange(3)+5
 			val_09_14    = random.randrange(3)+10
@@ -254,4 +254,3 @@ r.publish('test_channel',  batch_id)
 
 
 client.close()
-

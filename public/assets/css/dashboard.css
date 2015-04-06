@@ -24,6 +24,18 @@
     width: 1%;
 }
 
+.modal-footer .legendColorBox {
+    float: right;
+    margin-top: 2px;
+    width: 15px;
+}
+
+.modal-footer .legendLabel {
+    text-align: left;
+}
+
+  
+
 .lg table {
     width: 100%;
 }
@@ -68,5 +80,48 @@
 }
 
 .modal .flot-y-axis {
-    left: -20px !important;
+    left: -15px !important;
+}
+
+.modal .flot-x-axis {
+    left: -15px !important;
+}
+
+.modal .tickLabel {
+    color: #999 !important;
+}
+
+.modal .lg {
+    opacity: 0.9 !important;
+}
+
+.black-dialog {
+  /*background-color: #2d353c !important;*/
+}
+
+.modal-dialog {
+    width: 760px !important;
+}
+
+.modal-content {
+    width: 760px !important;
+}
+
+.big-body {
+    height: 350px; width:750px;
+}
+
+.simpleLink {
+    color: #fff;
+    cursor: pointer;
+}
+
+.simpleLink:focus {
+    color: #fff;
+    cursor: pointer;
+}
+
+.simpleLink:hover {
+    color: #fff;
+    cursor: pointer;
 }

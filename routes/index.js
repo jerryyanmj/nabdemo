@@ -16,13 +16,34 @@ module.exports = function (app) {
     });
 
     app.get('/collection/:name', function (req, res) {
-        //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-
-            var rand = Math.floor(Math.random() * 10) + 1;
-
-            mongo.connect('mongodb://localhost:27017/default', function (err, db) {
+        var rand = Math.floor(Math.random() * 10);
+        mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
             db.collection(req.param("name"), function (err, collection) {
-                collection.find().sort( { start_datetime_ts: -1 } ).limit(25).skip(rand).toArray(function (err, items) {
+                collection.find().sort( { start_datetime_ts: -1 } ).skip(28*rand).limit(28).toArray(function (err, items) {
+                    db.close();
+                    res.send(items);
+                });
+            });
+        });
+    });
+
+    app.get('/aggregated/:name', function (req, res) {
+        var coeff = 1000 * 60 * 5;
+        var date = new Date();
+        var rounded = new Date(Math.round(date.getTime() / coeff) * coeff)
+        var now = Math.floor(rounded / 1000);
+        var ago = now - 3600;
+        mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+            db.collection(req.param("name"), function (err, collection) {
+                collection.find({
+                    start_datetime_ts: {
+                        $gte: ago,
+                        $lt: now
+                    },
+                    device_type: 'Browser',
+                    stream_type: 'SS',
+                    chunk_type: 'Live'
+                }).sort( { start_datetime_ts: -1 } ).toArray(function (err, items) {
                     db.close();
                     res.send(items);
                 });

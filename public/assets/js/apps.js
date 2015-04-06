@@ -180,17 +180,19 @@ var handlePageContentView = function() {
     });
 };
 
-var handleReloadPanel = function(id) {
+var handleReloadPanel = function(id, loop) {
     var target = $(id).closest('.panel');
     if (!$(target).hasClass('panel-loading')) {
         var targetBody = $(target).find('.panel-body');
         var spinnerHtml = '<div class="panel-loader"><span class="spinner-small"></span></div>';
         $(target).addClass('panel-loading');
         $(targetBody).prepend(spinnerHtml);
-        setTimeout(function() {
-            $(target).removeClass('panel-loading');
-            $(target).find('.panel-loader').remove();
-        }, 2000);
+        if(!loop) {
+            setTimeout(function() {
+                $(target).removeClass('panel-loading');
+                $(target).find('.panel-loader').remove();
+            }, 2000);
+        }
     }
 }
 
