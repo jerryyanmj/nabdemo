@@ -1,6 +1,6 @@
 
 exports.login = function ( email, password, fn) {
-	if(email == "email" && password == "password") {
+	if(email == "admin@accenture.com" && password == "demoversion") {
         return fn( null, email)
     
     } else {
