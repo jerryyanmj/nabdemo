@@ -1,6 +1,7 @@
 
 var mongo = require('mongodb').MongoClient
 var format = require('util').format;
+var common = require('./common.js');
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
@@ -66,4 +67,23 @@ module.exports = function (app) {
             });
         });
     });
-};
+
+    // Application's user authentication
+    app.post('/login', function( req, res ) {
+
+        common.login(
+            req.body.email,
+            req.body.password,
+            function ( loginError, email ) {
+                if(email) {
+                    req.session.email = email;
+                    res.redirect( '/dashboard' );
+                } else {
+                    res.render( 'login.html', { error: loginError } );
+                }
+            }
+        )
+    });
+
+
+}

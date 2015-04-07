@@ -11,6 +11,33 @@ var format = require('util').format;
 var redis = require('redis');
 var subscribe = require('redis-subscribe-sse');
 
+var bodyParser = require('body-parser');
+app.use( bodyParser.urlencoded( { extended: true } ) );
+app.use( bodyParser.json() );
+
+// Initialize WEB server cookie parser component
+// app.use( cookieParser( "OIFNDFJDHIFHjf4uyfu4y78y4gfjhbjeuyHGHFGUYgr3ubhfoi;djiofuioedsfj3" ) );
+
+// Initialize WEB server session component
+var expressSession = require('express-session')
+app.use(
+
+    expressSession(
+        {
+            cookie:
+            { 
+                path     : '/', 
+                httpOnly : true, 
+                maxAge   : 60000 * 60 * 24 // Maximum session timeout - 24 hours 
+            }, 
+            secret:            'nab',
+            saveUninitialized: true,
+            resave:            true 
+        }
+    )
+
+);
+
 mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
 //mongo.connect('mongodb://localhost:27017/default', function (err, db) {
     if (err) {
