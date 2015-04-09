@@ -182,6 +182,9 @@ var updateDevices = function() {
 
 var updateBarCharts = function() {
 
+var data = []
+for(var x=0; x<3; x++) {
+
     var d1 = [];
     d1.push([1, getRandom(30,50)]);
     var d2 = [];
@@ -192,7 +195,7 @@ var updateBarCharts = function() {
     d4.push([1, getRandom(180,190)]);
 
     //announce a dataset
-    var data = [
+    data[x] = [
 
     {
         label: "Maximum",
@@ -230,12 +233,14 @@ var updateBarCharts = function() {
         data: d3,
         color: "green"},
     ];
+}
 
-    handleBarChart('#bar-chart-a', data);
-    handleBarChart('#bar-chart-b', data);
-    handleBarChart('#bar-chart-c', data);
+    handleBarChart('#bar-chart-a', data[0]);
+    handleBarChart('#bar-chart-b', data[1]);
+    handleBarChart('#bar-chart-c', data[2]);
 
 }
+
 
 
 var handleDashboardSparkline = function() {

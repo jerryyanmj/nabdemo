@@ -184,8 +184,6 @@ var updatePanels = function() {
                 scoreSum = scoreSum + value['score'];
                 percentSum = value['total_startup_seconds'] + " / " + value['total_watched_seconds'];
                 differenceNum = value['total_startup_seconds'] / value['average_startup_seconds'];
-                console.log(differenceNum);
-                console.log(value['total_startup_seconds'] / value['average_startup_seconds']);
                 itemCount = itemCount + 1;
             }
         });
