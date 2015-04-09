@@ -44,7 +44,7 @@ var handleLineChart = function (target, value) {
 
     $(target).removePrefixedClasses('bg-');
     $(target).addClass('bg-' + color)
-    $(target + ' .stats-number').html(percent + '%');
+    $(target + ' .stats-number').html('+' + percent + '%');
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
 
     $(target).parent().removeClass('panel-loading');

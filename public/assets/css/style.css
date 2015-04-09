@@ -3532,6 +3532,9 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
 .widget-stats .stats-desc {
   font-weight: 300;
   margin-bottom: 0;
+  text-align: right;
+  font-size: 15px;
+  color: #fff;  
 }
 .widget-stats .stats-number {
   font-size: 24px;
@@ -4544,9 +4547,10 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
   left: 0;
   right: 0;
   bottom: 0;
+  background-image: url(assets/img/login-bg/bg-5.jpg);
 }
 .login-cover-image img {
-  max-width: 100%;
+  /*max-width: 100%;*/
   top: 0;
   left: 0;
   position: absolute;
