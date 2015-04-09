@@ -174,9 +174,9 @@ for device in deviceTypes:
                     "75_10_bucket"      : val_75_10 / all_buckets * 100,
                     "10_125_bucket"     : val_10_125 / all_buckets * 100,
                     "125_plus_bucket"   : val_125_plus / all_buckets * 100,
-                    "total_startup_seconds": 1250,
-                    "total_watched_seconds": 476179,
-                    "average_startup_seconds": 1150
+                    "total_startup_seconds": random.randrange(125)+1250,
+                    "total_watched_seconds": random.randrange(4761)+476179,
+                    "average_startup_seconds": random.randrange(115)+1150,
          			 "score"             : random.randrange(8) + 77 }
 			db.insert(post)
 
@@ -191,33 +191,36 @@ for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
 
-			val_none     = random.randrange(10)+50
-			val_0_01     = random.randrange(5)+30
-			val_01_05    = random.randrange(5)+30
-			val_05_1     = random.randrange(5)+30
-			val_1_2      = random.randrange(5)+30
-			val_2_plus   = random.randrange(5)+30
+			val_none     = random.randrange(10)+80
+			val_0_01     = random.randrange(25)+25
+			val_01_05    = random.randrange(25)+25
+			val_05_1     = random.randrange(25)+25
+			val_1_2      = random.randrange(25)+25
+			val_2_plus   = random.randrange(25)+25
 
 			all_buckets = val_none + val_0_01 + val_01_05 + val_05_1 + val_1_2 + val_2_plus
 			post = { "start_datetime_ts" : currentTimestamp,
-         			 "batch_id"          : batch_id,
-         			 "device_type"       : device,
-         			 "stream_type"       : stream,
-         			 "chunk_type"        : chunk,
-         			 "none"              : val_none,
-         			 "0_01"              : val_0_01,
-					 "01_05"             : val_01_05,
-					 "05_1"              : val_05_1,
-					 "1_2"               : val_1_2,
-					 "2_plus"            : val_2_plus,
-         			 "all_buckets"       : all_buckets,
-         			 "none_bucket"       : val_none / all_buckets * 100,
-         			 "0_01_bucket"       : val_0_01 / all_buckets * 100,
-					 "01_05_bucket"      : val_01_05 / all_buckets * 100,
-					 "05_1_bucket"       : val_05_1 / all_buckets * 100,
-					 "1_2_bucket"        : val_1_2 / all_buckets * 100,
-					 "2_plus_bucket"     : val_2_plus / all_buckets * 100,
-         			 "score"             : random.randrange(7) + 93 }
+                    "batch_id"          : batch_id,
+                    "device_type"       : device,
+                    "stream_type"       : stream,
+                    "chunk_type"        : chunk,
+                    "none"              : val_none,
+                    "0_01"              : val_0_01,
+                    "01_05"             : val_01_05,
+                    "05_1"              : val_05_1,
+                    "1_2"               : val_1_2,
+                    "2_plus"            : val_2_plus,
+                    "all_buckets"       : all_buckets,
+                    "none_bucket"       : val_none / all_buckets * 100,
+                    "0_01_bucket"       : val_0_01 / all_buckets * 100,
+                    "01_05_bucket"      : val_01_05 / all_buckets * 100,
+                    "05_1_bucket"       : val_05_1 / all_buckets * 100,
+                    "1_2_bucket"        : val_1_2 / all_buckets * 100,
+                    "2_plus_bucket"     : val_2_plus / all_buckets * 100,
+                    "total_downshift_event": random.randrange(25)+256,
+                    "total_streaming": random.randrange(4000)+34000,
+                    "average_downshift_event": random.randrange(25)+279,
+         			"score"             : random.randrange(7) + 93 }
 			db.insert(post)
 
 
@@ -240,22 +243,24 @@ for device in deviceTypes:
 
 			all_buckets = val_0_06 + val_06_09 + val_09_14 + val_14_24 + val_24_34
 			post = { "start_datetime_ts" : currentTimestamp,
-         			 "batch_id"          : batch_id,
-         			 "device_type"       : device,
-         			 "stream_type"       : stream,
-         			 "chunk_type"        : chunk,
-         			 "0_06"              : val_0_06,
-         			 "06_09"             : val_06_09,
-					 "09_14"             : val_09_14,
-					 "14_24"             : val_14_24,
-					 "24_34"             : val_24_34,
-         			 "all_buckets"       : all_buckets,
-         			 "0_06_bucket"       : val_0_06 / all_buckets * 100,
-         			 "06_09_bucket"      : val_06_09 / all_buckets * 100,
-					 "09_14_bucket"      : val_09_14 / all_buckets * 100,
-					 "14_24_bucket"      : val_14_24 / all_buckets * 100,
-					 "24_34_bucket"      : val_24_34 / all_buckets * 100,
-         			 "score"             : random.randrange(10) + 60 }
+                    "batch_id"          : batch_id,
+                    "device_type"       : device,
+                    "stream_type"       : stream,
+                    "chunk_type"        : chunk,
+                    "0_06"              : val_0_06,
+                    "06_09"             : val_06_09,
+                    "09_14"             : val_09_14,
+                    "14_24"             : val_14_24,
+                    "24_34"             : val_24_34,
+                    "all_buckets"       : all_buckets,
+                    "0_06_bucket"       : val_0_06 / all_buckets * 100,
+                    "06_09_bucket"      : val_06_09 / all_buckets * 100,
+                    "09_14_bucket"      : val_09_14 / all_buckets * 100,
+                    "14_24_bucket"      : val_14_24 / all_buckets * 100,
+                    "24_34_bucket"      : val_24_34 / all_buckets * 100,
+                    "total_bitrate"     : random.randrange(25)+256,
+                    "average_bitrate"   : random.randrange(50)+280,
+         			 "score"            : random.randrange(10) + 60 }
 			db.insert(post)
 
 
