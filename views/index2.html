@@ -1098,8 +1098,25 @@
     		position: "left",
             listHeight: 200
     	}
-    });</textarea>
-                      </div>
+    });
+    chart.addListener('rendered', function (event) {
+    var dataProvider = chart.dataSets[0].dataProvider;
+  $( ".amChartsPeriodSelector .amChartsInputField" ).datepicker({
+      dateFormat: "dd-mm-yy",
+      minDate: dataProvider[0].date,
+      maxDate: dataProvider[dataProvider.length-1].date,
+      onClose: function() {
+          $( ".amChartsPeriodSelector .amChartsInputField" ).trigger('blur');
+      }
+  });
+});
+
+
+</textarea>
+    </div>
+
+    <script>
+    </script>
 
 
 </body>
