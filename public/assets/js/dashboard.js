@@ -41,11 +41,11 @@ var handleLineChart = function (target, value, diff) {
 
     if(percent > 15) {color = 'orange'}
     if(percent > 25) {color = 'red'}
-    if(percent > 0)  {sign = '+'} else {sign = ''}
+    if(percent > 0)  {sign = '+ '} else {sign = '- '}
 
     $(target).removePrefixedClasses('bg-');
     $(target).addClass('bg-' + color)
-    $(target + ' .stats-number').html(sign + percent + '%');
+    $(target + ' .stats-number').html(sign + Math.abs(percent) + '%');
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
     $(target + ' .stats-desc').html(value);
 

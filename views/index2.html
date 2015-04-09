@@ -928,8 +928,8 @@
     		var a1 = Math.round(Math.random() * (40 + i)) + 100 + i;
     		var b1 = Math.round(Math.random() * (1000 + i)) + 500 + i * 2;
 
-    		var a2 = Math.round(Math.random() * (100 + i)) + 200 + i;
-    		var b2 = Math.round(Math.random() * (1000 + i)) + 600 + i * 2;
+    		var a2 = a1 * 0.8 + i;
+    		var b2 = b1 * 0.8 + i;
 
     		var a3 = Math.round(Math.random() * (100 + i)) + 200;
     		var b3 = Math.round(Math.random() * (1000 + i)) + 600 + i * 2;
@@ -966,7 +966,7 @@
         pathToImages: "http://www.amcharts.com/lib/3/images/",
 
     	dataSets: [{
-    			title: "Total Streams",
+    			title: "Successful Streams",
                 color: '#5b6392',
     			fieldMappings: [{
     				fromField: "value",
@@ -994,7 +994,7 @@
     		},
 
     		{
-    			title: "Downshifts",
+    			title: "Total Streams",
                 color: '#ff5b57',
     			fieldMappings: [{
     				fromField: "value",
@@ -1008,7 +1008,7 @@
     		},
 
     		{
-    			title: "Buffering Events",
+    			title: "Average Streams",
                 color: '#f7b048',
     			fieldMappings: [{
     				fromField: "value",

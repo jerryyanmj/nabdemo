@@ -290,8 +290,12 @@ var handleDashboardSparkline = function() {
         $('#sparkline-return-visitors').sparkline(value, options);
 
 
-        '<span class="text-success"><i class="fa fa-arrow-up"></i></span>'
-
+        $('#val1').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val2').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val3').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val4').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-danger"><i class="fa fa-arrow-down"></i></span>');
+        $('#val5').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-danger"><i class="fa fa-arrow-down"></i></span>');
+        $('#val6').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
     }
 
     renderDashboardSparkline();
