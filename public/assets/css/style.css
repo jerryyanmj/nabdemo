@@ -3486,7 +3486,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
   margin-right: 15px;
   color: #fff;
   position: absolute;
-  right: 5px;
+  left: 5px;
   bottom: 25px;
   opacity: 0.2;
   filter: alpha(opacity=20);
@@ -3541,6 +3541,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
   font-size: 20px;
   font-weight: 300;
   margin-bottom: 0;
+  margin-left: 50px;
 }
 .widget-stats .stats-progress {
   background: url('../img/transparent/black-0.2.png');

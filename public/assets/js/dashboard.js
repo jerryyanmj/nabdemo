@@ -39,16 +39,15 @@ var handleLineChart = function (target, value, diff) {
     var percent = (100 - (diff * 100)).toFixed(2);
     var color = 'purple';
 
-    if(percent > 50) {color = 'orange'}
-    if(percent > 75) {color = 'red'}
+    if(percent > 15) {color = 'orange'}
+    if(percent > 25) {color = 'red'}
+    if(percent > 0)  {sign = '+'} else {sign = ''}
 
     $(target).removePrefixedClasses('bg-');
     $(target).addClass('bg-' + color)
-    $(target + ' .stats-number').html('+' + percent + '%');
+    $(target + ' .stats-number').html(sign + percent + '%');
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
-
     $(target + ' .stats-desc').html(value);
-    $(target + ' .stats-number').html('+' + percent + '%');
 
     $(target).parent().removeClass('panel-loading');
     $(target).parent().find('.panel-loader').remove();
@@ -154,7 +153,7 @@ var updatePanels = function() {
 
                 scoreSum = scoreSum + value['score'];
                 percentSum = value['total_failed_events'] + " / " + value['total_streaming'];
-                differenceNum = 1 - (value['total_failed_events'] / value['average_failed_events'])
+                differenceNum = (value['total_failed_events'] / value['average_failed_events'])
                 itemCount = itemCount + 1;
             }
         });
@@ -183,11 +182,14 @@ var updatePanels = function() {
                 dataSet[5].data = dataSet[5].data + value['125_plus'];
 
                 scoreSum = scoreSum + value['score'];
-                percentSum = percentSum + value['0_25']/value['all_buckets'];
+                percentSum = value['total_startup_seconds'] + " / " + value['total_watched_seconds'];
+                differenceNum = value['total_startup_seconds'] / value['average_startup_seconds'];
+                console.log(differenceNum);
+                console.log(value['total_startup_seconds'] / value['average_startup_seconds']);
                 itemCount = itemCount + 1;
             }
         });
-        handleLineChart('#index-2', percentSum/itemCount);
+        handleLineChart('#index-2', percentSum, differenceNum);
         handleDonutChart('#donut-chart-b', dataSet, scoreSum/itemCount);
     });
 
@@ -210,12 +212,14 @@ var updatePanels = function() {
                 dataSet[4].data = dataSet[4].data + value['0_06'];
 
                 scoreSum = scoreSum + value['score'];
-                percentSum = percentSum + value['24_34']/value['all_buckets'];
+                percentSum = value['total_bitrate'];
+                differenceNum = (value['total_bitrate'] / value['average_bitrate'])
                 itemCount = itemCount + 1;
             }            
 
         });
-        handleLineChart('#index-3', percentSum/itemCount);
+
+        handleLineChart('#index-3', percentSum, differenceNum);
         handleDonutChart('#donut-chart-c', dataSet, scoreSum/itemCount);
     });
 
@@ -240,11 +244,12 @@ var updatePanels = function() {
                 dataSet[5].data = dataSet[5].data + value['3_plus'];
 
                 scoreSum = scoreSum + value['score'];
-                percentSum = percentSum + value['none']/value['all_buckets'];
+                percentSum = value['total_buffering_seconds'] + " / " + value['total_watched_seconds'];
+                differenceNum = (value['total_buffering_seconds'] / value['average_buffering_seconds'])
                 itemCount = itemCount + 1;
             }
         });
-        handleLineChart('#index-4', percentSum/itemCount);
+        handleLineChart('#index-4', percentSum, differenceNum);
         handleDonutChart('#donut-chart-d', dataSet, scoreSum/itemCount);
     });
 
@@ -269,11 +274,12 @@ var updatePanels = function() {
                 dataSet[5].data = dataSet[5].data + value['04_plus'];
 
                 scoreSum = scoreSum + value['score'];
-                percentSum = percentSum + value['none']/value['all_buckets'];
+                percentSum = value['total_buffering_events'] + " / " + value['total_streaming'];
+                differenceNum = (value['total_buffering_events'] / value['average_buffering_events'])
                 itemCount = itemCount + 1;
             }  
         });
-        handleLineChart('#index-5', percentSum/itemCount);
+        handleLineChart('#index-5', percentSum, differenceNum);
         handleDonutChart('#donut-chart-e', dataSet, scoreSum/itemCount);
     });
 
@@ -298,11 +304,12 @@ var updatePanels = function() {
                 dataSet[5].data = dataSet[5].data + value['2_plus'];
 
                 scoreSum = scoreSum + value['score'];
-                percentSum = percentSum + value['none']/value['all_buckets'];
+                percentSum = value['total_downshift_event'] + " / " + value['total_streaming'];
+                differenceNum = (value['total_downshift_event'] / value['average_downshift_event'])
                 itemCount = itemCount + 1;
             }              
         });
-        handleLineChart('#index-6', percentSum/itemCount);
+        handleLineChart('#index-6', percentSum, differenceNum);
         handleDonutChart('#donut-chart-f', dataSet, scoreSum/itemCount);
 
         if (!$.cookie("firstTime") && $(window).width()>768) {
