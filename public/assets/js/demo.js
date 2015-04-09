@@ -258,12 +258,29 @@ var handleDashboardSparkline = function() {
         maxSpotColor: false
     };
     function renderDashboardSparkline() {
-        var value = [getRandom(50,70),getRandom(30,50),getRandom(40,45),getRandom(40,45),getRandom(40,50),getRandom(20,30),getRandom(30,35),getRandom(40,45),getRandom(40,60),getRandom(65,70),getRandom(90,80),getRandom(40,45)];
+        var value = [];
+        var val = [];
         options.type = 'line';
         options.height = '23px';
         options.lineColor = redLight;
         options.highlightLineColor = redLight;
         options.highlightSpotColor = redLight;
+
+        for(var x=0; x<6; x++) {
+            value[x] = [getRandom(40,80).toFixed(2),
+                        getRandom(20,60).toFixed(2),
+                        getRandom(30,55).toFixed(2),
+                        getRandom(30,55).toFixed(2),
+                        getRandom(30,60).toFixed(2),
+                        getRandom(10,40).toFixed(2),
+                        getRandom(20,45).toFixed(2),
+                        getRandom(30,55).toFixed(2),
+                        getRandom(30,70).toFixed(2),
+                        getRandom(55,80).toFixed(2),
+                        getRandom(100,70).toFixed(2),
+                        getRandom(30,55).toFixed(2)];
+            val[x] = getRandom(10,15).toFixed(2);
+        }
 
         var countWidth = $('#sparkline-unique-visitor').width();
         if (countWidth >= 200) {
@@ -272,35 +289,35 @@ var handleDashboardSparkline = function() {
             options.width = '100%';
         }
 
-        $('#sparkline-unique-visitor').sparkline(value, options);
+        $('#sparkline-unique-visitor').sparkline(value[0], options);
         options.lineColor = orange;
         options.highlightLineColor = orange;
         options.highlightSpotColor = orange;
-        $('#sparkline-bounce-rate').sparkline(value, options);
+        $('#sparkline-bounce-rate').sparkline(value[1], options);
         options.lineColor = purple;
         options.highlightLineColor = purple;
         options.highlightSpotColor = purple;
-        $('#sparkline-total-page-views').sparkline(value, options);
+        $('#sparkline-total-page-views').sparkline(value[2], options);
         options.lineColor = purple;
         options.highlightLineColor = purple;
         options.highlightSpotColor = purple;
-        $('#sparkline-avg-time-on-site').sparkline(value, options);
+        $('#sparkline-avg-time-on-site').sparkline(value[3], options);
         options.lineColor = orange;
         options.highlightLineColor = orange;
         options.highlightSpotColor = orange;
-        $('#sparkline-new-visits').sparkline(value, options);
+        $('#sparkline-new-visits').sparkline(value[4], options);
         options.lineColor = purple;
         options.highlightLineColor = purple;
         options.highlightSpotColor = purple;
-        $('#sparkline-return-visitors').sparkline(value, options);
+        $('#sparkline-return-visitors').sparkline(value[5], options);
 
 
-        $('#val1').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
-        $('#val2').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
-        $('#val3').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
-        $('#val4').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-danger"><i class="fa fa-arrow-down"></i></span>');
-        $('#val5').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-danger"><i class="fa fa-arrow-down"></i></span>');
-        $('#val6').html(getRandom(10,15).toFixed(2) + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val1').html(val[0] + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val2').html(val[1] + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val3').html(val[2] + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
+        $('#val4').html(val[3] + '% ' + '<span class="text-danger"><i class="fa fa-arrow-down"></i></span>');
+        $('#val5').html(val[4] + '% ' + '<span class="text-danger"><i class="fa fa-arrow-down"></i></span>');
+        $('#val6').html(val[5] + '% ' + '<span class="text-success"><i class="fa fa-arrow-up"></i></span>');
     }
 
     renderDashboardSparkline();
