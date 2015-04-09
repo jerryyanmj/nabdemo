@@ -3478,16 +3478,16 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
   color: #fff;
 }
 .widget-stats .stats-icon {
-  font-size: 42px;
-  height: 56px;
+  font-size: 38px;
+  height: 60px;
   width: 56px;
   text-align: center;
   line-height: 56px;
-  margin-left: 15px;
+  margin-right: 15px;
   color: #fff;
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 5px;
+  bottom: 25px;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
@@ -3531,15 +3531,16 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
 }
 .widget-stats .stats-desc {
   font-weight: 300;
-  margin-bottom: 0;
-  text-align: right;
-  font-size: 15px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-size: 23px;
   color: #fff;  
 }
 .widget-stats .stats-number {
-  font-size: 24px;
+  text-align: left;
+  font-size: 20px;
   font-weight: 300;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 .widget-stats .stats-progress {
   background: url('../img/transparent/black-0.2.png');
