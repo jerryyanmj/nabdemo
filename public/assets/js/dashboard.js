@@ -158,7 +158,6 @@ var updatePanels = function() {
                 itemCount = itemCount + 1;
             }
         });
-        console.log(differenceNum);
         handleLineChart('#index-1', percentSum, differenceNum);
         handleDonutChart('#donut-chart-a', dataSet, scoreSum/itemCount);
     });
@@ -530,6 +529,12 @@ var Dashboard = function () {
                             updateDialogs();
                             updateDevices();
                             updateBarCharts();
+
+                            $('.changeMetric').click(function() {
+                                var newName = this.innerHTML;
+                                $('#buttonID').html(newName);
+                                updateDevices();
+                            });
 
                             $('.modal-d').click(function() {
                                 var name = this.id.replace('-', ' ');

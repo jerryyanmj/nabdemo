@@ -9,16 +9,16 @@ var updateDevices = function() {
     if(notFiltered('Browser')) {
         datos.push({data:[
             [tt, 60],
-            [tt - 300000, 60],
-            [tt - 600000, 60],
-            [tt - 900000, 55],
-            [tt - 1200000, 50],
-            [tt - 1500000, 50],
-            [tt - 1800000, 52],
-            [tt - 2100000, 49],
-            [tt - 2400000, 58],
-            [tt - 2700000, 58],
-            [tt - 3000000, 63],
+            [tt - 300000, getRandom(60,70)],
+            [tt - 600000, getRandom(30,50)],
+            [tt - 900000, getRandom(30,50)],
+            [tt - 1200000, getRandom(30,50)],
+            [tt - 1500000, getRandom(40,50)],
+            [tt - 1800000, getRandom(45,50)],
+            [tt - 2100000, getRandom(49,50)],
+            [tt - 2400000, getRandom(23,50)],
+            [tt - 2700000, getRandom(23,40)],
+            [tt - 3000000, getRandom(60,70)],
             [tt - 3300000, 67]
         ],
             lines:{show: true},
@@ -32,16 +32,16 @@ var updateDevices = function() {
     if(notFiltered('iOS Phone')) {
         datos.push({data:[
             [tt, 115],
-            [tt - 300000, 115],
-            [tt - 600000, 115],
-            [tt - 900000, 122],
-            [tt - 1200000, 135],
-            [tt - 1500000, 135],
-            [tt - 1800000, 138],
-            [tt - 2100000, 140],
-            [tt - 2400000, 145],
-            [tt - 2700000, 142],
-            [tt - 3000000, 130],
+            [tt - 300000, getRandom(115,120)],
+            [tt - 600000, getRandom(130,140)],
+            [tt - 900000, getRandom(145,150)],
+            [tt - 1200000, getRandom(150,160)],
+            [tt - 1500000, getRandom(120,135)],
+            [tt - 1800000, getRandom(115,150)],
+            [tt - 2100000, getRandom(115,140)],
+            [tt - 2400000, getRandom(150,160)],
+            [tt - 2700000, getRandom(155,160)],
+            [tt - 3000000, getRandom(115,130)],
             [tt - 3300000, 123]
         ],
             lines:{show: true},
@@ -55,16 +55,16 @@ var updateDevices = function() {
     if(notFiltered('iOS Tablet')) {
         datos.push({data:[
             [tt, 85],
-            [tt - 300000, 95],
-            [tt - 600000, 105],
-            [tt - 900000, 122],
-            [tt - 1200000, 105],
-            [tt - 1500000, 115],
-            [tt - 1800000, 108],
-            [tt - 2100000, 100],
-            [tt - 2400000, 105],
-            [tt - 2700000, 92],
-            [tt - 3000000, 50],
+            [tt - 300000, getRandom(90,95)],
+            [tt - 600000, getRandom(90,95)],
+            [tt - 900000, getRandom(100,120)],
+            [tt - 1200000, getRandom(120,130)],
+            [tt - 1500000, getRandom(100,150)],
+            [tt - 1800000, getRandom(107,108)],
+            [tt - 2100000, getRandom(90,95)],
+            [tt - 2400000, getRandom(90,105)],
+            [tt - 2700000, getRandom(120,195)],
+            [tt - 3000000, getRandom(90,150)],
             [tt - 3300000, 83]
         ],
             lines:{show: true},
@@ -78,16 +78,16 @@ var updateDevices = function() {
     if(notFiltered('Android Phone')) {
         datos.push({data:[
             [tt, 65],
-            [tt - 300000, 55],
-            [tt - 600000, 65],
-            [tt - 900000, 72],
-            [tt - 1200000, 85],
-            [tt - 1500000, 85],
-            [tt - 1800000, 98],
-            [tt - 2100000, 100],
-            [tt - 2400000, 105],
-            [tt - 2700000, 92],
-            [tt - 3000000, 70],
+            [tt - 300000, getRandom(55,55)],
+            [tt - 600000, getRandom(55,65)],
+            [tt - 900000, getRandom(70,72)],
+            [tt - 1200000, getRandom(70,85)],
+            [tt - 1500000, getRandom(70,95)],
+            [tt - 1800000, getRandom(90,98)],
+            [tt - 2100000, getRandom(100,105)],
+            [tt - 2400000, getRandom(90,105)],
+            [tt - 2700000, getRandom(90,92)],
+            [tt - 3000000, getRandom(50,70)],
             [tt - 3300000, 73]
         ],
             lines:{show: true},
@@ -253,7 +253,7 @@ var handleDashboardSparkline = function() {
         maxSpotColor: false
     };
     function renderDashboardSparkline() {
-        var value = [50,30,45,40,50,20,35,40,50,70,90,40];
+        var value = [getRandom(50,70),getRandom(30,50),getRandom(40,45),getRandom(40,45),getRandom(40,50),getRandom(20,30),getRandom(30,35),getRandom(40,45),getRandom(40,60),getRandom(65,70),getRandom(90,80),getRandom(40,45)];
         options.type = 'line';
         options.height = '23px';
         options.lineColor = redLight;
@@ -288,6 +288,10 @@ var handleDashboardSparkline = function() {
         options.highlightLineColor = purple;
         options.highlightSpotColor = purple;
         $('#sparkline-return-visitors').sparkline(value, options);
+
+
+        '<span class="text-success"><i class="fa fa-arrow-up"></i></span>'
+
     }
 
     renderDashboardSparkline();
