@@ -29,9 +29,9 @@ for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
 
-			val_none    = random.randrange(5)+30
-			val_0_1     = random.randrange(3)+45
-			val_1_plus  = random.randrange(3)+45
+			val_none    = random.randrange(105)+1280
+			val_0_1     = random.randrange(105)+125
+			val_1_plus  = random.randrange(105)+215
 			all_buckets = val_none + val_0_1 + val_1_plus
 			post = { "start_datetime_ts"  : currentTimestamp,
          			 "batch_id"           : batch_id,
@@ -45,7 +45,10 @@ for device in deviceTypes:
          			 "none_bucket"        : val_none / all_buckets * 100,
          			 "0_1_bucket"         : val_0_1 / all_buckets * 100,
          			 "1_plus_bucket"      : val_1_plus / all_buckets * 100,
-         			 "score"              :  random.randrange(6)+56 }
+         			 "total_failed_events": random.randrange(20)+100,
+    				 "total_streaming"	  : val_none + val_0_1 + val_1_plus + all_buckets,
+    				 "average_failed_events" : random.randrange(25)+150,
+         			 "score"              :  random.randrange(25)+75 }
 			db.insert(post)
 
 
@@ -59,12 +62,12 @@ for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
 
-			val_none     = random.randrange(10)+125
-			val_0_005    = random.randrange(3)+25
-			val_005_01   = random.randrange(3)+25
-			val_01_02    = random.randrange(3)+25
-			val_02_04    = random.randrange(3)+25
-			val_04_plus  = random.randrange(3)+25
+			val_none     = random.randrange(20)+125
+			val_0_005    = random.randrange(15)+25
+			val_005_01   = random.randrange(15)+25
+			val_01_02    = random.randrange(15)+25
+			val_02_04    = random.randrange(15)+25
+			val_04_plus  = random.randrange(15)+25
 
 			all_buckets = val_none + val_0_005 + val_005_01 + val_01_02 + val_02_04 + val_04_plus
 			post = { "start_datetime_ts" : currentTimestamp,
@@ -85,6 +88,9 @@ for device in deviceTypes:
 					 "01_02_bucket"      : val_01_02 / all_buckets * 100,
 					 "02_04_bucket"      : val_02_04 / all_buckets * 100,
 					 "04_plus_bucket"    : val_04_plus / all_buckets * 100,
+                     "total_buffering_events": random.randrange(30)+300,
+                     "total_streaming": random.randrange(30)+300,
+                     "average_buffering_events": random.randrange(30)+350,
          			 "score" : random.randrange(8) + 81 }
 			db.insert(post)
 
@@ -99,7 +105,7 @@ for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
 
-			val_none     = random.randrange(20)+200
+			val_none    = random.randrange(20)+200
 			val_0_05    = random.randrange(4)+20
 			val_05_1    = random.randrange(4)+20
 			val_1_15    = random.randrange(4)+20
@@ -125,7 +131,10 @@ for device in deviceTypes:
 					 "1_15_bucket"          : val_1_15 / all_buckets * 100,
 					 "15_3_bucket"          : val_15_3 / all_buckets * 100,
 					 "3_plus_bucket"        : val_3_plus / all_buckets * 100,
-         			 "score"                : random.randrange(6) + 25 }
+                     "total_buffering_seconds": random.randrange(240)+1300,
+                     "total_watched_seconds": random.randrange(5000)+15500,
+                     "average_buffering_seconds": random.randrange(500)+1500,
+         			 "score"                : random.randrange(7) + 70 }
 			db.insert(post)
 
 
@@ -139,33 +148,36 @@ for device in deviceTypes:
 	for stream in streamTypes:
 		for chunk in chunkTypes:
 
-			val_0_25      = random.randrange(8)+40
-			val_25_5      = random.randrange(8)+40
-			val_5_75      = random.randrange(8)+40
-			val_75_10     = random.randrange(8)+40
-			val_10_125    = random.randrange(8)+40
-			val_125_plus  = random.randrange(8)+40
+			val_0_25      = random.randrange(80)+640
+			val_25_5      = random.randrange(80)+440
+			val_5_75      = random.randrange(80)+340
+			val_75_10     = random.randrange(80)+240
+			val_10_125    = random.randrange(80)+140
+			val_125_plus  = random.randrange(80)+40
 
 			all_buckets = val_0_25 + val_25_5 + val_5_75 + val_75_10 + val_10_125 + val_125_plus
 			post = { "start_datetime_ts" : currentTimestamp,
-         			 "batch_id"          : batch_id,
-         			 "device_type"       : device,
-         			 "stream_type"       : stream,
-         			 "chunk_type"        : chunk,
-         			 "0_25"              : val_0_25,
-         			 "25_5"              : val_25_5,
-					 "5_75"              : val_5_75,
-					 "75_10"             : val_75_10,
-					 "10_125"            : val_10_125,
-					 "125_plus"          : val_125_plus,
-         			 "all_buckets"       : all_buckets,
-         			 "0_25_bucket"       : val_0_25 / all_buckets * 100,
-         			 "25_5_bucket"       : val_25_5 / all_buckets * 100,
-					 "5_75_bucket"       : val_5_75 / all_buckets * 100,
-					 "75_10_bucket"      : val_75_10 / all_buckets * 100,
-					 "10_125_bucket"     : val_10_125 / all_buckets * 100,
-					 "125_plus_bucket"   : val_125_plus / all_buckets * 100,
-         			 "score"             : random.randrange(8) + 48 }
+                    "batch_id"          : batch_id,
+                    "device_type"       : device,
+                    "stream_type"       : stream,
+                    "chunk_type"        : chunk,
+                    "0_25"              : val_0_25,
+                    "25_5"              : val_25_5,
+                    "5_75"              : val_5_75,
+                    "75_10"             : val_75_10,
+                    "10_125"            : val_10_125,
+                    "125_plus"          : val_125_plus,
+                    "all_buckets"       : all_buckets,
+                    "0_25_bucket"       : val_0_25 / all_buckets * 100,
+                    "25_5_bucket"       : val_25_5 / all_buckets * 100,
+                    "5_75_bucket"       : val_5_75 / all_buckets * 100,
+                    "75_10_bucket"      : val_75_10 / all_buckets * 100,
+                    "10_125_bucket"     : val_10_125 / all_buckets * 100,
+                    "125_plus_bucket"   : val_125_plus / all_buckets * 100,
+                    "total_startup_seconds": 1250,
+                    "total_watched_seconds": 476179,
+                    "average_startup_seconds": 1150
+         			 "score"             : random.randrange(8) + 77 }
 			db.insert(post)
 
 

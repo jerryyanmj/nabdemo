@@ -25,7 +25,8 @@ module.exports = function (app) {
 
     app.get('/collection/:name', function (req, res) {
         var rand = Math.floor(Math.random() * 10);
-        mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+        //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+        mongo.connect('mongodb://localhost:27017/default', function (err, db) {    
             db.collection(req.param("name"), function (err, collection) {
                 collection.find().sort( { start_datetime_ts: -1 } ).skip(28*rand).limit(28).toArray(function (err, items) {
                     db.close();
@@ -41,7 +42,8 @@ module.exports = function (app) {
         var rounded = new Date(Math.round(date.getTime() / coeff) * coeff)
         var now = Math.floor(rounded / 1000);
         var ago = now - 3600;
-        mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+        //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+        mongo.connect('mongodb://localhost:27017/default', function (err, db) {            
             db.collection(req.param("name"), function (err, collection) {
                 collection.find({
                     start_datetime_ts: {

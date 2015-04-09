@@ -38,8 +38,8 @@ app.use(
 
 );
 
-mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-//mongo.connect('mongodb://localhost:27017/default', function (err, db) {
+//mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
+mongo.connect('mongodb://localhost:27017/default', function (err, db) {
     if (err) {
         throw err;
     } else {
