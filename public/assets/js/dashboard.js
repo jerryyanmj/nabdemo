@@ -35,8 +35,8 @@ var handleDonutChart = function (target, data, score, dynamic) {
     centerPosition(target, dynamic);
 };
 
-var handleLineChart = function (target, value) {
-    var percent = (100 - (value * 100)).toFixed(2);
+var handleLineChart = function (target, value, diff) {
+    var percent = (100 - (diff * 100)).toFixed(2);
     var color = 'purple';
 
     if(percent > 50) {color = 'orange'}
@@ -46,6 +46,9 @@ var handleLineChart = function (target, value) {
     $(target).addClass('bg-' + color)
     $(target + ' .stats-number').html('+' + percent + '%');
     $(target + ' .progress-bar').attr('style', 'width:' + percent + '%');
+
+    $(target + ' .stats-desc').html(value);
+    $(target + ' .stats-number').html('+' + percent + '%');
 
     $(target).parent().removeClass('panel-loading');
     $(target).parent().find('.panel-loader').remove();
@@ -150,11 +153,13 @@ var updatePanels = function() {
                 dataSet[2].data = dataSet[2].data + value['1_plus'];
 
                 scoreSum = scoreSum + value['score'];
-                percentSum = percentSum + value['none']/value['all_buckets'];
+                percentSum = value['total_failed_events'] + " / " + value['total_streaming'];
+                differenceNum = 1 - (value['total_failed_events'] / value['average_failed_events'])
                 itemCount = itemCount + 1;
             }
         });
-        handleLineChart('#index-1', percentSum/itemCount);
+        console.log(differenceNum);
+        handleLineChart('#index-1', percentSum, differenceNum);
         handleDonutChart('#donut-chart-a', dataSet, scoreSum/itemCount);
     });
 
