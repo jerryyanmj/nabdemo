@@ -23,12 +23,12 @@ module.exports = function (app) {
         res.render('index2.html', { title: 'ejs' });
     });    
 
-    app.get('/collection/:name', function (req, res) {
+    app.get('/collection/:name', function (req, res) { 
         var rand = Math.floor(Math.random() * 10);
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
         mongo.connect('mongodb://localhost:27017/default', function (err, db) {    
             db.collection(req.param("name"), function (err, collection) {
-                collection.find().sort( { start_datetime_ts: -1 } ).skip(28*rand).limit(28).toArray(function (err, items) {
+                collection.find().sort( { start_datetime_ts: -1 } ).skip(28).limit(28).toArray(function (err, items) {
                     db.close();
                     res.send(items);
                 });
