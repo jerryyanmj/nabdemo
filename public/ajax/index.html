@@ -95,7 +95,7 @@
                     <div class="stats-info stats-title">
                         <h4>FAILED STREAMS</h4>
                     </div>
-                    <div class="stats-desc">0</div>
+                    <div class="stats-desc"></div>
                     <div class="stats-progress progress">
                         <div class="progress-bar" style="width: 0.00%;"></div>
                     </div>
@@ -317,19 +317,17 @@
                     </div>
                     <h4 class="panel-title">&nbsp;
                         <div class="btn-group pull-left">
-                            <button type="button" class="btn btn-inverse active btn-xs">Buffering Events</button>
+                            <button type="button" class="btn btn-inverse active btn-xs" id="buttonID">Buffering Events</button>
                             <button type="button" class="btn btn-inverse btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="">Buffering Events</a></li>
-                                <li><a href="">Failed Streams</a></li>
-                                <li><a href="">Startup Time</a></li>
-                                <li><a href="">Buffering Time</a></li>
-                                <li><a href="">Downshifts</a></li>
-                                <li><a href="">Average Bitrate</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Quality Score</a></li>
+                                <li><a href="javascript:;" class="changeMetric">Buffering Events</a></li>
+                                <li><a href="javascript:;" class="changeMetric">Failed Streams</a></li>
+                                <li><a href="javascript:;" class="changeMetric">Startup Time</a></li>
+                                <li><a href="javascript:;" class="changeMetric">Buffering Time</a></li>
+                                <li><a href="javascript:;" class="changeMetric">Downshifts</a></li>
+                                <li><a href="javascript:;" class="changeMetric">Average Bitrate</a></li>
                             </ul>
                         </div>
                     </h4>
@@ -362,32 +360,32 @@
                         <tbody id="trends">
                             <tr>
                                 <td><label class="label label-danger">Failing Streams</label></td>
-                                <td>14.60% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
+                                <td id="val1">14.60% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
                                 <td><div id="sparkline-unique-visitor"></div></td>
                             </tr>
                             <tr>
                                 <td><label class="label label-warning">Startup Time</label></td>
-                                <td>28.42% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
+                                <td id="val2">28.42% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
                                 <td><div id="sparkline-bounce-rate"></div></td>
                             </tr>
                             <tr>
                                 <td><label class="label label-primary">Average Bitrate</label></td>
-                                <td>10.12% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
+                                <td id="val3">10.12% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
                                 <td><div id="sparkline-total-page-views"></div></td>
                             </tr>
                             <tr>
                                 <td><label class="label label-primary">Buffering Time</label></td>
-                                <td>30.45% <span class="text-danger"><i class="fa fa-arrow-down"></i></span></td>
+                                <td id="val4">30.45% <span class="text-danger"><i class="fa fa-arrow-down"></i></span></td>
                                 <td><div id="sparkline-avg-time-on-site"></div></td>
                             </tr>
                             <tr>
                                 <td><label class="label label-warning">Buffering Events</label></td>
-                                <td>40.51% <span class="text-danger"><i class="fa fa-arrow-down"></i></span></td>
+                                <td id="val5">40.51% <span class="text-danger"><i class="fa fa-arrow-down"></i></span></td>
                                 <td><div id="sparkline-new-visits"></div></td>
                             </tr>
                             <tr>
                                 <td><label class="label label-primary">Downshifts</label></td>
-                                <td>73.14% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
+                                <td id="val6">73.14% <span class="text-success"><i class="fa fa-arrow-up"></i></span></td>
                                 <td><div id="sparkline-return-visitors"></div></td>
                             </tr>
                         </tbody>
