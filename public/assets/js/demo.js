@@ -182,29 +182,32 @@ var updateDevices = function() {
 
 var updateBarCharts = function() {
 
-var data = []
+var data = [];
+var ranges = [[[330,350],[400,450],[440,460],[480,490]],
+             [[30,50],[100,150],[140,160],[180,190]], 
+             [[60,66],[66,71],[73,80],[82,90]]];
 for(var x=0; x<3; x++) {
 
     var d1 = [];
-    d1.push([1, getRandom(30,50)]);
+    d1.push([1,getRandom(ranges[x][0][0],ranges[x][0][1])]);
     var d2 = [];
-    d2.push([1, getRandom(100,150)]);
+    d2.push([1,getRandom(ranges[x][1][0],ranges[x][1][1])]);
     var d3 = [];
-    d3.push([1, getRandom(140,160)]);
+    d3.push([1,getRandom(ranges[x][2][0],ranges[x][2][1])]);
     var d4 = [];
-    d4.push([1, getRandom(180,190)]);
+    d4.push([1,getRandom(ranges[x][3][0],ranges[x][3][1])]);
 
     //announce a dataset
     data[x] = [
 
     {
-        label: "Maximum",
+        label: "Maximum (" + d4[0][1].toFixed(2) + ")",
         stack: true,
         data: d4,
         color: purpleDark
     },
     {
-        label: "Average",
+        label: "Average (" + d2[0][1].toFixed(2) + ")",
         stack: true,
         data: d2,
         bars: {
@@ -216,7 +219,7 @@ for(var x=0; x<3; x++) {
         },
         color: "yellow"},
     {
-        label: "Minimum",
+        label: "Minimum (" + d1[0][1].toFixed(2) + ")",
         stack: true,
         data: d1,
         bars: {
@@ -228,7 +231,7 @@ for(var x=0; x<3; x++) {
         },
         color: "#f21d1d"},
     {
-        label: "Current",
+        label: "Current (" + d3[0][1].toFixed(2) + ")",
         stack: true,
         data: d3,
         color: "green"},
