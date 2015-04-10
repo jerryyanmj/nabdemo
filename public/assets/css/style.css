@@ -32,6 +32,12 @@ label {
   color: #242a30;
 }
 
+.info-icon {
+  float: right;
+  font-size: 13px;
+  cursor: pointer;
+}
+
 .loader {
   margin: 6em auto;
   font-size: 10px;
@@ -3487,7 +3493,7 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
   color: #fff;
   position: absolute;
   left: 5px;
-  bottom: 25px;
+  bottom: 28px;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
@@ -3513,10 +3519,16 @@ ul.tagit.inverse li.tagit-choice .tagit-close:focus .ui-icon-close:before {
   background: rgba(0,0,0,0.6);
   color: #fff;
 }
+
+.stats-info {
+  width: 130px;
+}
+
 .widget-stats .stats-icon.stats-icon-lg {
   font-size: 52px;
   top: 12px;
   right: 21px;
+  width: 150px;
 }
 .widget-stats .stats-title {
   position: relative;
