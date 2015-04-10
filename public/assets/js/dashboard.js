@@ -64,7 +64,8 @@ var handleBarChart = function (el, data) {
             ticks: [3]
         },
         yaxis: {
-            min: 0
+            min: 0,
+            max: data[0].data[0][1]+1
         },
         grid: {
             borderWidth:0,
@@ -83,8 +84,7 @@ source.addEventListener('channelB', pubsubUpdate, false);
 var pubsubUpdate = function (e) {
     console.log(e);
     updateDialogs();
-    updateDevices();    
-    updateBarCharts();
+    updateDevices();
     handleDashboardSparkline();
 }
 
@@ -163,7 +163,7 @@ var updatePanels = function() {
     });
 
     $.getJSON('/collection/video_startup', function(data) {
-        var scoreSum = itemCount = percentSum = 0;
+        var scoreSum = itemCount = percentSum =0;
         var dataSet = [
         { label: "0.00% - 0.25% of Time",  data: 0, color: purpleDark},
         { label: "0.25% - 0.50% of Time",  data: 0, color: purpleLight},
@@ -188,6 +188,7 @@ var updatePanels = function() {
                 itemCount = itemCount + 1;
             }
         });
+
         handleLineChart('#index-2', percentSum, differenceNum);
         handleDonutChart('#donut-chart-b', dataSet, scoreSum/itemCount);
     });
@@ -223,7 +224,7 @@ var updatePanels = function() {
     });
 
     $.getJSON('/collection/video_buffering_duration', function(data) {
-        var scoreSum = itemCount = percentSum = 0;
+        var scoreSum = itemCount = percentSum = totalSeconds = 0;
         var dataSet = [
         { label: "0.0% of Time",         data: 0, color: purpleDark},
         { label: "0.0% - 0.5% of Time",  data: 0, color: purpleLight},
@@ -246,8 +247,10 @@ var updatePanels = function() {
                 percentSum = value['total_buffering_seconds'] + " / " + value['total_watched_seconds'];
                 differenceNum = (value['total_buffering_seconds'] / value['average_buffering_seconds'])
                 itemCount = itemCount + 1;
+                totalSeconds = value['total_watched_seconds'];
             }
         });
+        updateBarCharts(totalSeconds);
         handleLineChart('#index-4', percentSum, differenceNum);
         handleDonutChart('#donut-chart-d', dataSet, scoreSum/itemCount);
     });
@@ -547,7 +550,7 @@ var Dashboard = function () {
                                 $('#tooltip').remove();
                                 var content = this.getAttribute("data-info");
                                 if(prevContent != content) {
-                                    showTooltip(e.pageX, e.pageY, content);
+                                    showTooltip(e.pageX-210, e.pageY+5, content);
                                     prevContent = content;
                                 }
                                 else {
