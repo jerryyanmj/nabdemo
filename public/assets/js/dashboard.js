@@ -85,6 +85,7 @@ var pubsubUpdate = function (e) {
     updateDialogs();
     updateDevices();    
     updateBarCharts();
+    handleDashboardSparkline();
 }
 
 var dats = [];
