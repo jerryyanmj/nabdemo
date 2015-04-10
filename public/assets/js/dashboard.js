@@ -541,6 +541,19 @@ var Dashboard = function () {
                                 updateDevices();
                             });
 
+                            var prevContent = null;
+                            $('.info-icon').click(function(e) {
+                                $('#tooltip').remove();
+                                var content = this.getAttribute("data-info");
+                                if(prevContent != content) {
+                                    showTooltip(e.pageX, e.pageY, content);
+                                    prevContent = content;
+                                }
+                                else {
+                                    prevContent = null;
+                                }
+                            });
+
                             $('.modal-d').click(function() {
                                 var name = this.id.replace('-', ' ');
                                 $('#mod-name').html(name)

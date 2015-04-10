@@ -947,16 +947,7 @@
     			value: a2,
     			volume: b2
     		});
-    		chartData3.push({
-    			date: newDate,
-    			value: a3,
-    			volume: b3
-    		});
-    		chartData4.push({
-    			date: newDate,
-    			value: a4,
-    			volume: b4
-    		});
+    		
     	}
     }
 
@@ -966,7 +957,7 @@
         pathToImages: "http://www.amcharts.com/lib/3/images/",
 
     	dataSets: [{
-    			title: "Successful Streams",
+    			title: "Failed Streams",
                 color: '#5b6392',
     			fieldMappings: [{
     				fromField: "value",
@@ -980,7 +971,7 @@
     		},
 
     		{
-    			title: "Failed Streams",
+    			title: "Average Failed Streams",
                 color: '#49b6d6',
     			fieldMappings: [{
     				fromField: "value",
@@ -991,35 +982,9 @@
     			}],
     			dataProvider: chartData2,
     			categoryField: "date"
-    		},
-
-    		{
-    			title: "Total Streams",
-                color: '#ff5b57',
-    			fieldMappings: [{
-    				fromField: "value",
-    				toField: "value"
-    			}, {
-    				fromField: "volume",
-    				toField: "volume"
-    			}],
-    			dataProvider: chartData3,
-    			categoryField: "date"
-    		},
-
-    		{
-    			title: "Average Streams",
-                color: '#f7b048',
-    			fieldMappings: [{
-    				fromField: "value",
-    				toField: "value"
-    			}, {
-    				fromField: "volume",
-    				toField: "volume"
-    			}],
-    			dataProvider: chartData4,
-    			categoryField: "date"
     		}
+
+    		
     	],
 
     	panels: [{
