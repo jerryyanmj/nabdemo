@@ -35,6 +35,7 @@ label {
 .info-icon {
   float: right;
   font-size: 13px;
+  cursor: pointer;
 }
 
 .loader {
