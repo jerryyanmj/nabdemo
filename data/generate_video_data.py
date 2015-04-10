@@ -89,9 +89,9 @@ for device in deviceTypes:
 					 "01_02_bucket"      : val_01_02 / all_buckets * 100,
 					 "02_04_bucket"      : val_02_04 / all_buckets * 100,
 					 "04_plus_bucket"    : val_04_plus / all_buckets * 100,
-                     "total_buffering_events": random.randrange(30)+30,
+                     "total_buffering_events": random.randrange(300)+1200,
                      "total_streaming": total_streaming,
-                     "average_buffering_events": random.randrange(30)+50,
+                     "average_buffering_events": random.randrange(300)+1050,
          			 "score" : random.randrange(8) + 81 }
 			db.insert(post)
 
@@ -219,9 +219,9 @@ for device in deviceTypes:
                     "05_1_bucket"       : val_05_1 / all_buckets * 100,
                     "1_2_bucket"        : val_1_2 / all_buckets * 100,
                     "2_plus_bucket"     : val_2_plus / all_buckets * 100,
-                    "total_downshift_event": random.randrange(25)+56,
+                    "total_downshift_event": random.randrange(25)+556,
                     "total_streaming": total_streaming,
-                    "average_downshift_event": random.randrange(25)+79,
+                    "average_downshift_event": random.randrange(25)+500,
          			"score"             : random.randrange(7) + 93 }
 			db.insert(post)
 

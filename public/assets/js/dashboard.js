@@ -164,12 +164,12 @@ var updatePanels = function() {
     $.getJSON('/collection/video_startup', function(data) {
         var scoreSum = itemCount = percentSum = 0;
         var dataSet = [
-        { label: "0.00 - 0.25 Seconds",  data: 0, color: purpleDark},
-        { label: "0.25 - 0.50 Seconds",  data: 0, color: purpleLight},
-        { label: "0.50 - 0.75 Seconds",  data: 0, color: orangeLight},
-        { label: "0.75 - 1.00 Seconds",  data: 0, color: orangeDark},
-        { label: "1.00 - 1.25 Seconds",  data: 0, color: redLight},
-        { label: "> 1.25 Seconds",       data: 0, color: redDark}];
+        { label: "0.00% - 0.25% of Time",  data: 0, color: purpleDark},
+        { label: "0.25% - 0.50% of Time",  data: 0, color: purpleLight},
+        { label: "0.50% - 0.75% of Time",  data: 0, color: orangeLight},
+        { label: "0.75% - 1.00% of Time",  data: 0, color: orangeDark},
+        { label: "1.00% - 1.25% of Time",  data: 0, color: redLight},
+        { label: "> 1.25% of Time",       data: 0, color: redDark}];
 
         $.each(data, function( key, value ) {
             if(notFiltered(value['device_type'], value['stream_type'], value['chunk_type']))
@@ -224,12 +224,12 @@ var updatePanels = function() {
     $.getJSON('/collection/video_buffering_duration', function(data) {
         var scoreSum = itemCount = percentSum = 0;
         var dataSet = [
-        { label: "0.0% Duration",         data: 0, color: purpleDark},
-        { label: "0.0% - 0.5% Duration",  data: 0, color: purpleLight},
-        { label: "0.5% - 1.0% Duration",  data: 0, color: orangeLight},
-        { label: "1.0% - 1.5% Duration",  data: 0, color: orangeDark},
-        { label: "1.5% - 3.0% Duration",  data: 0, color: redLight},
-        { label: "> 3% Duration",         data: 0, color: redDark}];
+        { label: "0.0% of Time",         data: 0, color: purpleDark},
+        { label: "0.0% - 0.5% of Time",  data: 0, color: purpleLight},
+        { label: "0.5% - 1.0% of Time",  data: 0, color: orangeLight},
+        { label: "1.0% - 1.5% of Time",  data: 0, color: orangeDark},
+        { label: "1.5% - 3.0% of Time",  data: 0, color: redLight},
+        { label: "> 3% of Time",         data: 0, color: redDark}];
 
         $.each(data, function( key, value ) {
             if(notFiltered(value['device_type'], value['stream_type'], value['chunk_type'])) 
