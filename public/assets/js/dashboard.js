@@ -537,7 +537,7 @@ var Dashboard = function () {
                             updatePanels();
                             updateDialogs();
                             updateDevices();
-                            updateBarCharts();
+                            //updateBarCharts();
 
                             $('.changeMetric').click(function() {
                                 var newName = this.innerHTML;
@@ -550,7 +550,7 @@ var Dashboard = function () {
                                 $('#tooltip').remove();
                                 var content = this.getAttribute("data-info");
                                 if(prevContent != content) {
-                                    showTooltip(e.pageX-210, e.pageY+5, content);
+                                    showTooltip(e.pageX-210, e.pageY+10, content);
                                     prevContent = content;
                                 }
                                 else {
