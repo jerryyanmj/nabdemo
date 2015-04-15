@@ -48,7 +48,7 @@ for device in deviceTypes:
          			 "1_plus_bucket"      : val_1_plus / all_buckets * 100,
          			 "total_failed_events": random.randrange(20)+100,
     				 "total_streaming"	  : total_streaming,
-    				 "average_failed_events" : random.randrange(25)+150,
+    				 "average_failed_events" : random.randrange(25)+140,
          			 "score"              :  random.randrange(25)+75 }
 			db.insert(post)
 

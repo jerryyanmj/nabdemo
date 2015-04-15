@@ -25,7 +25,7 @@
 
     <div class="row">
         <div class="col-md-4 col-sm-4">
-            <div class="panel panel-inverse" data-sortable-id="index-7">
+            <div class="panel panel-inverse" data-sortable-id="index-7" data-intro="This is a draggable block with information about devices.<br><br>Drag it by the title bar which also contain action buttons" data-position='right'>
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
@@ -67,7 +67,7 @@
 
         <div class="col-md-4 col-sm-4">
             <div class="panel panel-inverse" data-sortable-id="index-9">
-                <div class="panel-heading" data-intro="The title box may also contain action buttons for expanding the view, forcing data refresh or closing the widget view completely" data-position='top'>
+                <div class="panel-heading" data-position='top'>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -89,7 +89,7 @@
     <div class="row">
         <!-- begin FAILED STREAMS -->
         <div class="col-md-2 col-sm-4" data-step="2">
-            <div class="panel panel-inverse" data-sortable-id="index-1" data-intro="This is a dragable block<br><br>You can re-position this block by draging its title in the middle<br><br>This block represents one quality of experience metric" data-position='right'>
+            <div class="panel panel-inverse" data-sortable-id="index-1" data-intro="This block represents one quality of experience metric.<br><br>Quality score is shown inside the donut chart. Percentage value represent deviation from average value." data-position='right'>
                 <div class="widget widget-stats bg-default" id="index-1">
                     <div class="info-icon" data-info="The grouping of users that experience <br>a certain number of streaming failures <br>during their watch sessions"><i class="fa fa-question-circle "></i></div>
                     <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
@@ -101,7 +101,7 @@
                         <div class="progress-bar" style="width: 0.00%;"></div>
                     </div>
                     <div class="stats-number">0,00%</div>
-                    <div class="stats-link">
+                    <div class="stats-link" data-intro="Click View Details in order to see historical data for last hour" data-position='bottom'>
                         <a id="Failed-Streams" class="modal-d" data-toggle="modal">&nbsp;</a>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                         <a class="modal-d" id="Startup-Time" data-toggle="modal">&nbsp;</a>
                     </div>
                 </div>
-                <div class="panel-heading" data-intro="Use this area to drag the block <br><br>it also holds action buttons for expanding the view as well as changing the legend box's view" data-position='left'>
+                <div class="panel-heading" >
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-list-ul"></i></a>
@@ -192,7 +192,7 @@
                     <div id="donut-chart-c" class="height-xs">
                         <div class="loader">Loading...</div>
                     </div>
-                    <div id="donut-chart-c-legend" class="lg" data-intro="Mouse-over the legend box to see all the metrics at once<br><br> To expand the legend view completely, click the orange circle located in the title box" data-position='top'>
+                    <div id="donut-chart-c-legend" class="lg" >
                         <div class="holder"></div>
                     </div>
                 </div>
@@ -314,7 +314,7 @@
     <div class="row">
         <div class="col-md-8 col-sm-4">
             <div class="panel panel-inverse" data-sortable-id="index-13">
-                <div class="panel-heading" data-intro="The title box may also contain action buttons for expanding the view, forcing data refresh or closing the widget view completely" data-position='top'>
+                <div class="panel-heading" >
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-primary" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -447,7 +447,7 @@
 
 <!-- end filters -->
 
-<div class="modal fade" id="modal-dialog-trend">
+<div class="modal fade" tabindex="-1" id="modal-dialog-trend">
     <div class="modal-dialog">
         <div class="modal-content black-dialog">
             <div class="modal-header">

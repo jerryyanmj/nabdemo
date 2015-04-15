@@ -198,8 +198,7 @@ for(var x=0; x<3; x++) {
     d4.push([1,getRandom(ranges[x][3][0],ranges[x][3][1])]);
 
     var assignValue = function( chart, value ) {
-        if(chart === 0 || chart === 1) {return value.toFixed(0)}
-            else {return value.toFixed(2)}
+        return value.toFixed(0)
     }
 
     //announce a dataset
