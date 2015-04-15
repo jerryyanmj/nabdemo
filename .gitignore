@@ -28,3 +28,27 @@ node_modules
 .lock-wscript
 public/assets/plugins
 .DS_Store
+
+
+# CNEP stuff
+cnep/*~
+cnep/*.swp
+cnep/*.swo
+cnep/*.tar.gz
+cnep/*.dat
+cnep/*.exe
+cnep/*.tsv
+cnep/*.log
+cnep/data/
+cnep/node_modules/
+cnep/bower_components/
+cnep/public/linux-agent
+cnep/public/windows-agent.exe
+cnep/public/mac-agent
+cnep/public/arm-agent
+cnep/.idea/
+cnep/logs/
+cnep/.project
+cnep/.pydevproject
+cnep/report/
+cnep/config.js

@@ -1,0 +1,31 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js http://localhost"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "ejs": "*",
+    "errorhandler": "*",
+    "excel4node": "*",
+    "express": "^4.10.2",
+    "express-session": "*",
+    "filecache": "*",
+    "generic-pool": "*",
+    "jade": "*",
+    "log4js": "*",
+    "maxmind": "*",
+    "method-override": "*",
+    "mysql": "*",
+    "redis": "*",
+    "scp": "*",
+    "socket.io": "*",
+    "supervisor": "*",
+    "phantom": "*",
+    "phantomjs": "*",
+    "http-status": "*"
+  }
+}

@@ -1,0 +1,18 @@
+SOURCE
+Atlanta, GA
+Denver, CO
+New York, NY
+Nashville, TN
+Knoxville, TN
+Miami, FL
+Greenville, SC
+Dallas, TX
+TARGET
+San Jose, CA
+Mountain View, CA
+San Francisco, CA
+Seattle, WN
+Portland, OR
+Las Vegas, NV
+Houstan, TX
+Santa Barbara, CA

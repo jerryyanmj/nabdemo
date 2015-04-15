@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+ 	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" href="/cnep/imgs/timewarnercablelogo.ico">-->
+		<title>CNEP: Accenture Customer Network Experience Platform</title>
+		<link href="/cnep/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="/cnep/css/starter-template.css" rel="stylesheet" type="text/css">
+		<link href="/cnep/bootstrap/examples/starter-template/starter-template.css" rel="stylesheet" type="text/css">
+		<link href="/cnep/css/nv.d3.css" rel='stylesheet' type="text/css">
+		<link href="/cnep/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="/cnep/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css">
+		<script src="/cnep/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    	<script src="/cnep/jquery/dist/jquery.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap-form-helpers/dist/js/bootstrap-formhelpers.min.js" type="text/javascript"></script>
+		<script src="/cnep/bootstrap-form-helpers/dist/js/bootstrap-formhelpers.js" type="text/javascript"></script>
+		<script src="/cnep/d3/d3.js" type="text/javascript"></script>
+		<script src="/cnep/nvd3/nv.d3.js" type="text/javascript"></script>
+		<script src="/cnep/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+		<script src="/cnep/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+		<script src="/cnep/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+		<script src="/cnep/js/reports/reportsdistance.js" type="text/javascript"></script>
+		<script src="/cnep/js/common/app.js" type="text/javascript"></script>
+
+		<style>
+			html, body {height:100%;padding-top:25px;position:relative;overflw-y:scroll;margin: 0;}
+			div.dataTables_info {float: left !important;}
+			.inp {
+				width:150px; 
+				display:inline;
+			}
+			th {text-align: center;}
+		</style>
+
+	</head>
+
+	<body>
+
+		<% include ../partials/nav.html %>
+
+		<div class="container">
+			<div class="starter-template">
+				<h1>Distance and Speed Report</h1>
+				<p>Report shows speed of data transportation in network between source and target, based on latitude and longitude of each point. While latency is measure of time delay, typically incurred in processing of network data and can’t be used to compare local and global routes, speed - calculated by dividing distance with latency - shows actual performance of route and helps detect fastest and slowest network parts.</p>  
+			</div>
+		</div>
+
+		<div class="container" align="right">
+			<a id="export-to-excel-button" href="/cnep/export-to-excel-distance-and-speed-report" class="btn btn-primary">Export to Excel</a>
+		</div>
+		<br>
+
+		<div style="text-align: center;" class="container" id="container1" ng-view-light>    
+
+			<table id="agentDistanceAndSpeedReportTable" class="table table-hover table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Route</th>
+						<th>Source</th>
+						<th>Target</th>
+						<th>Average Latency</th>
+						<th>Std Dev Latency</th>
+						<th>Distance ( km )</th>
+						<th>Speed ( km/ms )</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<% 
+
+						if( session.distanceAndSpeedReport != null ) {
+
+							for( var i = 0; i < session.distanceAndSpeedReport.length; i++ ) { 
+					%>
+
+					<tr>
+
+						<td><%= session.distanceAndSpeedReport[ i ].route %></td>
+						<td><%= session.distanceAndSpeedReport[ i ].source %></td>
+						<td><%= session.distanceAndSpeedReport[ i ].target %></td>
+						<td><%= session.distanceAndSpeedReport[ i ].average_latency %></td>
+						<td><%= session.distanceAndSpeedReport[ i ].std_dev_latency %></td>
+						<td><%= session.distanceAndSpeedReport[ i ].distance_km %></td>
+						<td><%= session.distanceAndSpeedReport[ i ].speed_km_per_millisec %></td>
+
+					</tr>
+
+					<%
+							}
+
+						}
+
+					%>
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<br><br><br><br><br>    
+
+	</body>
+
+</html>

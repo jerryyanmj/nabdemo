@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+	<head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<!--<link rel="shortcut icon" href="/cnep/imgs/timewarnercablelogo.ico">-->
+    	<title>CNEP: Accenture Customer Network Experience Platform</title>
+    	<link href="/cnep/css/bootstrap.css" rel="stylesheet" type="text/css">
+    	<link href="/cnep/css/starter-template.css" rel="stylesheet" type="text/css">
+    	<link href="/cnep/css/nv.d3.css" rel="stylesheet" type="text/css">
+    	<link href="/cnep/bootstrap/examples/starter-template/starter-template.css" rel="stylesheet" type="text/css">
+    	<link href="/cnep/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css">
+    	<link href="/cnep/bootstrap-form-helpers/dist/css/bootstrap-formhelpers.min.css" rel="stylesheet" type="text/css"/>
+    	<script src="/cnep/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    	<script src="/cnep/jquery/dist/jquery.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap-form-helpers/dist/js/bootstrap-formhelpers.min.js" type="text/javascript"></script>
+    	<script src="/cnep/bootstrap-form-helpers/dist/js/bootstrap-formhelpers.js" type="text/javascript"></script>
+    	<script src="/cnep/d3/d3.js" type="text/javascript"></script>
+    	<script src="/cnep/nvd3/nv.d3.js" type="text/javascript"></script>
+    	<script src="/cnep/datatables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    	<script src="/cnep/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+    	<script src="/cnep/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>    
+    	<script src="/cnep/js/common/app.js" type="text/javascript"></script>
+
+		<script>
+	
+			$( document ).ready(
+
+				function() {
+
+					// If the agent is unknown, disable group dropdown box
+					if( jQuery( '#unknown' ).val() == "1" ) {
+
+						$( "#class" ).prop( "disabled", true );
+
+					} 
+					// If the agent is known, enable group dropdown box
+					else {
+
+						$( "#class" ).prop( "disabled", false );
+
+					}
+
+					$( "#unknown" ).change(
+						function() {
+
+							// If the agent becames as unknown, remove group association, disable group dropdown box
+							if( jQuery( '#unknown' ).val() == "1" ) {
+
+								$( "#class" ).prop( "disabled", true );
+								$( "#class" ).prop( "value", "0" );
+
+							}
+							// If the agent becames as known, enable group dropdown box
+							else {
+
+								$( "#class" ).prop( "disabled", false );
+								$( "#class" ).prop( "value", $( "#class option:selected" ).next().val() );
+
+							}
+
+							return;
+						}
+					);
+
+					$( '#submit' ).on(
+
+						"click",
+						function() {
+
+							// Check, if agent is known and group is zero ( not choosen ), reset the agent to unknown
+							if( jQuery( '#unknown' ).val() != "1" && jQuery( '#class' ).val() == "0" ) {
+
+								$( "#unknown" ).prop( "value", "1" );
+
+							}
+
+							// Submit the form
+							$( '#agentForm' ).submit();
+
+							return;
+						}
+					);
+
+					return;
+				}
+
+			);
+	
+		</script>
+
+		<style>
+
+	      html, body {height:100%;padding-top:25px;position:relative;overflw-y:scroll;margin: 0;}
+	      div.dataTables_info {float: left !important;}
+	      .inp {
+	        width:150px; 
+	        display:inline;
+	      }
+	      .inp2 {
+	        width:250px; 
+	        display:inline;
+	      }
+	
+	      th {text-align: center;}
+	
+		</style>
+	</head>
+
+	<body>
+		<% include ../partials/nav.html %>
+		<% include ../partials/error.html %>
+		<div class="container">
+			<div class="starter-template">
+         	<h1>Agent: <%= session.agent.aid%></h1>
+      	</div>
+     	</div>
+     	<div style="text-align: center;" class="container" id="container1" ng-view-light>
+      	<div>
+
+				<% if( session.agent.aid == 'New' ) { %>
+
+				<form id='agentForm' method="POST" action="/agent/create" accept-charset="UTF-8">
+
+				<% } else { %>
+
+				<form id='agentForm' method="POST" action="/agent/update" accept-charset="UTF-8">
+
+					<input id="aid" type="text" name="aid" placeholder="Agent ID" value="<%= session.agent.aid %>" class="form-control inp2"><br><br>  
+
+				<% }%>
+
+	            <input id="mac_address" type="text" name="mac_address" placeholder="Mac Address" value="<%= session.agent.mac_address %>" class="form-control inp2"><br><br>
+	            <input id="hostname" type="text" name="hostname" placeholder="Hostname" value="<%= session.agent.hostname %>" class="form-control inp2"><br><br>
+	            <input id="address" type="text" name="address" placeholder="IP Address" class="form-control inp2" value="<%= session.agent.address %>"><br><br>
+	            <input id="model" type="text" name="model" placeholder="Model" class="form-control inp2" value="<%= session.agent.model %>"><br><br>
+	            <input id="serialnumber" type="text" name="serialnumber" placeholder="Serial number" class="form-control inp2" value="<%= session.agent.serialnumber %>"><br><br>
+	            <input id="os" type="text" name="os" placeholder="OS" value="<%= session.agent.os %>" class="form-control inp2"><br><br>
+	            <input id="ssh" type="text" name="ssh" placeholder="SSH" value="<%= session.agent.ssh %>" class="form-control inp2"><br><br>
+	            <input id="city" type="text" name="city" placeholder="City" value="<%= session.agent.city %>" class="form-control inp2"><br><br>
+	            <input id="state" type="text" name="state" placeholder="State" value="<%= session.agent.state %>" class="form-control inp2"><br><br>
+
+					<select id="unknown" name="unknown" class="form-control inp2">
+
+					<% if( session.agent.unknown == "1" || session.agent.aid == "New" ) { %>
+
+						<option value="1" selected="selected">Unknown agent</option>
+						<option value="0">Known agent</option>
+
+					<% } else { %>
+
+						<option value="1">Unknown agent</option>
+						<option value="0" selected="selected">Known agent</option>
+
+					<% } %>
+
+					</select>
+
+					<br><br>
+
+					<select id="class" class="form-control inp2" name="class">
+
+						<option value="0">Choose the group</option>
+
+					<% for( var i = 0; i < session.agentsgroups.length; i++ ) { %>
+					<% 	if( session.agent.class == session.agentsgroups[ i ].name ) { %>
+
+						<option value="<%= session.agentsgroups[ i ].cid %>" selected="selected">"<%= session.agentsgroups[ i ].name %>"</option>
+
+					<% 	} else { %>
+
+						<option value="<%= session.agentsgroups[ i ].cid %>">"<%= session.agentsgroups[ i ].name %>"</option>
+
+					<% 	} %>
+					<% } %>
+	                
+	            </select>
+
+					<br><br>
+
+					<div>
+
+					<% if(session.agent.aid == 'New') { %>
+
+						<input id="new" type="hidden" name="new" value="true" class="form-control inp">
+						<button type="submit" id="submit" class="btn btn-info btn-block" style="width:150px; display: inline">Create</button>
+
+					<% } else { %>
+
+						<button type="submit" id="submit" class="btn btn-info btn-block" style="width:150px; display: inline">Update</button>
+
+					<% } %>
+
+					</div>
+
+				</form>
+
+			</div>
+
+			<br><br><br>
+
+		</div>
+
+	</body>
+
+</html>

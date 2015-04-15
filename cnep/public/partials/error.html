@@ -1,0 +1,9 @@
+<% if( typeof( session.error ) !== 'undefined' ) { %>
+
+<div id="errorSessionContainer" align="center" class="container alert alert-warning"><%= session.error %></div>
+
+	<% delete session.error %>
+
+<% } %>
+
+<div id="errorAjaxContainer" align="center" class="container alert alert-warning" style="display: none;"></div>

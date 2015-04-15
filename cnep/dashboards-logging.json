@@ -1,0 +1,12 @@
+{
+   "replaceConsole": true,
+   "appenders": 
+   [
+      {
+         "type":        "file",
+         "filename":    "logs/dashboards.log",
+         "absolute":    "true",
+         "maxLogSize":  "1000000"
+      }
+   ]
+}
