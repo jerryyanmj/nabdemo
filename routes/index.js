@@ -4,7 +4,8 @@ var format = require('util').format;
 var common = require('./common.js');
 
 module.exports = function (app) {
-    app.get('/', common.checkSession,
+    app.get('/', 
+        // common.checkSession,
         function (req, res) {
         res.render('index', { title: 'ejs' });
     });
@@ -13,12 +14,14 @@ module.exports = function (app) {
         res.render('login.html', { title: 'ejs' });
     });
 
-    app.get('/dashboard', common.checkSession,
+    app.get('/dashboard', 
+        // common.checkSession,
         function (req, res) {
         res.render('index.html', { title: 'ejs' });
     });
 
-    app.get('/demo', common.checkSession,
+    app.get('/demo', 
+        // common.checkSession,
         function (req, res) {
         res.render('index2.html', { title: 'ejs' });
     });    
