@@ -1,6 +1,10 @@
 var express = require('express');
 var app = express();
 
+var env = process.env.NODE_ENV || 'dev';
+require('./env/' + env)();
+console.log(env);
+
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
@@ -39,7 +43,7 @@ app.use(
 );
 
 //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-mongo.connect('mongodb://localhost:27017/default', function (err, db) {
+mongo.connect(process.env.MONGO, function (err, db) {
     if (err) {
         throw err;
     } else {
@@ -49,6 +53,8 @@ mongo.connect('mongodb://localhost:27017/default', function (err, db) {
 });
 
 var sse = subscribe({
+    host: process.env.REDIS,
+    port: process.env.REDIS_PORT,
     channels: ['test_channel', 'channelB'],
     channelsAsEvents: true
 });
