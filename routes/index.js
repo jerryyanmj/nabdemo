@@ -1,7 +1,8 @@
-
 var mongo = require('mongodb').MongoClient
 var format = require('util').format;
 var common = require('./common.js');
+var env = process.env.NODE_ENV || 'dev';
+var config = require('../env/' + env)
 
 module.exports = function (app) {
     app.get('/', 
@@ -31,7 +32,7 @@ module.exports = function (app) {
         var n = d.getSeconds();
         n = Math.round(n / 10)
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-        mongo.connect(process.env.MONGO, function (err, db) {    
+        mongo.connect(config.MONGO_URL, function (err, db) {    
             db.collection(req.param("name"), function (err, collection) {
                 collection.find().sort( { start_datetime_ts: -1 } ).skip(28*n).limit(28).toArray(function (err, items) {
                     db.close();
@@ -48,7 +49,7 @@ module.exports = function (app) {
         var now = Math.floor(rounded / 1000);
         var ago = now - 3600;
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-        mongo.connect(process.env.MONGO, function (err, db) {            
+        mongo.connect(config.MONGO_URL, function (err, db) {            
             db.collection(req.param("name"), function (err, collection) {
                 collection.find({
                     start_datetime_ts: {
@@ -68,7 +69,7 @@ module.exports = function (app) {
 
     app.get('/video_average_bitrate', function (req, res) {
         //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-        mongo.connect(process.env.MONGO, function (err, db) {
+        mongo.connect(config.MONGO_URL, function (err, db) {
             db.collection("video_average_bitrate", function (err, collection) {
                 collection.find().sort( { start_datetime_ts: -1 } ).limit(5).toArray(function (err, items) {
                     db.close();

@@ -2,8 +2,7 @@ var express = require('express');
 var app = express();
 
 var env = process.env.NODE_ENV || 'dev';
-require('./env/' + env)();
-console.log(env);
+var config = require('./env/' + env);
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -43,7 +42,7 @@ app.use(
 );
 
 //mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
-mongo.connect(process.env.MONGO, function (err, db) {
+mongo.connect(config.MONGO_URL, function (err, db) {
     if (err) {
         throw err;
     } else {
@@ -51,10 +50,11 @@ mongo.connect(process.env.MONGO, function (err, db) {
     }
     db.close();
 });
-
+console.log(process.env.REDIS_URL);
 var sse = subscribe({
-    host: process.env.REDIS,
-    port: process.env.REDIS_PORT,
+//    host: 'localhost',
+//    port: 6379,
+    clientOptions: {url: process.env.REDIS_URL},
     channels: ['test_channel', 'channelB'],
     channelsAsEvents: true
 });
