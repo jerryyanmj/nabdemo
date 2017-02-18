@@ -3,6 +3,7 @@ var app = express();
 
 var env = process.env.NODE_ENV || 'dev';
 var config = require('./env/' + env);
+console.log(config);
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -50,11 +51,10 @@ mongo.connect(config.MONGO_URL, function (err, db) {
     }
     db.close();
 });
-console.log(process.env.REDIS_URL);
 var sse = subscribe({
 //    host: 'localhost',
 //    port: 6379,
-    clientOptions: {url: process.env.REDIS_URL},
+    clientOptions: {url: config.REDIS_URL},
     channels: ['test_channel', 'channelB'],
     channelsAsEvents: true
 });
