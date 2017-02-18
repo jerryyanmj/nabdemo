@@ -24,6 +24,7 @@
     "express-session": "^1.10.4",
     "mongodb": "*",
     "redis": "*",
-    "redis-subscribe-sse": "*"
+    "redis-subscribe-sse": "*",
+    "redis-url": "1.2.1"
   }
 }
