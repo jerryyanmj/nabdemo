@@ -12,7 +12,7 @@ app.use(express.static(process.cwd() + '/public'));
 var mongo = require('mongodb').MongoClient;
 var format = require('util').format;
 
-var redis = require('redis');
+//var redis = require('redis');
 var subscribe = require('redis-subscribe-sse');
 
 var bodyParser = require('body-parser');
