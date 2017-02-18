@@ -3,7 +3,6 @@ var app = express();
 
 var env = process.env.NODE_ENV || 'dev';
 var config = require('./env/' + env);
-console.log(config);
 
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -12,7 +11,6 @@ app.use(express.static(process.cwd() + '/public'));
 var mongo = require('mongodb').MongoClient;
 var format = require('util').format;
 
-//var redis = require('redis');
 var subscribe = require('redis-subscribe-sse');
 
 var bodyParser = require('body-parser');
@@ -42,7 +40,6 @@ app.use(
 
 );
 
-//mongo.connect('mongodb://54.68.140.240:27017/default', function (err, db) {
 mongo.connect(config.MONGO_URL, function (err, db) {
     if (err) {
         throw err;
@@ -55,10 +52,6 @@ mongo.connect(config.MONGO_URL, function (err, db) {
 var redisURL = require("redis-url").parse(config.REDIS_URL);
 console.log(redisURL);
 var sse = subscribe({
-    host: '11.22.33',//redisURL.hostname,
-    port: 1122, //redisURL.port,
-    //password: redisURL.password,
-    clientOptions: {host: "33.44.55.66"},
     ioredis: {
        host: redisURL.hostname,
        port: redisURL.port,
