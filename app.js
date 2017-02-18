@@ -60,7 +60,9 @@ var sse = subscribe({
     //password: redisURL.password,
     clientOptions: {host: "33.44.55.66"},
     ioredis: {
-       url: config.REDIS_URL 
+       host: redisURL.hostname,
+       port: redisURL.port,
+       password: redisURL.password       
     },
     channels: ['test_channel', 'channelB'],
     channelsAsEvents: true
