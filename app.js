@@ -53,11 +53,15 @@ mongo.connect(config.MONGO_URL, function (err, db) {
 });
 
 var redisURL = require("redis-url").parse(config.REDIS_URL);
-
+console.log(redisURL);
 var sse = subscribe({
-    host: redisURL.host,
-    port: redisURL.port,
-    password: redisURL.password,
+    host: '11.22.33',//redisURL.hostname,
+    port: 1122, //redisURL.port,
+    //password: redisURL.password,
+    clientOptions: {host: "33.44.55.66"},
+    ioredis: {
+       url: config.REDIS_URL 
+    },
     channels: ['test_channel', 'channelB'],
     channelsAsEvents: true
 });
