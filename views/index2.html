@@ -994,11 +994,9 @@
     <script type='text/javascript' src='//www.amcharts.com/lib/3/serial.js?ver=20150330-03'></script>
     <script type='text/javascript' src='//www.amcharts.com/lib/3/amstock.js?ver=20150330-03'></script>
     <script type='text/javascript' src='//www.amcharts.com/lib/3/ammap_amcharts_extension.js?ver=20150330-03'></script>
-    <div class="demo-panel-black" style="padding: 25px;box-shadow: 0px 30px 70px -10px rgba(0,0,0,.2);">
 
 
-
-              <textarea class="hidden evaltextarea">var chartData1 = [];
+    <script type='text/javascript'>
     var chartData2 = [];
     var chartData3 = [];
     var chartData4 = [];
@@ -1043,7 +1041,7 @@
     var chart = AmCharts.makeChart("stockchartdiv-0", {
     	type: "stock",
         "theme": "dark",
-        pathToImages: "http://www.amcharts.com/lib/3/images/",
+        pathToImages: "//www.amcharts.com/lib/3/images/",
 
     	dataSets: [{
     			title: "Failed Streams",
@@ -1166,8 +1164,7 @@
 });
 
 
-</textarea>
-    </div>
+</script>
 
 </body>
 </html>
